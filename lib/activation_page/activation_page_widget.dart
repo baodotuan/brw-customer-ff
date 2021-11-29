@@ -2,8 +2,9 @@ import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../home_page/home_page_widget.dart';
+import '../main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ActivationPageWidget extends StatefulWidget {
@@ -14,14 +15,14 @@ class ActivationPageWidget extends StatefulWidget {
 }
 
 class _ActivationPageWidgetState extends State<ActivationPageWidget> {
-  TextEditingController textController;
+  TextEditingController otpFieldController;
   bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    otpFieldController = TextEditingController();
   }
 
   @override
@@ -41,85 +42,91 @@ class _ActivationPageWidgetState extends State<ActivationPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: TextFormField(
-                      controller: textController,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'type otp here',
-                        hintStyle: FlutterFlowTheme.bodyText1,
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1,
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
+                      child: TextFormField(
+                        controller: otpFieldController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: 'Enter 6 digit code',
+                          hintStyle: FlutterFlowTheme.bodyText1,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.tertiaryColor,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            topRight: Radius.circular(4.0),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.tertiaryColor,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
                           ),
+                          filled: true,
+                          fillColor: FlutterFlowTheme.tertiaryColor,
                         ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1,
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            topRight: Radius.circular(4.0),
-                          ),
-                        ),
+                        style: FlutterFlowTheme.bodyText1,
+                        keyboardType: TextInputType.number,
                       ),
-                      style: FlutterFlowTheme.bodyText1,
-                      keyboardType: TextInputType.number,
                     ),
                   )
                 ],
               ),
-              FFButtonWidget(
-                onPressed: () async {
-                  setState(() => _loadingButton = true);
-                  try {
-                    if (textController.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Enter SMS verification code.'),
-                        ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    setState(() => _loadingButton = true);
+                    try {
+                      if (otpFieldController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Enter SMS verification code.'),
+                          ),
+                        );
+                        return;
+                      }
+                      final phoneVerifiedUser = await verifySmsCode(
+                        context: context,
+                        smsCode: otpFieldController.text,
                       );
-                      return;
+                      if (phoneVerifiedUser == null) {
+                        return;
+                      }
+                      await Navigator.pushAndRemoveUntil(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 200),
+                          reverseDuration: Duration(milliseconds: 200),
+                          child: NavBarPage(initialPage: 'HomePage'),
+                        ),
+                        (r) => false,
+                      );
+                    } finally {
+                      setState(() => _loadingButton = false);
                     }
-                    final phoneVerifiedUser = await verifySmsCode(
-                      context: context,
-                      smsCode: textController.text,
-                    );
-                    if (phoneVerifiedUser == null) {
-                      return;
-                    }
-                    await Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomePageWidget(),
-                      ),
-                      (r) => false,
-                    );
-                  } finally {
-                    setState(() => _loadingButton = false);
-                  }
-                },
-                text: 'Login',
-                options: FFButtonOptions(
-                  width: 130,
-                  height: 40,
-                  color: FlutterFlowTheme.primaryColor,
-                  textStyle: FlutterFlowTheme.subtitle2.override(
-                    fontFamily: 'Roboto',
-                    color: Colors.white,
+                  },
+                  text: 'Login',
+                  options: FFButtonOptions(
+                    width: 130,
+                    height: 40,
+                    color: FlutterFlowTheme.primaryColor,
+                    textStyle: FlutterFlowTheme.subtitle2.override(
+                      fontFamily: 'Roboto',
+                      color: Colors.white,
+                    ),
+                    elevation: 3,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: 12,
                   ),
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1,
-                  ),
-                  borderRadius: 12,
+                  loading: _loadingButton,
                 ),
-                loading: _loadingButton,
               )
             ],
           ),

@@ -5,6 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 
 import 'schema/users_record.dart';
+import 'schema/transactions_record.dart';
+import 'schema/menu_categories_record.dart';
+import 'schema/menu_items_record.dart';
+import 'schema/order_items_record.dart';
+import 'schema/orders_record.dart';
+import 'schema/customer_app_setting_record.dart';
 import 'schema/serializers.dart';
 
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,12 +18,63 @@ export 'schema/index.dart';
 export 'schema/serializers.dart';
 
 export 'schema/users_record.dart';
+export 'schema/transactions_record.dart';
+export 'schema/menu_categories_record.dart';
+export 'schema/menu_items_record.dart';
+export 'schema/order_items_record.dart';
+export 'schema/orders_record.dart';
+export 'schema/customer_app_setting_record.dart';
 
 Stream<List<UsersRecord>> queryUsersRecord(
         {Query Function(Query) queryBuilder,
         int limit = -1,
         bool singleRecord = false}) =>
     queryCollection(UsersRecord.collection, UsersRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Stream<List<TransactionsRecord>> queryTransactionsRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(
+        TransactionsRecord.collection, TransactionsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Stream<List<MenuCategoriesRecord>> queryMenuCategoriesRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(
+        MenuCategoriesRecord.collection, MenuCategoriesRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Stream<List<MenuItemsRecord>> queryMenuItemsRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(MenuItemsRecord.collection, MenuItemsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Stream<List<OrderItemsRecord>> queryOrderItemsRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(OrderItemsRecord.collection, OrderItemsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Stream<List<OrdersRecord>> queryOrdersRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(OrdersRecord.collection, OrdersRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Stream<List<CustomerAppSettingRecord>> queryCustomerAppSettingRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(CustomerAppSettingRecord.collection,
+        CustomerAppSettingRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
 Stream<List<T>> queryCollection<T>(
