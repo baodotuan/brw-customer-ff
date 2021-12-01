@@ -52,3 +52,8 @@ int addSubstractTotalPrice(
     return (initialTotal - price * quantity);
   }
 }
+
+DateTime add15min(DateTime currentTime) {
+  // Add your function code here!
+  return currentTime.add(const Duration(days: 0, hours: 0, minutes: 15));
+}

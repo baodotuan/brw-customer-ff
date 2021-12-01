@@ -10,7 +10,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UpdateCustomerDetailPageWidget extends StatefulWidget {
-  UpdateCustomerDetailPageWidget({Key key}) : super(key: key);
+  const UpdateCustomerDetailPageWidget({Key key}) : super(key: key);
 
   @override
   _UpdateCustomerDetailPageWidgetState createState() =>

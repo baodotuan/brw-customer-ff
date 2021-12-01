@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
               color: Colors.transparent,
               child: Builder(
                 builder: (context) => Image.asset(
-                  'assets/images/splash.png',
+                  'assets/images/app_splash.png',
                   fit: BoxFit.cover,
                 ),
               ),

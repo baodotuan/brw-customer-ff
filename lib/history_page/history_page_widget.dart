@@ -9,7 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HistoryPageWidget extends StatefulWidget {
-  HistoryPageWidget({Key key}) : super(key: key);
+  const HistoryPageWidget({Key key}) : super(key: key);
 
   @override
   _HistoryPageWidgetState createState() => _HistoryPageWidgetState();
@@ -155,27 +155,15 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                   !(listViewTransactionsRecord
                                                           .credit) ??
                                                       true,
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    '+',
-                                                    style: FlutterFlowTheme
-                                                        .bodyText1
-                                                        .override(
-                                                      fontFamily: 'Roboto',
-                                                      color: Color(0xFF418714),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                5, 0, 0, 0),
-                                                    child: Text(
-                                                      listViewTransactionsRecord
-                                                          .amount
-                                                          .toString(),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(10, 0, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      '+',
                                                       style: FlutterFlowTheme
                                                           .bodyText1
                                                           .override(
@@ -184,8 +172,26 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                             Color(0xFF418714),
                                                       ),
                                                     ),
-                                                  )
-                                                ],
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  5, 0, 0, 0),
+                                                      child: Text(
+                                                        listViewTransactionsRecord
+                                                            .amount
+                                                            .toString(),
+                                                        style: FlutterFlowTheme
+                                                            .bodyText1
+                                                            .override(
+                                                          fontFamily: 'Roboto',
+                                                          color:
+                                                              Color(0xFF418714),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                             Visibility(
@@ -193,27 +199,15 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                   listViewTransactionsRecord
                                                           .credit ??
                                                       true,
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    '- ',
-                                                    style: FlutterFlowTheme
-                                                        .bodyText1
-                                                        .override(
-                                                      fontFamily: 'Roboto',
-                                                      color: Color(0xFFFF0000),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                5, 0, 0, 0),
-                                                    child: Text(
-                                                      listViewTransactionsRecord
-                                                          .amount
-                                                          .toString(),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(10, 0, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      '- ',
                                                       style: FlutterFlowTheme
                                                           .bodyText1
                                                           .override(
@@ -222,8 +216,26 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                             Color(0xFFFF0000),
                                                       ),
                                                     ),
-                                                  )
-                                                ],
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  5, 0, 0, 0),
+                                                      child: Text(
+                                                        listViewTransactionsRecord
+                                                            .amount
+                                                            .toString(),
+                                                        style: FlutterFlowTheme
+                                                            .bodyText1
+                                                            .override(
+                                                          fontFamily: 'Roboto',
+                                                          color:
+                                                              Color(0xFFFF0000),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             )
                                           ],

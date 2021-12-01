@@ -7,7 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TransactionDetailPageWidget extends StatefulWidget {
-  TransactionDetailPageWidget({
+  const TransactionDetailPageWidget({
     Key key,
     this.url,
     this.creditBool,

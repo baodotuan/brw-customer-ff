@@ -10,11 +10,12 @@ import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CartPageWidget extends StatefulWidget {
-  CartPageWidget({
+  const CartPageWidget({
     Key key,
     this.inCartOrder,
   }) : super(key: key);
@@ -26,10 +27,11 @@ class CartPageWidget extends StatefulWidget {
 }
 
 class _CartPageWidgetState extends State<CartPageWidget> {
-  OrdersRecord createdOrder;
-  bool _loadingButton = false;
+  DateTime datePicked;
   String dropDownValue;
   TextEditingController textController;
+  OrdersRecord createdOrder;
+  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -367,7 +369,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                         Expanded(
                                           child: Container(
                                             width: 100,
-                                            height: 100,
+                                            height: 120,
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.primaryColor,
@@ -379,20 +381,21 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                 topRight: Radius.circular(0),
                                               ),
                                             ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(10, 0, 10, 0),
-                                                  child: Row(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(10, 0, 10, 0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
                                                       Text(
-                                                        'Free Pickup Point',
+                                                        'Free Pickup Point: ',
                                                         style: FlutterFlowTheme
                                                             .subtitle2
                                                             .override(
@@ -400,113 +403,197 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(1,
+                                                                      0, 0, 0),
+                                                          child: StreamBuilder<
+                                                              List<
+                                                                  CustomerAppSettingRecord>>(
+                                                            stream:
+                                                                queryCustomerAppSettingRecord(
+                                                              queryBuilder: (customerAppSettingRecord) =>
+                                                                  customerAppSettingRecord.where(
+                                                                      'name',
+                                                                      isEqualTo:
+                                                                          'pick_up_location'),
+                                                              singleRecord:
+                                                                  true,
+                                                            ),
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              // Customize what your widget looks like when it's loading.
+                                                              if (!snapshot
+                                                                  .hasData) {
+                                                                return Center(
+                                                                  child:
+                                                                      SizedBox(
+                                                                    width: 20,
+                                                                    height: 20,
+                                                                    child:
+                                                                        SpinKitRotatingPlain(
+                                                                      color: FlutterFlowTheme
+                                                                          .primaryColor,
+                                                                      size: 20,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                              List<CustomerAppSettingRecord>
+                                                                  dropDownCustomerAppSettingRecordList =
+                                                                  snapshot.data;
+                                                              // Return an empty Container when the document does not exist.
+                                                              if (snapshot.data
+                                                                  .isEmpty) {
+                                                                return Container();
+                                                              }
+                                                              final dropDownCustomerAppSettingRecord =
+                                                                  dropDownCustomerAppSettingRecordList
+                                                                          .isNotEmpty
+                                                                      ? dropDownCustomerAppSettingRecordList
+                                                                          .first
+                                                                      : null;
+                                                              return FlutterFlowDropDown(
+                                                                options:
+                                                                    dropDownCustomerAppSettingRecord
+                                                                        .options
+                                                                        .toList(),
+                                                                onChanged: (val) =>
+                                                                    setState(() =>
+                                                                        dropDownValue =
+                                                                            val),
+                                                                width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                                height: 40,
+                                                                textStyle:
+                                                                    FlutterFlowTheme
+                                                                        .bodyText1
+                                                                        .override(
+                                                                  fontFamily:
+                                                                      'Roboto',
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                                fillColor:
+                                                                    Colors
+                                                                        .white,
+                                                                elevation: 0,
+                                                                borderColor: Colors
+                                                                    .transparent,
+                                                                borderWidth: 0,
+                                                                borderRadius:
+                                                                    10,
+                                                                margin:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            8,
+                                                                            4,
+                                                                            8,
+                                                                            4),
+                                                                hidesUnderline:
+                                                                    true,
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
                                                       )
                                                     ],
                                                   ),
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(10, 0,
-                                                                    10, 0),
-                                                        child: StreamBuilder<
-                                                            List<
-                                                                CustomerAppSettingRecord>>(
-                                                          stream:
-                                                              queryCustomerAppSettingRecord(
-                                                            queryBuilder: (customerAppSettingRecord) =>
-                                                                customerAppSettingRecord
-                                                                    .where(
-                                                                        'name',
-                                                                        isEqualTo:
-                                                                            'pick_up_location'),
-                                                            singleRecord: true,
-                                                          ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 20,
-                                                                  height: 20,
-                                                                  child:
-                                                                      SpinKitRotatingPlain(
-                                                                    color: FlutterFlowTheme
-                                                                        .primaryColor,
-                                                                    size: 20,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                            List<CustomerAppSettingRecord>
-                                                                dropDownCustomerAppSettingRecordList =
-                                                                snapshot.data;
-                                                            // Return an empty Container when the document does not exist.
-                                                            if (snapshot
-                                                                .data.isEmpty) {
-                                                              return Container();
-                                                            }
-                                                            final dropDownCustomerAppSettingRecord =
-                                                                dropDownCustomerAppSettingRecordList
-                                                                        .isNotEmpty
-                                                                    ? dropDownCustomerAppSettingRecordList
-                                                                        .first
-                                                                    : null;
-                                                            return FlutterFlowDropDown(
-                                                              options:
-                                                                  dropDownCustomerAppSettingRecord
-                                                                      .options
-                                                                      .toList(),
-                                                              onChanged: (val) =>
-                                                                  setState(() =>
-                                                                      dropDownValue =
-                                                                          val),
-                                                              width:
-                                                                  MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width,
-                                                              height: 40,
-                                                              textStyle:
-                                                                  FlutterFlowTheme
-                                                                      .bodyText1
-                                                                      .override(
-                                                                fontFamily:
-                                                                    'Roboto',
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                              fillColor:
-                                                                  Colors.white,
-                                                              elevation: 0,
-                                                              borderColor: Colors
-                                                                  .transparent,
-                                                              borderWidth: 0,
-                                                              borderRadius: 10,
-                                                              margin:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          8,
-                                                                          4,
-                                                                          8,
-                                                                          4),
-                                                              hidesUnderline:
-                                                                  true,
-                                                            );
-                                                          },
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        'Pickup Time:',
+                                                        style: FlutterFlowTheme
+                                                            .subtitle2
+                                                            .override(
+                                                          fontFamily: 'Roboto',
+                                                          color: FlutterFlowTheme
+                                                              .tertiaryColor,
                                                         ),
                                                       ),
-                                                    )
-                                                  ],
-                                                )
-                                              ],
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      0, 0, 0),
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              await DatePicker
+                                                                  .showDateTimePicker(
+                                                                context,
+                                                                showTitleActions:
+                                                                    true,
+                                                                onConfirm:
+                                                                    (date) {
+                                                                  setState(() =>
+                                                                      datePicked =
+                                                                          date);
+                                                                },
+                                                                currentTime: functions
+                                                                    .add15min(
+                                                                        getCurrentTimestamp),
+                                                                minTime: functions
+                                                                    .add15min(
+                                                                        getCurrentTimestamp),
+                                                              );
+                                                            },
+                                                            child: Container(
+                                                              width: 100,
+                                                              height: 40,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme
+                                                                    .tertiaryColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                              ),
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      0, 0),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            10,
+                                                                            0,
+                                                                            10,
+                                                                            0),
+                                                                child: Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    dateTimeFormat(
+                                                                        'Hm',
+                                                                        datePicked),
+                                                                    '00:00',
+                                                                  ),
+                                                                  style: FlutterFlowTheme
+                                                                      .subtitle2
+                                                                      .override(
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         )
@@ -798,7 +885,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 10, 0),
+                                                  .fromSTEB(0, 0, 5, 0),
                                               child: StreamBuilder<
                                                   MenuItemsRecord>(
                                                 stream:
@@ -875,178 +962,163 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                               color: Color(
                                                                   0xFFEEEEEE),
                                                             ),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceEvenly,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Text(
-                                                                      rowMenuItemsRecord
-                                                                          .name,
-                                                                      style: FlutterFlowTheme
-                                                                          .bodyText1,
-                                                                    ),
-                                                                    Text(
-                                                                      containerOrderItemsRecord
-                                                                          .quantity
-                                                                          .toString(),
-                                                                      style: FlutterFlowTheme
-                                                                          .bodyText1,
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          5,
                                                                           0,
+                                                                          10,
                                                                           0,
-                                                                          0),
-                                                                  child: Row(
+                                                                          10),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
-                                                                            .start,
+                                                                            .spaceBetween,
                                                                     children: [
                                                                       Text(
-                                                                        'Note:',
+                                                                        rowMenuItemsRecord
+                                                                            .name,
                                                                         style: FlutterFlowTheme
                                                                             .bodyText1,
                                                                       ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      Text(
+                                                                        containerOrderItemsRecord
+                                                                            .quantity
+                                                                            .toString(),
+                                                                        style: FlutterFlowTheme
+                                                                            .bodyText1,
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
                                                                             5,
                                                                             0,
                                                                             0,
                                                                             0),
-                                                                        child:
-                                                                            Text(
-                                                                          containerOrderItemsRecord
-                                                                              .note,
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        Text(
+                                                                          'Note:',
                                                                           style:
                                                                               FlutterFlowTheme.bodyText1,
                                                                         ),
-                                                                      )
-                                                                    ],
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            containerOrderItemsRecord.note,
+                                                                            style:
+                                                                                FlutterFlowTheme.bodyText1,
+                                                                          ),
+                                                                        )
+                                                                      ],
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          5,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .end,
-                                                                    children: [
-                                                                      InkWell(
-                                                                        onTap:
-                                                                            () async {
-                                                                          await showModalBottomSheet(
-                                                                            isScrollControlled:
-                                                                                true,
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                (context) {
-                                                                              return MenuBottomSheetCompWidget();
-                                                                            },
-                                                                          );
-                                                                        },
-                                                                        child:
-                                                                            Text(
-                                                                          'Edit item',
-                                                                          style: FlutterFlowTheme
-                                                                              .bodyText1
-                                                                              .override(
-                                                                            fontFamily:
-                                                                                'Roboto',
-                                                                            color:
-                                                                                FlutterFlowTheme.secondaryColor,
-                                                                            fontStyle:
-                                                                                FontStyle.italic,
+                                                                  Divider(
+                                                                    color: Color(
+                                                                        0x00A2A2A2),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        InkWell(
+                                                                          onTap:
+                                                                              () async {
+                                                                            await showModalBottomSheet(
+                                                                              isScrollControlled: true,
+                                                                              context: context,
+                                                                              builder: (context) {
+                                                                                return Padding(
+                                                                                  padding: MediaQuery.of(context).viewInsets,
+                                                                                  child: MenuBottomSheetCompWidget(),
+                                                                                );
+                                                                              },
+                                                                            );
+                                                                          },
+                                                                          child:
+                                                                              Text(
+                                                                            'Edit item',
+                                                                            style:
+                                                                                FlutterFlowTheme.bodyText1.override(
+                                                                              fontFamily: 'Roboto',
+                                                                              color: FlutterFlowTheme.secondaryColor,
+                                                                              fontStyle: FontStyle.italic,
+                                                                            ),
                                                                           ),
                                                                         ),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                )
-                                                              ],
+                                                                        InkWell(
+                                                                          onTap:
+                                                                              () async {
+                                                                            final ordersUpdateData =
+                                                                                {
+                                                                              ...createOrdersRecordData(
+                                                                                total: functions.addSubstractTotalPrice(rowMenuItemsRecord.price, containerOrderItemsRecord.quantity, cartPageOrdersRecord.total, false),
+                                                                                totalQuantity: functions.addSubstractTotalPrice(1, containerOrderItemsRecord.quantity, cartPageOrdersRecord.totalQuantity, false),
+                                                                              ),
+                                                                              'items': FieldValue.arrayRemove([
+                                                                                containerOrderItemsRecord.reference
+                                                                              ]),
+                                                                            };
+                                                                            await widget.inCartOrder.update(ordersUpdateData);
+                                                                            await containerOrderItemsRecord.reference.delete();
+                                                                          },
+                                                                          child:
+                                                                              Text(
+                                                                            'Delete item',
+                                                                            style:
+                                                                                FlutterFlowTheme.bodyText1.override(
+                                                                              fontFamily: 'Roboto',
+                                                                              color: Color(0xFFD83D19),
+                                                                              fontStyle: FontStyle.italic,
+                                                                            ),
+                                                                          ),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () async {
-                                                              final ordersUpdateData =
-                                                                  {
-                                                                ...createOrdersRecordData(
-                                                                  total: functions.addSubstractTotalPrice(
-                                                                      rowMenuItemsRecord
-                                                                          .price,
-                                                                      containerOrderItemsRecord
-                                                                          .quantity,
-                                                                      cartPageOrdersRecord
-                                                                          .total,
-                                                                      false),
-                                                                  totalQuantity: functions.addSubstractTotalPrice(
-                                                                      1,
-                                                                      containerOrderItemsRecord
-                                                                          .quantity,
-                                                                      cartPageOrdersRecord
-                                                                          .totalQuantity,
-                                                                      false),
-                                                                ),
-                                                                'items': FieldValue
-                                                                    .arrayRemove([
-                                                                  orderItemItem
-                                                                ]),
-                                                              };
-                                                              await widget
-                                                                  .inCartOrder
-                                                                  .update(
-                                                                      ordersUpdateData);
-                                                              await containerOrderItemsRecord
-                                                                  .reference
-                                                                  .delete();
-                                                            },
-                                                            child: Icon(
-                                                              Icons.delete,
-                                                              color:
-                                                                  Colors.black,
-                                                              size: 24,
-                                                            ),
-                                                          )
-                                                        ],
                                                       )
                                                     ],
                                                   );

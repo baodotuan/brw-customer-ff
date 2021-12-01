@@ -16,7 +16,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePageWidget extends StatefulWidget {
-  HomePageWidget({Key key}) : super(key: key);
+  const HomePageWidget({Key key}) : super(key: key);
 
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
@@ -65,13 +65,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.primaryColor,
+                          color: Color(0x00F6D06D),
                           shape: BoxShape.circle,
                         ),
+                        alignment: AlignmentDirectional(0, 0),
                         child: Icon(
-                          Icons.account_circle_outlined,
-                          color: FlutterFlowTheme.tertiaryColor,
-                          size: 28,
+                          Icons.account_circle,
+                          color: FlutterFlowTheme.primaryColor,
+                          size: 40,
                         ),
                       ),
                     )
@@ -222,7 +223,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               elevation: 4,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(10),
+                                                    BorderRadius.circular(20),
                                               ),
                                               child: Container(
                                                 width: double.infinity,
@@ -237,7 +238,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     ).image,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                      BorderRadius.circular(20),
                                                   shape: BoxShape.rectangle,
                                                 ),
                                                 child: Padding(
@@ -258,7 +259,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 .lastName,
                                                             style:
                                                                 FlutterFlowTheme
-                                                                    .subtitle1,
+                                                                    .subtitle1
+                                                                    .override(
+                                                              fontFamily:
+                                                                  'Roboto',
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
                                                           ),
                                                           Padding(
                                                             padding:
@@ -273,7 +280,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .firstName,
                                                               style:
                                                                   FlutterFlowTheme
-                                                                      .subtitle1,
+                                                                      .subtitle1
+                                                                      .override(
+                                                                fontFamily:
+                                                                    'Roboto',
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
                                                             ),
                                                           )
                                                         ],
@@ -290,7 +303,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 .phoneNumber,
                                                             style:
                                                                 FlutterFlowTheme
-                                                                    .subtitle2,
+                                                                    .subtitle2
+                                                                    .override(
+                                                              fontFamily:
+                                                                  'Roboto',
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
                                                           ),
                                                           Row(
                                                             mainAxisSize:

@@ -4,13 +4,12 @@ import '../cart_page/cart_page_widget.dart';
 import '../components/menu_bottom_sheet_comp_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OrderPageWidget extends StatefulWidget {
-  OrderPageWidget({Key key}) : super(key: key);
+  const OrderPageWidget({Key key}) : super(key: key);
 
   @override
   _OrderPageWidgetState createState() => _OrderPageWidgetState();
@@ -93,19 +92,26 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                 shape: BoxShape.circle,
                               ),
                               alignment: AlignmentDirectional(1, -1),
-                              child: Container(
-                                width: 18,
-                                height: 18,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.tertiaryColor,
-                                  shape: BoxShape.circle,
-                                ),
-                                alignment: AlignmentDirectional(0, 0),
-                                child: Text(
-                                  '1',
-                                  style: FlutterFlowTheme.subtitle2.override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.primaryColor,
+                              child: Visibility(
+                                visible: (floatingActionButtonOrdersRecord
+                                        .totalQuantity) !=
+                                    (0),
+                                child: Container(
+                                  width: 18,
+                                  height: 18,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.tertiaryColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Text(
+                                    floatingActionButtonOrdersRecord
+                                        .totalQuantity
+                                        .toString(),
+                                    style: FlutterFlowTheme.subtitle2.override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.primaryColor,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -220,7 +226,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 20, 0, 0),
+                                            0, 20, 0, 10),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
@@ -237,221 +243,152 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                           ],
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 10, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Expanded(
-                                              child: StreamBuilder<
-                                                  List<MenuItemsRecord>>(
-                                                stream: queryMenuItemsRecord(
-                                                  queryBuilder: (menuItemsRecord) =>
-                                                      menuItemsRecord.where(
-                                                          'category',
-                                                          isEqualTo:
-                                                              menuColumnMenuCategoriesRecord
-                                                                  .reference),
+                                      StreamBuilder<List<MenuItemsRecord>>(
+                                        stream: queryMenuItemsRecord(
+                                          queryBuilder: (menuItemsRecord) =>
+                                              menuItemsRecord.where('category',
+                                                  isEqualTo:
+                                                      menuColumnMenuCategoriesRecord
+                                                          .reference),
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 20,
+                                                height: 20,
+                                                child: SpinKitRotatingPlain(
+                                                  color: FlutterFlowTheme
+                                                      .primaryColor,
+                                                  size: 20,
                                                 ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 20,
-                                                        height: 20,
-                                                        child:
-                                                            SpinKitRotatingPlain(
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .primaryColor,
-                                                          size: 20,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  List<MenuItemsRecord>
-                                                      gridViewMenuItemsRecordList =
-                                                      snapshot.data;
-                                                  return GridView.builder(
-                                                    padding: EdgeInsets.zero,
-                                                    gridDelegate:
-                                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                                      crossAxisCount: 2,
-                                                      crossAxisSpacing: 10,
-                                                      mainAxisSpacing: 10,
-                                                      childAspectRatio: 1,
-                                                    ),
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    itemCount:
-                                                        gridViewMenuItemsRecordList
-                                                            .length,
-                                                    itemBuilder: (context,
-                                                        gridViewIndex) {
-                                                      final gridViewMenuItemsRecord =
-                                                          gridViewMenuItemsRecordList[
-                                                              gridViewIndex];
-                                                      return Container(
-                                                        width: 100,
-                                                        height: 100,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0x00EEEEEE),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(20),
-                                                        ),
-                                                        child: Padding(
+                                              ),
+                                            );
+                                          }
+                                          List<MenuItemsRecord>
+                                              columnMenuItemsRecordList =
+                                              snapshot.data;
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: List.generate(
+                                                columnMenuItemsRecordList
+                                                    .length, (columnIndex) {
+                                              final columnMenuItemsRecord =
+                                                  columnMenuItemsRecordList[
+                                                      columnIndex];
+                                              return Container(
+                                                width: double.infinity,
+                                                height: 80,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.grey1,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                    color: Color(0x00CECECE),
+                                                  ),
+                                                ),
+                                                alignment:
+                                                    AlignmentDirectional(0, 0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 0, 5),
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                              await showModalBottomSheet(
-                                                                isScrollControlled:
-                                                                    true,
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (context) {
-                                                                  return Container(
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                        0.4,
-                                                                    child:
-                                                                        MenuBottomSheetCompWidget(
-                                                                      itemRef:
-                                                                          gridViewMenuItemsRecord
-                                                                              .reference,
-                                                                      inCartOrder:
-                                                                          orderPageUsersRecord
-                                                                              .inCartOrder,
-                                                                      itemName:
-                                                                          gridViewMenuItemsRecord
-                                                                              .name,
-                                                                      itemDes:
-                                                                          gridViewMenuItemsRecord
-                                                                              .description,
-                                                                      itemPrice:
-                                                                          gridViewMenuItemsRecord
-                                                                              .price,
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              );
-                                                            },
-                                                            child: Stack(
-                                                              children: [
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width,
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height *
-                                                                      1,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Color(
-                                                                        0x00EEEEEE),
-                                                                  ),
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Container(
-                                                                        width: double
-                                                                            .infinity,
-                                                                        height:
-                                                                            120,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              Color(0xFFEEEEEE),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(20),
-                                                                        ),
-                                                                        child:
-                                                                            ClipRRect(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(20),
-                                                                          child:
-                                                                              CachedNetworkImage(
-                                                                            imageUrl:
-                                                                                gridViewMenuItemsRecord.image,
-                                                                            width:
-                                                                                double.infinity,
-                                                                            height:
-                                                                                double.infinity,
-                                                                            fit:
-                                                                                BoxFit.cover,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0,
-                                                                            5,
-                                                                            0,
-                                                                            0),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(10, 1, 10, 0),
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    gridViewMenuItemsRecord.name,
-                                                                                    style: FlutterFlowTheme.bodyText1,
-                                                                                  )
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                            Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    gridViewMenuItemsRecord.price.toString(),
-                                                                                    style: FlutterFlowTheme.subtitle2,
-                                                                                  )
-                                                                                ],
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                )
-                                                              ],
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .viewInsets,
+                                                          child: Container(
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.4,
+                                                            child:
+                                                                MenuBottomSheetCompWidget(
+                                                              itemRef:
+                                                                  columnMenuItemsRecord
+                                                                      .reference,
+                                                              inCartOrder:
+                                                                  orderPageUsersRecord
+                                                                      .inCartOrder,
+                                                              itemName:
+                                                                  columnMenuItemsRecord
+                                                                      .name,
+                                                              itemDes:
+                                                                  columnMenuItemsRecord
+                                                                      .description,
+                                                              itemPrice:
+                                                                  columnMenuItemsRecord
+                                                                      .price,
                                                             ),
                                                           ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(10, 0,
+                                                                    0, 0),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              columnMenuItemsRecord
+                                                                  .name,
+                                                              style:
+                                                                  FlutterFlowTheme
+                                                                      .subtitle2,
+                                                            ),
+                                                            Text(
+                                                              columnMenuItemsRecord
+                                                                  .price
+                                                                  .toString(),
+                                                              style:
+                                                                  FlutterFlowTheme
+                                                                      .bodyText1,
+                                                            )
+                                                          ],
                                                         ),
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                                      ),
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        child: Image.network(
+                                                          columnMenuItemsRecord
+                                                              .image,
+                                                          width: 80,
+                                                          height: 80,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                          );
+                                        },
                                       )
                                     ],
                                   ),

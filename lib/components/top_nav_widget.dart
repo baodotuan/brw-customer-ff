@@ -5,7 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TopNavWidget extends StatefulWidget {
-  TopNavWidget({Key key}) : super(key: key);
+  const TopNavWidget({Key key}) : super(key: key);
 
   @override
   _TopNavWidgetState createState() => _TopNavWidgetState();

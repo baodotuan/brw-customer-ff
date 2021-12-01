@@ -6,7 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomNavWidget extends StatefulWidget {
-  BottomNavWidget({
+  const BottomNavWidget({
     Key key,
     this.homePage,
     this.orderPage,

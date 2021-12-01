@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ActivationPageWidget extends StatefulWidget {
-  ActivationPageWidget({Key key}) : super(key: key);
+  const ActivationPageWidget({Key key}) : super(key: key);
 
   @override
   _ActivationPageWidgetState createState() => _ActivationPageWidgetState();
