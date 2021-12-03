@@ -50,7 +50,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                     queryBuilder: (transactionsRecord) => transactionsRecord
                         .where('customer_id', isEqualTo: currentUserReference)
                         .orderBy('time'),
-                    limit: 5,
+                    limit: 15,
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -77,38 +77,90 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                         final listViewTransactionsRecord =
                             listViewTransactionsRecordList[listViewIndex];
                         return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             height: 80,
                             decoration: BoxDecoration(
                               color: Color(0xFFF4F4F4),
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            child: InkWell(
-                              onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    duration: Duration(milliseconds: 200),
-                                    reverseDuration:
-                                        Duration(milliseconds: 200),
-                                    child: TransactionDetailPageWidget(
-                                      url:
-                                          listViewTransactionsRecord.receiptUrl,
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.fade,
+                                      duration: Duration(milliseconds: 200),
+                                      reverseDuration:
+                                          Duration(milliseconds: 200),
+                                      child: TransactionDetailPageWidget(
+                                        url: listViewTransactionsRecord
+                                            .receiptUrl,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
+                                  );
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Visibility(
+                                      visible: !(listViewTransactionsRecord
+                                              .credit) ??
+                                          true,
+                                      child: Container(
+                                        width: 60,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.primaryColor,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Text(
+                                          dateTimeFormat('d/M',
+                                              listViewTransactionsRecord.time),
+                                          style: FlutterFlowTheme.subtitle1
+                                              .override(
+                                            fontFamily: 'Roboto',
+                                            color:
+                                                FlutterFlowTheme.tertiaryColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible:
+                                          listViewTransactionsRecord.credit ??
+                                              true,
+                                      child: Container(
+                                        width: 60,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.grey2,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Text(
+                                          dateTimeFormat('d/M',
+                                              listViewTransactionsRecord.time),
+                                          style: FlutterFlowTheme.subtitle1
+                                              .override(
+                                            fontFamily: 'Roboto',
+                                            color:
+                                                FlutterFlowTheme.tertiaryColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 0, 0),
+                                          20, 0, 0, 0),
                                       child: InkWell(
                                         onTap: () async {
                                           await Navigator.push(
@@ -145,19 +197,59 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                           children: [
                                             Text(
                                               dateTimeFormat(
-                                                  'd/M h:m a',
+                                                  'jm',
                                                   listViewTransactionsRecord
                                                       .time),
                                               style: FlutterFlowTheme.subtitle1,
-                                            ),
-                                            Visibility(
-                                              visible:
-                                                  !(listViewTransactionsRecord
-                                                          .credit) ??
-                                                      true,
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 0, 0, 0),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType.fade,
+                                                duration:
+                                                    Duration(milliseconds: 200),
+                                                reverseDuration:
+                                                    Duration(milliseconds: 200),
+                                                child:
+                                                    TransactionDetailPageWidget(
+                                                  url:
+                                                      listViewTransactionsRecord
+                                                          .receiptUrl,
+                                                  creditBool:
+                                                      listViewTransactionsRecord
+                                                          .credit,
+                                                  amount:
+                                                      listViewTransactionsRecord
+                                                          .amount,
+                                                  dateTime:
+                                                      listViewTransactionsRecord
+                                                          .time,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Visibility(
+                                                visible:
+                                                    !(listViewTransactionsRecord
+                                                            .credit) ??
+                                                        true,
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -193,15 +285,11 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                   ],
                                                 ),
                                               ),
-                                            ),
-                                            Visibility(
-                                              visible:
-                                                  listViewTransactionsRecord
-                                                          .credit ??
-                                                      true,
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 0, 0, 0),
+                                              Visibility(
+                                                visible:
+                                                    listViewTransactionsRecord
+                                                            .credit ??
+                                                        true,
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -209,12 +297,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                     Text(
                                                       '- ',
                                                       style: FlutterFlowTheme
-                                                          .bodyText1
-                                                          .override(
-                                                        fontFamily: 'Roboto',
-                                                        color:
-                                                            Color(0xFFFF0000),
-                                                      ),
+                                                          .bodyText1,
                                                     ),
                                                     Padding(
                                                       padding:
@@ -226,24 +309,19 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                             .amount
                                                             .toString(),
                                                         style: FlutterFlowTheme
-                                                            .bodyText1
-                                                            .override(
-                                                          fontFamily: 'Roboto',
-                                                          color:
-                                                              Color(0xFFFF0000),
-                                                        ),
+                                                            .bodyText1,
                                                       ),
                                                     )
                                                   ],
                                                 ),
-                                              ),
-                                            )
-                                          ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),

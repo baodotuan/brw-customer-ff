@@ -11,6 +11,7 @@ import 'schema/menu_items_record.dart';
 import 'schema/order_items_record.dart';
 import 'schema/orders_record.dart';
 import 'schema/customer_app_setting_record.dart';
+import 'schema/news_record.dart';
 import 'schema/serializers.dart';
 
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,6 +25,7 @@ export 'schema/menu_items_record.dart';
 export 'schema/order_items_record.dart';
 export 'schema/orders_record.dart';
 export 'schema/customer_app_setting_record.dart';
+export 'schema/news_record.dart';
 
 Stream<List<UsersRecord>> queryUsersRecord(
         {Query Function(Query) queryBuilder,
@@ -75,6 +77,13 @@ Stream<List<CustomerAppSettingRecord>> queryCustomerAppSettingRecord(
         bool singleRecord = false}) =>
     queryCollection(CustomerAppSettingRecord.collection,
         CustomerAppSettingRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Stream<List<NewsRecord>> queryNewsRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(NewsRecord.collection, NewsRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
 Stream<List<T>> queryCollection<T>(

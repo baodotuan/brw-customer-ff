@@ -45,5 +45,11 @@ service cloud.firestore {
     match /customer_app_setting/{id} {
       allow read, write: if true;
     }
+
+    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
+    // security rules for this collection before publishing your app.
+    match /news/{id} {
+      allow read, write: if true;
+    }
   }
 }

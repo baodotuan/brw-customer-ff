@@ -1,11 +1,10 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../components/menu_bottom_sheet_comp_widget.dart';
+import '../components/edit_item_comp_widget.dart';
 import '../components/top_nav_widget.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,8 +29,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
   DateTime datePicked;
   String dropDownValue;
   TextEditingController textController;
-  OrdersRecord createdOrder;
-  bool _loadingButton = false;
+  OrdersRecord createdorder;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -877,9 +875,9 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                               snapshot.data;
                                           return Container(
                                             width: 100,
-                                            height: 80,
+                                            height: 90,
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFEEEEEE),
+                                              color: FlutterFlowTheme.grey1,
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
@@ -942,7 +940,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                               rowMenuItemsRecord
                                                                   .image,
                                                               width: 100,
-                                                              height: 80,
+                                                              height: 90,
                                                               fit: BoxFit.cover,
                                                             ),
                                                           )
@@ -958,18 +956,18 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                             width: 100,
                                                             height: 100,
                                                             decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xFFEEEEEE),
-                                                            ),
+                                                                BoxDecoration(),
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0, 0),
                                                             child: Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0,
-                                                                          10,
+                                                                          5,
                                                                           0,
-                                                                          10),
+                                                                          5),
                                                               child: Column(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -993,14 +991,14 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                         rowMenuItemsRecord
                                                                             .name,
                                                                         style: FlutterFlowTheme
-                                                                            .bodyText1,
+                                                                            .subtitle2,
                                                                       ),
                                                                       Text(
                                                                         containerOrderItemsRecord
                                                                             .quantity
                                                                             .toString(),
                                                                         style: FlutterFlowTheme
-                                                                            .bodyText1,
+                                                                            .subtitle1,
                                                                       )
                                                                     ],
                                                                   ),
@@ -1008,7 +1006,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                     padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             5,
-                                                                            0,
+                                                                            5,
                                                                             0,
                                                                             0),
                                                                     child: Row(
@@ -1068,7 +1066,15 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                               builder: (context) {
                                                                                 return Padding(
                                                                                   padding: MediaQuery.of(context).viewInsets,
-                                                                                  child: MenuBottomSheetCompWidget(),
+                                                                                  child: Container(
+                                                                                    height: MediaQuery.of(context).size.height * 0.4,
+                                                                                    child: EditItemCompWidget(
+                                                                                      orderItemRef: orderItemItem,
+                                                                                      itemName: rowMenuItemsRecord.name,
+                                                                                      initialQuantity: containerOrderItemsRecord.quantity,
+                                                                                      initialNote: containerOrderItemsRecord.note,
+                                                                                    ),
+                                                                                  ),
                                                                                 );
                                                                               },
                                                                             );
@@ -1142,132 +1148,164 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFEEEEEE),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Total: ',
-                                  style: FlutterFlowTheme.subtitle1,
+                    Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 90,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.tertiaryColor,
+                        ),
+                        child: Visibility(
+                          visible: (cartPageOrdersRecord.totalQuantity) != (0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      cartPageOrdersRecord.totalQuantity
+                                          .toString(),
+                                      style: FlutterFlowTheme.subtitle1,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 0, 0, 0),
+                                      child: Text(
+                                        'items',
+                                        style: FlutterFlowTheme.subtitle1,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                Text(
-                                  cartPageOrdersRecord.total.toString(),
-                                  style: FlutterFlowTheme.subtitle1,
-                                )
-                              ],
-                            ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Total: ',
+                                      style: FlutterFlowTheme.subtitle1,
+                                    ),
+                                    Text(
+                                      formatNumber(
+                                        cartPageOrdersRecord.total,
+                                        formatType: FormatType.decimal,
+                                        decimalType: DecimalType.periodDecimal,
+                                      ),
+                                      style: FlutterFlowTheme.subtitle1,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 10, 0, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          final ordersUpdateData =
+                                              createOrdersRecordData(
+                                            inCart: false,
+                                            createdTime: getCurrentTimestamp,
+                                            pickupAddress: dropDownValue,
+                                            deliveryAddress:
+                                                textController.text,
+                                            statusProcessing: true,
+                                          );
+                                          await widget.inCartOrder
+                                              .update(ordersUpdateData);
+
+                                          final ordersCreateData =
+                                              createOrdersRecordData(
+                                            userId: currentUserReference,
+                                            total: 0,
+                                            inCart: true,
+                                            transacted: false,
+                                            cashPayment: false,
+                                            pointPayment: true,
+                                            pickup: true,
+                                            delivery: false,
+                                            totalQuantity: 0,
+                                            statusProcessing: true,
+                                            statusReady: false,
+                                            statusDone: false,
+                                          );
+                                          final ordersRecordReference =
+                                              OrdersRecord.collection.doc();
+                                          await ordersRecordReference
+                                              .set(ordersCreateData);
+                                          createdorder =
+                                              OrdersRecord.getDocumentFromData(
+                                                  ordersCreateData,
+                                                  ordersRecordReference);
+
+                                          final usersUpdateData = {
+                                            ...createUsersRecordData(
+                                              inCartOrder:
+                                                  createdorder.reference,
+                                            ),
+                                            'processing_order':
+                                                FieldValue.arrayUnion(
+                                                    [widget.inCartOrder]),
+                                          };
+                                          await currentUserReference
+                                              .update(usersUpdateData);
+                                          await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              duration:
+                                                  Duration(milliseconds: 200),
+                                              reverseDuration:
+                                                  Duration(milliseconds: 200),
+                                              child: NavBarPage(
+                                                  initialPage: 'HomePage'),
+                                            ),
+                                          );
+
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                FlutterFlowTheme.primaryColor,
+                                          ),
+                                          alignment: AlignmentDirectional(0, 0),
+                                          child: Text(
+                                            'Place order',
+                                            style: FlutterFlowTheme.subtitle1
+                                                .override(
+                                              fontFamily: 'Roboto',
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FFButtonWidget(
-                                  onPressed: () async {
-                                    setState(() => _loadingButton = true);
-                                    try {
-                                      final ordersUpdateData =
-                                          createOrdersRecordData(
-                                        inCart: false,
-                                        createdTime: getCurrentTimestamp,
-                                        transacted: false,
-                                        pickupAddress: dropDownValue,
-                                        deliveryAddress: textController.text,
-                                        statusProcessing: true,
-                                      );
-                                      await widget.inCartOrder
-                                          .update(ordersUpdateData);
-
-                                      final ordersCreateData =
-                                          createOrdersRecordData(
-                                        userId: currentUserReference,
-                                        inCart: true,
-                                        total: 0,
-                                        transacted: false,
-                                        totalQuantity: 0,
-                                        cashPayment: false,
-                                        pointPayment: true,
-                                        delivery: false,
-                                        pickup: true,
-                                        statusProcessing: false,
-                                        statusReady: false,
-                                        statusDone: false,
-                                      );
-                                      final ordersRecordReference =
-                                          OrdersRecord.collection.doc();
-                                      await ordersRecordReference
-                                          .set(ordersCreateData);
-                                      createdOrder =
-                                          OrdersRecord.getDocumentFromData(
-                                              ordersCreateData,
-                                              ordersRecordReference);
-
-                                      final usersUpdateData = {
-                                        ...createUsersRecordData(
-                                          inCartOrder: createdOrder.reference,
-                                        ),
-                                        'processing_order':
-                                            FieldValue.arrayUnion(
-                                                [widget.inCartOrder]),
-                                      };
-                                      await currentUserReference
-                                          .update(usersUpdateData);
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.fade,
-                                          duration: Duration(milliseconds: 200),
-                                          reverseDuration:
-                                              Duration(milliseconds: 200),
-                                          child: NavBarPage(
-                                              initialPage: 'HomePage'),
-                                        ),
-                                      );
-
-                                      setState(() {});
-                                    } finally {
-                                      setState(() => _loadingButton = false);
-                                    }
-                                  },
-                                  text: 'place order',
-                                  options: FFButtonOptions(
-                                    width: 130,
-                                    height: 40,
-                                    color: FlutterFlowTheme.primaryColor,
-                                    textStyle:
-                                        FlutterFlowTheme.subtitle2.override(
-                                      fontFamily: 'Roboto',
-                                      color: Colors.white,
-                                    ),
-                                    elevation: 4,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: 12,
-                                  ),
-                                  loading: _loadingButton,
-                                )
-                              ],
-                            ),
-                          )
-                        ],
+                        ),
                       ),
                     )
                   ],

@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../login_page/login_page_widget.dart';
 import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -29,7 +30,7 @@ class _ActivationPageWidgetState extends State<ActivationPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: FlutterFlowTheme.tertiaryColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
@@ -49,25 +50,25 @@ class _ActivationPageWidgetState extends State<ActivationPageWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'Enter 6 digit code',
-                          hintStyle: FlutterFlowTheme.bodyText1,
+                          hintStyle: FlutterFlowTheme.subtitle2,
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.tertiaryColor,
                               width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(40),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.tertiaryColor,
                               width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(40),
                           ),
                           filled: true,
-                          fillColor: FlutterFlowTheme.tertiaryColor,
+                          fillColor: FlutterFlowTheme.grey1,
                         ),
-                        style: FlutterFlowTheme.bodyText1,
+                        style: FlutterFlowTheme.subtitle2,
                         keyboardType: TextInputType.number,
                       ),
                     ),
@@ -123,9 +124,30 @@ class _ActivationPageWidgetState extends State<ActivationPageWidget> {
                       color: Colors.transparent,
                       width: 1,
                     ),
-                    borderRadius: 12,
+                    borderRadius: 40,
                   ),
                   loading: _loadingButton,
+                ),
+              ),
+              InkWell(
+                onTap: () async {
+                  await Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      duration: Duration(milliseconds: 200),
+                      reverseDuration: Duration(milliseconds: 200),
+                      child: LoginPageWidget(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'cancel',
+                  style: FlutterFlowTheme.bodyText1.override(
+                    fontFamily: 'Roboto',
+                    color: FlutterFlowTheme.secondaryColor,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               )
             ],

@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OrderPageWidget extends StatefulWidget {
   const OrderPageWidget({Key key}) : super(key: key);
@@ -16,6 +17,7 @@ class OrderPageWidget extends StatefulWidget {
 }
 
 class _OrderPageWidgetState extends State<OrderPageWidget> {
+  PageController pageViewController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -72,7 +74,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                   );
                 },
                 backgroundColor: FlutterFlowTheme.primaryColor,
-                elevation: 8,
+                elevation: 4,
                 label: Row(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -169,119 +171,274 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                          child: Row(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      Stack(
+                        alignment: AlignmentDirectional(0, 1),
+                        children: [
+                          Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'Order now',
-                                style: FlutterFlowTheme.title1,
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 5),
+                                  child: StreamBuilder<List<NewsRecord>>(
+                                    stream: queryNewsRecord(
+                                      queryBuilder: (newsRecord) =>
+                                          newsRecord.orderBy('index'),
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: SpinKitRotatingPlain(
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              size: 20,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      List<NewsRecord> pageViewNewsRecordList =
+                                          snapshot.data;
+                                      return Container(
+                                        width: double.infinity,
+                                        height: 230,
+                                        child: Stack(
+                                          children: [
+                                            PageView.builder(
+                                              controller: pageViewController ??=
+                                                  PageController(
+                                                      initialPage: min(
+                                                          0,
+                                                          pageViewNewsRecordList
+                                                                  .length -
+                                                              1)),
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount:
+                                                  pageViewNewsRecordList.length,
+                                              itemBuilder:
+                                                  (context, pageViewIndex) {
+                                                final pageViewNewsRecord =
+                                                    pageViewNewsRecordList[
+                                                        pageViewIndex];
+                                                return Image.network(
+                                                  pageViewNewsRecord.url,
+                                                  width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.cover,
+                                                );
+                                              },
+                                            ),
+                                            Align(
+                                              alignment:
+                                                  AlignmentDirectional(0, 1),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 0, 25),
+                                                child: SmoothPageIndicator(
+                                                  controller: pageViewController ??=
+                                                      PageController(
+                                                          initialPage: min(
+                                                              0,
+                                                              pageViewNewsRecordList
+                                                                      .length -
+                                                                  1)),
+                                                  count: pageViewNewsRecordList
+                                                      .length,
+                                                  axisDirection:
+                                                      Axis.horizontal,
+                                                  onDotClicked: (i) {
+                                                    pageViewController
+                                                        .animateToPage(
+                                                      i,
+                                                      duration: Duration(
+                                                          milliseconds: 500),
+                                                      curve: Curves.ease,
+                                                    );
+                                                  },
+                                                  effect: ExpandingDotsEffect(
+                                                    expansionFactor: 2,
+                                                    spacing: 5,
+                                                    radius: 10,
+                                                    dotWidth: 5,
+                                                    dotHeight: 3,
+                                                    dotColor: FlutterFlowTheme
+                                                        .tertiaryColor,
+                                                    activeDotColor:
+                                                        FlutterFlowTheme
+                                                            .tertiaryColor,
+                                                    paintStyle:
+                                                        PaintingStyle.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                               )
                             ],
                           ),
-                        ),
-                        StreamBuilder<List<MenuCategoriesRecord>>(
-                          stream: queryMenuCategoriesRecord(
-                            queryBuilder: (menuCategoriesRecord) =>
-                                menuCategoriesRecord.orderBy('index'),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: SpinKitRotatingPlain(
-                                    color: FlutterFlowTheme.primaryColor,
-                                    size: 20,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<MenuCategoriesRecord>
-                                menuColumnMenuCategoriesRecordList =
-                                snapshot.data;
-                            return Column(
+                          Align(
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Column(
                               mainAxisSize: MainAxisSize.max,
-                              children: List.generate(
-                                  menuColumnMenuCategoriesRecordList.length,
-                                  (menuColumnIndex) {
-                                final menuColumnMenuCategoriesRecord =
-                                    menuColumnMenuCategoriesRecordList[
-                                        menuColumnIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 10, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 20, 0, 10),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 0),
-                                              child: Text(
-                                                menuColumnMenuCategoriesRecord
-                                                    .name,
-                                                style:
-                                                    FlutterFlowTheme.subtitle1,
-                                              ),
-                                            )
-                                          ],
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        width: 100,
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.tertiaryColor,
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(0),
+                                            bottomRight: Radius.circular(0),
+                                            topLeft: Radius.circular(20),
+                                            topRight: Radius.circular(20),
+                                          ),
                                         ),
                                       ),
-                                      StreamBuilder<List<MenuItemsRecord>>(
-                                        stream: queryMenuItemsRecord(
-                                          queryBuilder: (menuItemsRecord) =>
-                                              menuItemsRecord.where('category',
-                                                  isEqualTo:
-                                                      menuColumnMenuCategoriesRecord
-                                                          .reference),
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 20,
-                                                height: 20,
-                                                child: SpinKitRotatingPlain(
-                                                  color: FlutterFlowTheme
-                                                      .primaryColor,
-                                                  size: 20,
-                                                ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Order now',
+                              style: FlutterFlowTheme.title1,
+                            )
+                          ],
+                        ),
+                      ),
+                      StreamBuilder<List<MenuCategoriesRecord>>(
+                        stream: queryMenuCategoriesRecord(
+                          queryBuilder: (menuCategoriesRecord) =>
+                              menuCategoriesRecord.orderBy('index'),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: SpinKitRotatingPlain(
+                                  color: FlutterFlowTheme.primaryColor,
+                                  size: 20,
+                                ),
+                              ),
+                            );
+                          }
+                          List<MenuCategoriesRecord>
+                              menuColumnMenuCategoriesRecordList =
+                              snapshot.data;
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: List.generate(
+                                menuColumnMenuCategoriesRecordList.length,
+                                (menuColumnIndex) {
+                              final menuColumnMenuCategoriesRecord =
+                                  menuColumnMenuCategoriesRecordList[
+                                      menuColumnIndex];
+                              return Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 10, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 20, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10, 0, 0, 0),
+                                            child: Text(
+                                              menuColumnMenuCategoriesRecord
+                                                  .name,
+                                              style: FlutterFlowTheme.subtitle1
+                                                  .override(
+                                                fontFamily: 'Roboto',
+                                                color: Colors.black,
                                               ),
-                                            );
-                                          }
-                                          List<MenuItemsRecord>
-                                              columnMenuItemsRecordList =
-                                              snapshot.data;
-                                          return Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: List.generate(
-                                                columnMenuItemsRecordList
-                                                    .length, (columnIndex) {
-                                              final columnMenuItemsRecord =
-                                                  columnMenuItemsRecordList[
-                                                      columnIndex];
-                                              return Container(
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    StreamBuilder<List<MenuItemsRecord>>(
+                                      stream: queryMenuItemsRecord(
+                                        queryBuilder: (menuItemsRecord) =>
+                                            menuItemsRecord
+                                                .where('category',
+                                                    isEqualTo:
+                                                        menuColumnMenuCategoriesRecord
+                                                            .reference)
+                                                .orderBy('index'),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 20,
+                                              height: 20,
+                                              child: SpinKitRotatingPlain(
+                                                color: FlutterFlowTheme
+                                                    .primaryColor,
+                                                size: 20,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<MenuItemsRecord>
+                                            columnMenuItemsRecordList =
+                                            snapshot.data;
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: List.generate(
+                                              columnMenuItemsRecordList.length,
+                                              (columnIndex) {
+                                            final columnMenuItemsRecord =
+                                                columnMenuItemsRecordList[
+                                                    columnIndex];
+                                            return Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 1, 0, 0),
+                                              child: Container(
                                                 width: double.infinity,
                                                 height: 80,
                                                 decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.grey1,
+                                                  color: FlutterFlowTheme
+                                                      .tertiaryColor,
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                   border: Border.all(
@@ -340,14 +497,14 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                       Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
-                                                                .fromSTEB(10, 0,
-                                                                    0, 0),
+                                                                .fromSTEB(10, 5,
+                                                                    0, 5),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
-                                                                  .center,
+                                                                  .spaceEvenly,
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
                                                                   .start,
@@ -359,13 +516,28 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                   FlutterFlowTheme
                                                                       .subtitle2,
                                                             ),
-                                                            Text(
-                                                              columnMenuItemsRecord
-                                                                  .price
-                                                                  .toString(),
-                                                              style:
-                                                                  FlutterFlowTheme
-                                                                      .bodyText1,
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          10,
+                                                                          0,
+                                                                          0),
+                                                              child: Text(
+                                                                formatNumber(
+                                                                  columnMenuItemsRecord
+                                                                      .price,
+                                                                  formatType:
+                                                                      FormatType
+                                                                          .decimal,
+                                                                  decimalType:
+                                                                      DecimalType
+                                                                          .commaDecimal,
+                                                                ),
+                                                                style: FlutterFlowTheme
+                                                                    .bodyText1,
+                                                              ),
                                                             )
                                                           ],
                                                         ),
@@ -385,20 +557,20 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                     ],
                                                   ),
                                                 ),
-                                              );
-                                            }),
-                                          );
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }),
-                            );
-                          },
-                        )
-                      ],
-                    ),
+                                              ),
+                                            );
+                                          }),
+                                        );
+                                      },
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
+                          );
+                        },
+                      )
+                    ],
                   ),
                 )
               ],

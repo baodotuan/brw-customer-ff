@@ -4,11 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 // ignore: avoid_classes_with_only_static_members
 class FlutterFlowTheme {
   static const Color primaryColor = Color(0xFFF6D06D);
-  static const Color secondaryColor = Color(0xFF4B87B2);
+  static const Color secondaryColor = Color(0xFF477DB8);
   static const Color tertiaryColor = Color(0xFFFFFFFF);
 
-  static const Color grey1 = Color(0xFFF3F3F3);
+  static const Color grey1 = Color(0xFFF2F2F2);
   static const Color grey2 = Color(0xFFCECECE);
+  static const Color black = Color(0xFF000000);
+  static const Color stbBeige = Color(0xFFE9E6DF);
+  static const Color bg01 = Color(0xFFEAE6D3);
+  static const Color red01 = Color(0xFFB55329);
 
   String primaryFontFamily = 'Poppins';
   String secondaryFontFamily = 'Roboto';
@@ -32,13 +36,13 @@ class FlutterFlowTheme {
       );
   static TextStyle get subtitle1 => GoogleFonts.getFont(
         'Roboto',
-        color: Color(0xFF757575),
+        color: Color(0xFF303030),
         fontWeight: FontWeight.w500,
         fontSize: 18,
       );
   static TextStyle get subtitle2 => GoogleFonts.getFont(
         'Roboto',
-        color: Color(0xFF616161),
+        color: Color(0xFF303030),
         fontWeight: FontWeight.normal,
         fontSize: 16,
       );
@@ -50,7 +54,7 @@ class FlutterFlowTheme {
       );
   static TextStyle get bodyText2 => GoogleFonts.getFont(
         'Roboto',
-        color: Color(0xFF424242),
+        color: Color(0xFF303030),
         fontWeight: FontWeight.normal,
         fontSize: 14,
       );
