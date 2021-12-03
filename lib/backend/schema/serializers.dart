@@ -7,6 +7,7 @@ import 'menu_items_record.dart';
 import 'order_items_record.dart';
 import 'orders_record.dart';
 import 'customer_app_setting_record.dart';
+import 'news_record.dart';
 
 import 'index.dart';
 
@@ -24,6 +25,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   OrderItemsRecord,
   OrdersRecord,
   CustomerAppSettingRecord,
+  NewsRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

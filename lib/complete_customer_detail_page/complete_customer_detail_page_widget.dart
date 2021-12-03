@@ -13,7 +13,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CompleteCustomerDetailPageWidget extends StatefulWidget {
-  const CompleteCustomerDetailPageWidget({Key key}) : super(key: key);
+  const CompleteCustomerDetailPageWidget({
+    Key key,
+    this.newUser,
+  }) : super(key: key);
+
+  final bool newUser;
 
   @override
   _CompleteCustomerDetailPageWidgetState createState() =>
@@ -26,7 +31,8 @@ class _CompleteCustomerDetailPageWidgetState
   TextEditingController firstNameFieldController;
   TextEditingController lastNameFieldController;
   OrdersRecord createdOrder;
-  bool _loadingButton = false;
+  bool _loadingButton1 = false;
+  bool _loadingButton2 = false;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -43,7 +49,7 @@ class _CompleteCustomerDetailPageWidgetState
       key: formKey,
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: FlutterFlowTheme.tertiaryColor,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
@@ -56,15 +62,15 @@ class _CompleteCustomerDetailPageWidgetState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Last name:',
+                      'Last Name:',
                       style: FlutterFlowTheme.subtitle2,
                     ),
                     Container(
                       width: 230,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.tertiaryColor,
-                        borderRadius: BorderRadius.circular(10),
+                        color: FlutterFlowTheme.grey1,
+                        borderRadius: BorderRadius.circular(40),
                       ),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 5, 0, 5),
@@ -74,8 +80,6 @@ class _CompleteCustomerDetailPageWidgetState
                           decoration: InputDecoration(
                             labelText: 'Last Name',
                             labelStyle: FlutterFlowTheme.bodyText1,
-                            hintText: '[Some hint text...]',
-                            hintStyle: FlutterFlowTheme.bodyText1,
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
@@ -113,15 +117,15 @@ class _CompleteCustomerDetailPageWidgetState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'First name:',
+                        'First Name:',
                         style: FlutterFlowTheme.subtitle2,
                       ),
                       Container(
                         width: 230,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.tertiaryColor,
-                          borderRadius: BorderRadius.circular(10),
+                          color: FlutterFlowTheme.grey1,
+                          borderRadius: BorderRadius.circular(40),
                         ),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(10, 5, 0, 5),
@@ -131,8 +135,6 @@ class _CompleteCustomerDetailPageWidgetState
                             decoration: InputDecoration(
                               labelText: 'First Name',
                               labelStyle: FlutterFlowTheme.bodyText1,
-                              hintText: '[Some hint text...]',
-                              hintStyle: FlutterFlowTheme.bodyText1,
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
@@ -171,18 +173,18 @@ class _CompleteCustomerDetailPageWidgetState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Birth: ',
+                        'Date of Birth: ',
                         style: FlutterFlowTheme.subtitle2,
                       ),
                       Container(
                         width: 230,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.tertiaryColor,
-                          borderRadius: BorderRadius.circular(10),
+                          color: FlutterFlowTheme.grey1,
+                          borderRadius: BorderRadius.circular(400),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -205,7 +207,7 @@ class _CompleteCustomerDetailPageWidgetState
                                 buttonSize: 60,
                                 icon: Icon(
                                   Icons.calendar_today,
-                                  color: Colors.black,
+                                  color: FlutterFlowTheme.secondaryColor,
                                   size: 30,
                                 ),
                                 onPressed: () async {
@@ -229,66 +231,125 @@ class _CompleteCustomerDetailPageWidgetState
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 10),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      setState(() => _loadingButton = true);
-                      try {
-                        if (!formKey.currentState.validate()) {
-                          return;
-                        }
-                        final ordersCreateData = createOrdersRecordData(
-                          userId: currentUserReference,
-                          total: 0,
-                          inCart: true,
-                        );
-                        final ordersRecordReference =
-                            OrdersRecord.collection.doc();
-                        await ordersRecordReference.set(ordersCreateData);
-                        createdOrder = OrdersRecord.getDocumentFromData(
-                            ordersCreateData, ordersRecordReference);
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Visibility(
+                        visible: widget.newUser ?? true,
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            setState(() => _loadingButton1 = true);
+                            try {
+                              if (!formKey.currentState.validate()) {
+                                return;
+                              }
+                              final ordersCreateData = createOrdersRecordData(
+                                userId: currentUserReference,
+                                total: 0,
+                                inCart: true,
+                              );
+                              final ordersRecordReference =
+                                  OrdersRecord.collection.doc();
+                              await ordersRecordReference.set(ordersCreateData);
+                              createdOrder = OrdersRecord.getDocumentFromData(
+                                  ordersCreateData, ordersRecordReference);
 
-                        final usersUpdateData = createUsersRecordData(
-                          lastName: functions
-                              .capitalize(lastNameFieldController.text),
-                          firstName: functions
-                              .capitalize(firstNameFieldController.text),
-                          point: 0,
-                          birth: datePicked,
-                          inCartOrder: createdOrder.reference,
-                        );
-                        await currentUserReference.update(usersUpdateData);
-                        await Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.fade,
-                            duration: Duration(milliseconds: 200),
-                            reverseDuration: Duration(milliseconds: 200),
-                            child: NavBarPage(initialPage: 'HomePage'),
+                              final usersUpdateData = createUsersRecordData(
+                                lastName: functions
+                                    .capitalize(lastNameFieldController.text),
+                                firstName: functions
+                                    .capitalize(firstNameFieldController.text),
+                                point: 0,
+                                birth: datePicked,
+                                inCartOrder: createdOrder.reference,
+                              );
+                              await currentUserReference
+                                  .update(usersUpdateData);
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  duration: Duration(milliseconds: 200),
+                                  reverseDuration: Duration(milliseconds: 200),
+                                  child: NavBarPage(initialPage: 'HomePage'),
+                                ),
+                              );
+
+                              setState(() {});
+                            } finally {
+                              setState(() => _loadingButton1 = false);
+                            }
+                          },
+                          text: 'Complete',
+                          options: FFButtonOptions(
+                            width: 130,
+                            height: 40,
+                            color: FlutterFlowTheme.primaryColor,
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.white,
+                            ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: 40,
                           ),
-                        );
-
-                        setState(() {});
-                      } finally {
-                        setState(() => _loadingButton = false);
-                      }
-                    },
-                    text: 'Complete',
-                    options: FFButtonOptions(
-                      width: 130,
-                      height: 40,
-                      color: FlutterFlowTheme.primaryColor,
-                      textStyle: FlutterFlowTheme.subtitle2.override(
-                        fontFamily: 'Roboto',
-                        color: Colors.white,
+                          loading: _loadingButton1,
+                        ),
                       ),
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
-                      ),
-                      borderRadius: 12,
-                    ),
-                    loading: _loadingButton,
+                      Visibility(
+                        visible: !(widget.newUser) ?? true,
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            setState(() => _loadingButton2 = true);
+                            try {
+                              if (!formKey.currentState.validate()) {
+                                return;
+                              }
+                              final usersUpdateData = createUsersRecordData(
+                                lastName: functions
+                                    .capitalize(lastNameFieldController.text),
+                                firstName: functions
+                                    .capitalize(firstNameFieldController.text),
+                                birth: datePicked,
+                              );
+                              await currentUserReference
+                                  .update(usersUpdateData);
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  duration: Duration(milliseconds: 200),
+                                  reverseDuration: Duration(milliseconds: 200),
+                                  child: NavBarPage(initialPage: 'HomePage'),
+                                ),
+                              );
+                            } finally {
+                              setState(() => _loadingButton2 = false);
+                            }
+                          },
+                          text: 'Update',
+                          options: FFButtonOptions(
+                            width: 130,
+                            height: 40,
+                            color: FlutterFlowTheme.primaryColor,
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.white,
+                            ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: 40,
+                          ),
+                          loading: _loadingButton2,
+                        ),
+                      )
+                    ],
                   ),
                 )
               ],

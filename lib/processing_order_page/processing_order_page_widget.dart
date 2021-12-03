@@ -135,6 +135,9 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                         Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
                                                           children: [
                                                             Text(
                                                               dateTimeFormat(
@@ -150,6 +153,91 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                                 color: FlutterFlowTheme
                                                                     .tertiaryColor,
                                                               ),
+                                                            ),
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Visibility(
+                                                                  visible:
+                                                                      containerOrdersRecord
+                                                                              .statusProcessing ??
+                                                                          true,
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      'Processing',
+                                                                      style: FlutterFlowTheme
+                                                                          .subtitle1
+                                                                          .override(
+                                                                        fontFamily:
+                                                                            'Roboto',
+                                                                        color: FlutterFlowTheme
+                                                                            .tertiaryColor,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Visibility(
+                                                                  visible:
+                                                                      containerOrdersRecord
+                                                                              .statusReady ??
+                                                                          true,
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      'Ready',
+                                                                      style: FlutterFlowTheme
+                                                                          .subtitle1
+                                                                          .override(
+                                                                        fontFamily:
+                                                                            'Roboto',
+                                                                        color: FlutterFlowTheme
+                                                                            .tertiaryColor,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Visibility(
+                                                                  visible:
+                                                                      containerOrdersRecord
+                                                                              .statusDone ??
+                                                                          true,
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      'Finished',
+                                                                      style: FlutterFlowTheme
+                                                                          .subtitle1
+                                                                          .override(
+                                                                        fontFamily:
+                                                                            'Roboto',
+                                                                        color: FlutterFlowTheme
+                                                                            .tertiaryColor,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
                                                             )
                                                           ],
                                                         ),
@@ -160,24 +248,56 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                               MainAxisAlignment
                                                                   .spaceBetween,
                                                           children: [
-                                                            Text(
-                                                              containerOrdersRecord
-                                                                  .items.length
-                                                                  .toString(),
-                                                              style:
-                                                                  FlutterFlowTheme
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Text(
+                                                                  containerOrdersRecord
+                                                                      .totalQuantity
+                                                                      .toString(),
+                                                                  style: FlutterFlowTheme
                                                                       .subtitle1
                                                                       .override(
-                                                                fontFamily:
-                                                                    'Roboto',
-                                                                color: FlutterFlowTheme
-                                                                    .tertiaryColor,
-                                                              ),
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    color: FlutterFlowTheme
+                                                                        .tertiaryColor,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  child: Text(
+                                                                    'items',
+                                                                    style: FlutterFlowTheme
+                                                                        .subtitle1
+                                                                        .override(
+                                                                      fontFamily:
+                                                                          'Roboto',
+                                                                      color: FlutterFlowTheme
+                                                                          .tertiaryColor,
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
                                                             ),
                                                             Text(
-                                                              containerOrdersRecord
-                                                                  .total
-                                                                  .toString(),
+                                                              formatNumber(
+                                                                containerOrdersRecord
+                                                                    .total,
+                                                                formatType:
+                                                                    FormatType
+                                                                        .decimal,
+                                                                decimalType:
+                                                                    DecimalType
+                                                                        .commaDecimal,
+                                                              ),
                                                               style:
                                                                   FlutterFlowTheme
                                                                       .subtitle1

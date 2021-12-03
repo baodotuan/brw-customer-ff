@@ -1,12 +1,11 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../complete_customer_detail_page/complete_customer_detail_page_widget.dart';
 import '../components/top_nav_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../history_page/history_page_widget.dart';
 import '../login_page/login_page_widget.dart';
-import '../update_customer_detail_page/update_customer_detail_page_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -31,7 +30,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -67,7 +66,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,7 +76,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                   width: 70,
                                   height: 70,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
+                                    color: FlutterFlowTheme.grey1,
                                     shape: BoxShape.circle,
                                   ),
                                   child: Align(
@@ -105,7 +104,9 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                             reverseDuration:
                                                 Duration(milliseconds: 200),
                                             child:
-                                                UpdateCustomerDetailPageWidget(),
+                                                CompleteCustomerDetailPageWidget(
+                                              newUser: false,
+                                            ),
                                           ),
                                         );
                                       },
@@ -122,7 +123,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -206,202 +207,55 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(24, 12, 0, 12),
-                      child: Text(
-                        'Account Settings',
-                        style: FlutterFlowTheme.subtitle2,
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                scrollDirection: Axis.vertical,
-                children: [
-                  Row(
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+                  child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.rectangle,
-                        ),
-                        child: InkWell(
-                          onTap: () async {
-                            await Navigator.push(
+                      FFButtonWidget(
+                        onPressed: () async {
+                          setState(() => _loadingButton = true);
+                          try {
+                            await signOut();
+                            await Navigator.pushAndRemoveUntil(
                               context,
                               PageTransition(
                                 type: PageTransitionType.fade,
                                 duration: Duration(milliseconds: 200),
                                 reverseDuration: Duration(milliseconds: 200),
-                                child: HistoryPageWidget(),
+                                child: LoginPageWidget(),
                               ),
+                              (r) => false,
                             );
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                                child: Text(
-                                  'Order History',
-                                  style: FlutterFlowTheme.bodyText1,
-                                ),
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: AlignmentDirectional(0.9, 0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF95A1AC),
-                                    size: 18,
-                                  ),
-                                ),
-                              )
-                            ],
+                          } finally {
+                            setState(() => _loadingButton = false);
+                          }
+                        },
+                        text: 'Log Out',
+                        options: FFButtonOptions(
+                          width: 90,
+                          height: 40,
+                          color: Colors.white,
+                          textStyle: FlutterFlowTheme.bodyText2.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF424242),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
                           ),
+                          elevation: 2,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
+                          borderRadius: 20,
                         ),
+                        loading: _loadingButton,
                       )
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 1, 0, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                                child: Text(
-                                  'Settings',
-                                  style: FlutterFlowTheme.bodyText1,
-                                ),
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: AlignmentDirectional(0.9, 0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF95A1AC),
-                                    size: 18,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 1, 0, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                                child: Text(
-                                  'Notifications',
-                                  style: FlutterFlowTheme.bodyText1,
-                                ),
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: AlignmentDirectional(0.9, 0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF95A1AC),
-                                    size: 18,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FFButtonWidget(
-                          onPressed: () async {
-                            setState(() => _loadingButton = true);
-                            try {
-                              await signOut();
-                              await Navigator.pushAndRemoveUntil(
-                                context,
-                                PageTransition(
-                                  type: PageTransitionType.fade,
-                                  duration: Duration(milliseconds: 200),
-                                  reverseDuration: Duration(milliseconds: 200),
-                                  child: LoginPageWidget(),
-                                ),
-                                (r) => false,
-                              );
-                            } finally {
-                              setState(() => _loadingButton = false);
-                            }
-                          },
-                          text: 'Log Out',
-                          options: FFButtonOptions(
-                            width: 90,
-                            height: 40,
-                            color: Colors.white,
-                            textStyle: FlutterFlowTheme.bodyText2.override(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0xFF424242),
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            elevation: 3,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                            borderRadius: 8,
-                          ),
-                          loading: _loadingButton,
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             )
           ],
         ),

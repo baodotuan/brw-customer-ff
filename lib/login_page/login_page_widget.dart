@@ -32,7 +32,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       key: formKey,
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: FlutterFlowTheme.tertiaryColor,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
@@ -48,28 +48,28 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     obscureText: false,
                     decoration: InputDecoration(
                       hintText: 'Type phone number',
-                      hintStyle: FlutterFlowTheme.subtitle2,
+                      hintStyle: FlutterFlowTheme.subtitle1,
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 1,
                         ),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(40),
                       ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 1,
                         ),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(40),
                       ),
                       filled: true,
-                      fillColor: FlutterFlowTheme.tertiaryColor,
+                      fillColor: FlutterFlowTheme.grey1,
                       prefixIcon: Icon(
                         Icons.local_phone,
                       ),
                     ),
-                    style: FlutterFlowTheme.subtitle2,
+                    style: FlutterFlowTheme.subtitle1,
                     validator: (val) {
                       if (val.isEmpty) {
                         return 'Field is required';
@@ -127,12 +127,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         fontFamily: 'Roboto',
                         color: Colors.white,
                       ),
-                      elevation: 3,
+                      elevation: 2,
                       borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1,
                       ),
-                      borderRadius: 10,
+                      borderRadius: 40,
                     ),
                     loading: _loadingButton,
                   ),

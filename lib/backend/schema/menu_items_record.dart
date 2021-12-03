@@ -27,6 +27,9 @@ abstract class MenuItemsRecord
   String get image;
 
   @nullable
+  int get index;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -34,7 +37,8 @@ abstract class MenuItemsRecord
     ..name = ''
     ..description = ''
     ..price = 0
-    ..image = '';
+    ..image = ''
+    ..index = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('menuItems');
@@ -59,6 +63,7 @@ Map<String, dynamic> createMenuItemsRecordData({
   String description,
   int price,
   String image,
+  int index,
 }) =>
     serializers.toFirestore(
         MenuItemsRecord.serializer,
@@ -67,4 +72,5 @@ Map<String, dynamic> createMenuItemsRecordData({
           ..name = name
           ..description = description
           ..price = price
-          ..image = image));
+          ..image = image
+          ..index = index));

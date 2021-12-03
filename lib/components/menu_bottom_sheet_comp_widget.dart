@@ -3,7 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +32,7 @@ class MenuBottomSheetCompWidget extends StatefulWidget {
 }
 
 class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
-  OrderItemsRecord createdOrderItem;
-  bool _loadingButton = false;
+  OrderItemsRecord createdItem;
   TextEditingController textController;
   int countControllerValue;
 
@@ -46,90 +44,89 @@ class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-      child: StreamBuilder<OrdersRecord>(
-        stream: OrdersRecord.getDocument(widget.inCartOrder),
-        builder: (context, snapshot) {
-          // Customize what your widget looks like when it's loading.
-          if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: SpinKitRotatingPlain(
-                  color: FlutterFlowTheme.primaryColor,
-                  size: 20,
-                ),
+    return StreamBuilder<OrdersRecord>(
+      stream: OrdersRecord.getDocument(widget.inCartOrder),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 20,
+              height: 20,
+              child: SpinKitRotatingPlain(
+                color: FlutterFlowTheme.primaryColor,
+                size: 20,
               ),
-            );
-          }
-          final columnOrdersRecord = snapshot.data;
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                          child: Text(
-                            widget.itemName,
-                            style: FlutterFlowTheme.title1,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                    child: Container(
-                      width: 150,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: Color(0x009E9E9E),
-                        ),
-                      ),
-                      child: FlutterFlowCountController(
-                        decrementIconBuilder: (enabled) => FaIcon(
-                          FontAwesomeIcons.minus,
-                          color:
-                              enabled ? Color(0xDD000000) : Color(0xFFEEEEEE),
-                          size: 20,
-                        ),
-                        incrementIconBuilder: (enabled) => FaIcon(
-                          FontAwesomeIcons.plus,
-                          color: enabled
-                              ? FlutterFlowTheme.primaryColor
-                              : Color(0xFFEEEEEE),
-                          size: 20,
-                        ),
-                        countBuilder: (count) => Text(
-                          count.toString(),
-                          style: FlutterFlowTheme.title3,
-                        ),
-                        count: countControllerValue ??= 1,
-                        updateCount: (count) =>
-                            setState(() => countControllerValue = count),
-                        stepSize: 1,
-                        minimum: 1,
-                      ),
-                    ),
-                  ),
-                  Row(
+            ),
+          );
+        }
+        final columnOrdersRecord = snapshot.data;
+        return Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                  child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Expanded(
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: Text(
+                          widget.itemName,
+                          style: FlutterFlowTheme.title1,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                  child: Container(
+                    width: 150,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: Color(0x009E9E9E),
+                      ),
+                    ),
+                    child: FlutterFlowCountController(
+                      decrementIconBuilder: (enabled) => FaIcon(
+                        FontAwesomeIcons.minus,
+                        color: enabled ? Color(0xDD000000) : Color(0xFFEEEEEE),
+                        size: 20,
+                      ),
+                      incrementIconBuilder: (enabled) => FaIcon(
+                        FontAwesomeIcons.plus,
+                        color: enabled
+                            ? FlutterFlowTheme.primaryColor
+                            : Color(0xFFEEEEEE),
+                        size: 20,
+                      ),
+                      countBuilder: (count) => Text(
+                        count.toString(),
+                        style: FlutterFlowTheme.title3,
+                      ),
+                      count: countControllerValue ??= 1,
+                      updateCount: (count) =>
+                          setState(() => countControllerValue = count),
+                      stepSize: 1,
+                      minimum: 1,
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                         child: Container(
                           width: 100,
                           height: 100,
@@ -171,79 +168,76 @@ class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
                             ),
                           ),
                         ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FFButtonWidget(
-                    onPressed: () async {
-                      setState(() => _loadingButton = true);
-                      try {
-                        final orderItemsCreateData = createOrderItemsRecordData(
-                          item: widget.itemRef,
-                          quantity: countControllerValue,
-                          note: textController.text,
-                          createdTime: getCurrentTimestamp,
-                        );
-                        final orderItemsRecordReference =
-                            OrderItemsRecord.collection.doc();
-                        await orderItemsRecordReference
-                            .set(orderItemsCreateData);
-                        createdOrderItem = OrderItemsRecord.getDocumentFromData(
-                            orderItemsCreateData, orderItemsRecordReference);
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () async {
+                      final orderItemsCreateData = createOrderItemsRecordData(
+                        item: widget.itemRef,
+                        quantity: countControllerValue,
+                        note: textController.text,
+                        createdTime: getCurrentTimestamp,
+                      );
+                      final orderItemsRecordReference =
+                          OrderItemsRecord.collection.doc();
+                      await orderItemsRecordReference.set(orderItemsCreateData);
+                      createdItem = OrderItemsRecord.getDocumentFromData(
+                          orderItemsCreateData, orderItemsRecordReference);
 
-                        final ordersUpdateData = {
-                          ...createOrdersRecordData(
-                            total: functions.addSubstractTotalPrice(
-                                widget.itemPrice,
-                                countControllerValue,
-                                columnOrdersRecord.total,
-                                true),
-                            totalQuantity: functions.addSubstractTotalPrice(
-                                1,
-                                countControllerValue,
-                                columnOrdersRecord.totalQuantity,
-                                true),
-                          ),
-                          'items': FieldValue.arrayUnion(
-                              [createdOrderItem.reference]),
-                        };
-                        await widget.inCartOrder.update(ordersUpdateData);
-                        Navigator.pop(context);
+                      final ordersUpdateData = {
+                        ...createOrdersRecordData(
+                          total: functions.addSubstractTotalPrice(
+                              widget.itemPrice,
+                              countControllerValue,
+                              columnOrdersRecord.total,
+                              true),
+                          totalQuantity: functions.addSubstractTotalPrice(
+                              1,
+                              countControllerValue,
+                              columnOrdersRecord.totalQuantity,
+                              true),
+                        ),
+                        'items': FieldValue.arrayUnion([createdItem.reference]),
+                      };
+                      await widget.inCartOrder.update(ordersUpdateData);
+                      Navigator.pop(context);
 
-                        setState(() {});
-                      } finally {
-                        setState(() => _loadingButton = false);
-                      }
+                      setState(() {});
                     },
-                    text: 'Add to cart',
-                    options: FFButtonOptions(
-                      width: 130,
-                      height: 40,
-                      color: FlutterFlowTheme.primaryColor,
-                      textStyle: FlutterFlowTheme.subtitle2.override(
-                        fontFamily: 'Roboto',
-                        color: Colors.white,
+                    child: Container(
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.primaryColor,
                       ),
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
+                      alignment: AlignmentDirectional(0, 0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        child: Text(
+                          'Add to cart',
+                          style: FlutterFlowTheme.subtitle2.override(
+                            fontFamily: 'Roboto',
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                      borderRadius: 12,
                     ),
-                    loading: _loadingButton,
-                  )
-                ],
-              )
-            ],
-          );
-        },
-      ),
+                  ),
+                )
+              ],
+            )
+          ],
+        );
+      },
     );
   }
 }
