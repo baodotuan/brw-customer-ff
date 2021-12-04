@@ -70,6 +70,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       ),
                     ),
                     style: FlutterFlowTheme.subtitle1,
+                    keyboardType: TextInputType.phone,
                     validator: (val) {
                       if (val.isEmpty) {
                         return 'Field is required';

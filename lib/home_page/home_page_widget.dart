@@ -237,144 +237,72 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                   child: Container(
                                                     width: double.infinity,
-                                                    height: 180,
+                                                    height: 250,
                                                     decoration: BoxDecoration(
                                                       color: FlutterFlowTheme
                                                           .tertiaryColor,
-                                                      image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: Image.asset(
-                                                          'assets/images/creditcard.png',
-                                                        ).image,
-                                                      ),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               10),
                                                       shape: BoxShape.rectangle,
                                                     ),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(10, 10,
-                                                                  10, 10),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Text(
-                                                                'full name',
-                                                                style: FlutterFlowTheme
-                                                                    .bodyText2
-                                                                    .override(
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  color:
-                                                                      FlutterFlowTheme
-                                                                          .grey2,
-                                                                ),
-                                                              )
-                                                            ],
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0, 0),
+                                                    child: Stack(
+                                                      children: [
+                                                        Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  0, 0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            child: Image.asset(
+                                                              'assets/images/creditcard.png',
+                                                              width: double
+                                                                  .infinity,
+                                                              height: double
+                                                                  .infinity,
+                                                              fit: BoxFit.cover,
+                                                            ),
                                                           ),
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Text(
-                                                                fuctionListViewUsersRecord
-                                                                    .lastName,
-                                                                style: FlutterFlowTheme
-                                                                    .subtitle2
-                                                                    .override(
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Text(
-                                                                  fuctionListViewUsersRecord
-                                                                      .firstName,
-                                                                  style: FlutterFlowTheme
-                                                                      .subtitle2
-                                                                      .override(
-                                                                    fontFamily:
-                                                                        'Roboto',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            5,
-                                                                            0,
-                                                                            0),
-                                                                child: Text(
-                                                                  'phone number',
-                                                                  style: FlutterFlowTheme
-                                                                      .bodyText2
-                                                                      .override(
-                                                                    fontFamily:
-                                                                        'Roboto',
-                                                                    color: FlutterFlowTheme
-                                                                        .grey2,
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          Row(
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      10,
+                                                                      10,
+                                                                      10,
+                                                                      10),
+                                                          child: Column(
                                                             mainAxisSize:
                                                                 MainAxisSize
                                                                     .max,
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
+                                                                    .end,
                                                             children: [
-                                                              Text(
-                                                                fuctionListViewUsersRecord
-                                                                    .phoneNumber,
-                                                                style: FlutterFlowTheme
-                                                                    .bodyText1
-                                                                    .override(
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Text(
+                                                                    'full name',
+                                                                    style: FlutterFlowTheme
+                                                                        .bodyText2
+                                                                        .override(
+                                                                      fontFamily:
+                                                                          'Roboto',
+                                                                      color: FlutterFlowTheme
+                                                                          .grey2,
+                                                                    ),
+                                                                  )
+                                                                ],
                                                               ),
                                                               Row(
                                                                 mainAxisSize:
@@ -382,47 +310,137 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    formatNumber(
-                                                                      fuctionListViewUsersRecord
-                                                                          .point,
-                                                                      formatType:
-                                                                          FormatType
-                                                                              .decimal,
-                                                                      decimalType:
-                                                                          DecimalType
-                                                                              .commaDecimal,
-                                                                    ),
+                                                                    fuctionListViewUsersRecord
+                                                                        .lastName,
                                                                     style: FlutterFlowTheme
-                                                                        .subtitle1
+                                                                        .subtitle2
                                                                         .override(
                                                                       fontFamily:
                                                                           'Roboto',
-                                                                      color: FlutterFlowTheme
-                                                                          .primaryColor,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
                                                                     ),
                                                                   ),
                                                                   Padding(
                                                                     padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      fuctionListViewUsersRecord
+                                                                          .firstName,
+                                                                      style: FlutterFlowTheme
+                                                                          .subtitle2
+                                                                          .override(
+                                                                        fontFamily:
+                                                                            'Roboto',
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            5,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      'phone number',
+                                                                      style: FlutterFlowTheme
+                                                                          .bodyText2
+                                                                          .override(
+                                                                        fontFamily:
+                                                                            'Roboto',
+                                                                        color: FlutterFlowTheme
+                                                                            .grey2,
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    fuctionListViewUsersRecord
+                                                                        .phoneNumber,
+                                                                    style: FlutterFlowTheme
+                                                                        .bodyText1
+                                                                        .override(
+                                                                      fontFamily:
+                                                                          'Roboto',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Text(
+                                                                        formatNumber(
+                                                                          fuctionListViewUsersRecord
+                                                                              .point,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        ),
+                                                                        style: FlutterFlowTheme
+                                                                            .subtitle1
+                                                                            .override(
+                                                                          fontFamily:
+                                                                              'Roboto',
+                                                                          color:
+                                                                              FlutterFlowTheme.primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             10,
                                                                             0,
                                                                             0,
                                                                             0),
-                                                                    child:
-                                                                        FaIcon(
-                                                                      FontAwesomeIcons
-                                                                          .cookie,
-                                                                      color: FlutterFlowTheme
-                                                                          .primaryColor,
-                                                                      size: 24,
-                                                                    ),
+                                                                        child:
+                                                                            FaIcon(
+                                                                          FontAwesomeIcons
+                                                                              .cookie,
+                                                                          color:
+                                                                              FlutterFlowTheme.primaryColor,
+                                                                          size:
+                                                                              24,
+                                                                        ),
+                                                                      )
+                                                                    ],
                                                                   )
                                                                 ],
                                                               )
                                                             ],
-                                                          )
-                                                        ],
-                                                      ),
+                                                          ),
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
@@ -439,8 +457,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             10),
                                                   ),
                                                   child: Container(
-                                                    width: 100,
-                                                    height: 100,
+                                                    width: double.infinity,
+                                                    height: double.infinity,
                                                     decoration: BoxDecoration(
                                                       color: FlutterFlowTheme
                                                           .tertiaryColor,
