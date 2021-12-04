@@ -85,7 +85,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       functions.getShortName(columnUsersRecord),
                                       style: FlutterFlowTheme.title1.override(
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFFFCB021),
+                                        color: FlutterFlowTheme.primaryColor,
                                       ),
                                     ),
                                   ),
@@ -236,12 +236,10 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                         options: FFButtonOptions(
                           width: 90,
                           height: 40,
-                          color: Colors.white,
-                          textStyle: FlutterFlowTheme.bodyText2.override(
-                            fontFamily: 'Lexend Deca',
-                            color: Color(0xFF424242),
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
+                          color: FlutterFlowTheme.primaryColor,
+                          textStyle: FlutterFlowTheme.subtitle2.override(
+                            fontFamily: 'Roboto',
+                            color: FlutterFlowTheme.tertiaryColor,
                           ),
                           elevation: 2,
                           borderSide: BorderSide(
