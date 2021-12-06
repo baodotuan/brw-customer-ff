@@ -1079,6 +1079,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                                       initialQuantity: containerOrderItemsRecord.quantity,
                                                                                       initialTotal: cartPageOrdersRecord.total,
                                                                                       initialAmount: containerOrderItemsRecord.amount,
+                                                                                      initialTotalQuantity: cartPageOrdersRecord.totalQuantity,
                                                                                     ),
                                                                                   ),
                                                                                 );
