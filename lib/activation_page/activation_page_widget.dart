@@ -17,7 +17,6 @@ class ActivationPageWidget extends StatefulWidget {
 
 class _ActivationPageWidgetState extends State<ActivationPageWidget> {
   TextEditingController otpFieldController;
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -79,36 +78,31 @@ class _ActivationPageWidgetState extends State<ActivationPageWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    setState(() => _loadingButton = true);
-                    try {
-                      if (otpFieldController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Enter SMS verification code.'),
-                          ),
-                        );
-                        return;
-                      }
-                      final phoneVerifiedUser = await verifySmsCode(
-                        context: context,
-                        smsCode: otpFieldController.text,
-                      );
-                      if (phoneVerifiedUser == null) {
-                        return;
-                      }
-                      await Navigator.pushAndRemoveUntil(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          duration: Duration(milliseconds: 200),
-                          reverseDuration: Duration(milliseconds: 200),
-                          child: NavBarPage(initialPage: 'HomePage'),
+                    if (otpFieldController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Enter SMS verification code.'),
                         ),
-                        (r) => false,
                       );
-                    } finally {
-                      setState(() => _loadingButton = false);
+                      return;
                     }
+                    final phoneVerifiedUser = await verifySmsCode(
+                      context: context,
+                      smsCode: otpFieldController.text,
+                    );
+                    if (phoneVerifiedUser == null) {
+                      return;
+                    }
+                    await Navigator.pushAndRemoveUntil(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(milliseconds: 200),
+                        reverseDuration: Duration(milliseconds: 200),
+                        child: NavBarPage(initialPage: 'HomePage'),
+                      ),
+                      (r) => false,
+                    );
                   },
                   text: 'Login',
                   options: FFButtonOptions(
@@ -126,7 +120,6 @@ class _ActivationPageWidgetState extends State<ActivationPageWidget> {
                     ),
                     borderRadius: 40,
                   ),
-                  loading: _loadingButton,
                 ),
               ),
               InkWell(

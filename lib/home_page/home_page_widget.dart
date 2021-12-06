@@ -24,7 +24,6 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget> {
   PageController pageViewController;
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -140,32 +139,23 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   .fromSTEB(0, 10, 0, 0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
-                                                  setState(() =>
-                                                      _loadingButton = true);
-                                                  try {
-                                                    await Navigator
-                                                        .pushAndRemoveUntil(
-                                                      context,
-                                                      PageTransition(
-                                                        type: PageTransitionType
-                                                            .fade,
-                                                        duration: Duration(
-                                                            milliseconds: 200),
-                                                        reverseDuration:
-                                                            Duration(
-                                                                milliseconds:
-                                                                    200),
-                                                        child:
-                                                            CompleteCustomerDetailPageWidget(
-                                                          newUser: true,
-                                                        ),
+                                                  await Navigator
+                                                      .pushAndRemoveUntil(
+                                                    context,
+                                                    PageTransition(
+                                                      type: PageTransitionType
+                                                          .fade,
+                                                      duration: Duration(
+                                                          milliseconds: 200),
+                                                      reverseDuration: Duration(
+                                                          milliseconds: 200),
+                                                      child:
+                                                          CompleteCustomerDetailPageWidget(
+                                                        newUser: true,
                                                       ),
-                                                      (r) => false,
-                                                    );
-                                                  } finally {
-                                                    setState(() =>
-                                                        _loadingButton = false);
-                                                  }
+                                                    ),
+                                                    (r) => false,
+                                                  );
                                                 },
                                                 text: 'Complete Now ',
                                                 options: FFButtonOptions(
@@ -186,7 +176,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                   borderRadius: 40,
                                                 ),
-                                                loading: _loadingButton,
                                               ),
                                             )
                                           ],

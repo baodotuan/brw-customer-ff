@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +22,6 @@ class OrderPageWidget extends StatefulWidget {
 
 class _OrderPageWidgetState extends State<OrderPageWidget> {
   PageController pageViewController;
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -386,30 +386,23 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                     0, 10, 0, 0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                setState(() =>
-                                                    _loadingButton = true);
-                                                try {
-                                                  await Navigator
-                                                      .pushAndRemoveUntil(
-                                                    context,
-                                                    PageTransition(
-                                                      type: PageTransitionType
-                                                          .fade,
-                                                      duration: Duration(
-                                                          milliseconds: 200),
-                                                      reverseDuration: Duration(
-                                                          milliseconds: 200),
-                                                      child:
-                                                          CompleteCustomerDetailPageWidget(
-                                                        newUser: true,
-                                                      ),
+                                                await Navigator
+                                                    .pushAndRemoveUntil(
+                                                  context,
+                                                  PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    duration: Duration(
+                                                        milliseconds: 200),
+                                                    reverseDuration: Duration(
+                                                        milliseconds: 200),
+                                                    child:
+                                                        CompleteCustomerDetailPageWidget(
+                                                      newUser: true,
                                                     ),
-                                                    (r) => false,
-                                                  );
-                                                } finally {
-                                                  setState(() =>
-                                                      _loadingButton = false);
-                                                }
+                                                  ),
+                                                  (r) => false,
+                                                );
                                               },
                                               text: 'Complete Now ',
                                               options: FFButtonOptions(
@@ -430,7 +423,6 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                 ),
                                                 borderRadius: 40,
                                               ),
-                                              loading: _loadingButton,
                                             ),
                                           )
                                         ],
@@ -581,21 +573,22 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                   0.4,
                                                               child:
                                                                   MenuBottomSheetCompWidget(
-                                                                itemRef:
-                                                                    columnMenuItemsRecord
-                                                                        .reference,
                                                                 inCartOrder:
                                                                     orderPageUsersRecord
                                                                         .inCartOrder,
                                                                 itemName:
                                                                     columnMenuItemsRecord
                                                                         .name,
-                                                                itemDes:
-                                                                    columnMenuItemsRecord
-                                                                        .description,
                                                                 itemPrice:
                                                                     columnMenuItemsRecord
                                                                         .price,
+                                                                menuItemRef:
+                                                                    columnMenuItemsRecord
+                                                                        .reference,
+                                                                newOrderItem:
+                                                                    true,
+                                                                initialQuantity:
+                                                                    1,
                                                               ),
                                                             ),
                                                           );
@@ -661,9 +654,11 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(10),
-                                                          child: Image.network(
-                                                            columnMenuItemsRecord
-                                                                .image,
+                                                          child:
+                                                              CachedNetworkImage(
+                                                            imageUrl:
+                                                                columnMenuItemsRecord
+                                                                    .image,
                                                             width: 80,
                                                             height: 80,
                                                             fit: BoxFit.cover,

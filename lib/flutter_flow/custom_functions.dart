@@ -18,15 +18,12 @@ String getFullName(
 
 bool missingData(UsersRecord user) {
   // Add your function code here!
-  if (user.firstName == '') {
+  if ([null, ''].contains(user.firstName) ||
+      [null, ''].contains(user.lastName)) {
     return true;
+  } else {
+    return false;
   }
-  ;
-  if (user.lastName == '') {
-    return true;
-  }
-  ;
-  return false;
 }
 
 String getShortName(UsersRecord user) {
@@ -56,4 +53,47 @@ int addSubstractTotalPrice(
 DateTime add15min(DateTime currentTime) {
   // Add your function code here!
   return currentTime.add(const Duration(days: 0, hours: 0, minutes: 15));
+}
+
+int totalQantityOfOrderitems(List<OrderItemsRecord> docs) {
+  // Add your function code here!
+  var maxIndex = docs.length - 1;
+  var total = 0;
+  for (var i = 0; i <= maxIndex; i++) {
+    total += docs[i].quantity;
+  }
+
+  return total;
+}
+
+int totalAmountOfOrderitems(List<OrderItemsRecord> docs) {
+  // Add your function code here!
+  var maxIndex = docs.length - 1;
+  var total = 0;
+  for (var i = 0; i <= maxIndex; i++) {
+    total += docs[i].amount;
+  }
+
+  return total;
+}
+
+int multiplyTwoInterger(
+  int input1,
+  int input2,
+) {
+  // Add your function code here!
+  return input1 * input2;
+}
+
+int addOrSubstractTwoInterger(
+  int input1,
+  int input2,
+  bool add,
+) {
+  // Add your function code here!
+  if (add) {
+    return input1 + input2;
+  } else {
+    return input1 - input2;
+  }
 }

@@ -30,8 +30,6 @@ class _CompleteCustomerDetailPageWidgetState
   TextEditingController firstNameFieldController;
   TextEditingController lastNameFieldController;
   OrdersRecord createdOrder;
-  bool _loadingButton1 = false;
-  bool _loadingButton2 = false;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -250,62 +248,53 @@ class _CompleteCustomerDetailPageWidgetState
                             visible: widget.newUser ?? true,
                             child: FFButtonWidget(
                               onPressed: () async {
-                                setState(() => _loadingButton1 = true);
-                                try {
-                                  if (!formKey.currentState.validate()) {
-                                    return;
-                                  }
-                                  final ordersCreateData =
-                                      createOrdersRecordData(
-                                    userId: currentUserReference,
-                                    total: 0,
-                                    inCart: true,
-                                    transacted: false,
-                                    cashPayment: false,
-                                    pointPayment: true,
-                                    pickup: true,
-                                    delivery: false,
-                                    totalQuantity: 0,
-                                    statusProcessing: false,
-                                    statusReady: false,
-                                    statusDone: false,
-                                  );
-                                  final ordersRecordReference =
-                                      OrdersRecord.collection.doc();
-                                  await ordersRecordReference
-                                      .set(ordersCreateData);
-                                  createdOrder =
-                                      OrdersRecord.getDocumentFromData(
-                                          ordersCreateData,
-                                          ordersRecordReference);
-
-                                  final usersUpdateData = createUsersRecordData(
-                                    lastName: functions.capitalize(
-                                        lastNameFieldController?.text ?? ''),
-                                    firstName: functions.capitalize(
-                                        firstNameFieldController?.text ?? ''),
-                                    point: 0,
-                                    birth: datePicked,
-                                    inCartOrder: createdOrder.reference,
-                                  );
-                                  await currentUserReference
-                                      .update(usersUpdateData);
-                                  await Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.fade,
-                                      duration: Duration(milliseconds: 200),
-                                      reverseDuration:
-                                          Duration(milliseconds: 200),
-                                      child:
-                                          NavBarPage(initialPage: 'HomePage'),
-                                    ),
-                                  );
-
-                                  setState(() {});
-                                } finally {
-                                  setState(() => _loadingButton1 = false);
+                                if (!formKey.currentState.validate()) {
+                                  return;
                                 }
+                                final ordersCreateData = createOrdersRecordData(
+                                  userId: currentUserReference,
+                                  total: 0,
+                                  inCart: true,
+                                  transacted: false,
+                                  cashPayment: false,
+                                  pointPayment: true,
+                                  pickup: true,
+                                  delivery: false,
+                                  totalQuantity: 0,
+                                  statusProcessing: false,
+                                  statusReady: false,
+                                  statusDone: false,
+                                );
+                                final ordersRecordReference =
+                                    OrdersRecord.collection.doc();
+                                await ordersRecordReference
+                                    .set(ordersCreateData);
+                                createdOrder = OrdersRecord.getDocumentFromData(
+                                    ordersCreateData, ordersRecordReference);
+
+                                final usersUpdateData = createUsersRecordData(
+                                  lastName: functions.capitalize(
+                                      lastNameFieldController?.text ?? ''),
+                                  firstName: functions.capitalize(
+                                      firstNameFieldController?.text ?? ''),
+                                  point: 0,
+                                  birth: datePicked,
+                                  inCartOrder: createdOrder.reference,
+                                );
+                                await currentUserReference
+                                    .update(usersUpdateData);
+                                await Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 200),
+                                    reverseDuration:
+                                        Duration(milliseconds: 200),
+                                    child: NavBarPage(initialPage: 'HomePage'),
+                                  ),
+                                );
+
+                                setState(() {});
                               },
                               text: 'Complete',
                               options: FFButtonOptions(
@@ -322,41 +311,34 @@ class _CompleteCustomerDetailPageWidgetState
                                 ),
                                 borderRadius: 40,
                               ),
-                              loading: _loadingButton1,
                             ),
                           ),
                           Visibility(
                             visible: !(widget.newUser) ?? true,
                             child: FFButtonWidget(
                               onPressed: () async {
-                                setState(() => _loadingButton2 = true);
-                                try {
-                                  if (!formKey.currentState.validate()) {
-                                    return;
-                                  }
-                                  final usersUpdateData = createUsersRecordData(
-                                    lastName: functions.capitalize(
-                                        lastNameFieldController?.text ?? ''),
-                                    firstName: functions.capitalize(
-                                        firstNameFieldController?.text ?? ''),
-                                    birth: datePicked,
-                                  );
-                                  await currentUserReference
-                                      .update(usersUpdateData);
-                                  await Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.fade,
-                                      duration: Duration(milliseconds: 200),
-                                      reverseDuration:
-                                          Duration(milliseconds: 200),
-                                      child:
-                                          NavBarPage(initialPage: 'HomePage'),
-                                    ),
-                                  );
-                                } finally {
-                                  setState(() => _loadingButton2 = false);
+                                if (!formKey.currentState.validate()) {
+                                  return;
                                 }
+                                final usersUpdateData = createUsersRecordData(
+                                  lastName: functions.capitalize(
+                                      lastNameFieldController?.text ?? ''),
+                                  firstName: functions.capitalize(
+                                      firstNameFieldController?.text ?? ''),
+                                  birth: datePicked,
+                                );
+                                await currentUserReference
+                                    .update(usersUpdateData);
+                                await Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 200),
+                                    reverseDuration:
+                                        Duration(milliseconds: 200),
+                                    child: NavBarPage(initialPage: 'HomePage'),
+                                  ),
+                                );
                               },
                               text: 'Update',
                               options: FFButtonOptions(
@@ -373,7 +355,6 @@ class _CompleteCustomerDetailPageWidgetState
                                 ),
                                 borderRadius: 40,
                               ),
-                              loading: _loadingButton2,
                             ),
                           )
                         ],

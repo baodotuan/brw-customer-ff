@@ -1,6 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../components/edit_item_comp_widget.dart';
+import '../components/menu_bottom_sheet_comp_widget.dart';
 import '../components/top_nav_widget.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -1068,11 +1068,17 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                                   padding: MediaQuery.of(context).viewInsets,
                                                                                   child: Container(
                                                                                     height: MediaQuery.of(context).size.height * 0.4,
-                                                                                    child: EditItemCompWidget(
-                                                                                      orderItemRef: orderItemItem,
+                                                                                    child: MenuBottomSheetCompWidget(
+                                                                                      menuItemRef: rowMenuItemsRecord.reference,
+                                                                                      inCartOrder: widget.inCartOrder,
                                                                                       itemName: rowMenuItemsRecord.name,
-                                                                                      initialQuantity: containerOrderItemsRecord.quantity,
+                                                                                      itemPrice: rowMenuItemsRecord.price,
+                                                                                      newOrderItem: false,
+                                                                                      orderItemRef: orderItemItem,
                                                                                       initialNote: containerOrderItemsRecord.note,
+                                                                                      initialQuantity: containerOrderItemsRecord.quantity,
+                                                                                      initialTotal: cartPageOrdersRecord.total,
+                                                                                      initialAmount: containerOrderItemsRecord.amount,
                                                                                     ),
                                                                                   ),
                                                                                 );
