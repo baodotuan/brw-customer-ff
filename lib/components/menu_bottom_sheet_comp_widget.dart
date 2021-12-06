@@ -13,18 +13,30 @@ import 'package:google_fonts/google_fonts.dart';
 class MenuBottomSheetCompWidget extends StatefulWidget {
   const MenuBottomSheetCompWidget({
     Key key,
-    this.itemRef,
+    this.menuItemRef,
     this.inCartOrder,
     this.itemName,
-    this.itemDes,
     this.itemPrice,
+    this.newOrderItem,
+    this.orderItemRef,
+    this.initialNote,
+    this.initialQuantity,
+    this.initialTotal,
+    this.initialAmount,
+    this.initialTotalQuantity,
   }) : super(key: key);
 
-  final DocumentReference itemRef;
+  final DocumentReference menuItemRef;
   final DocumentReference inCartOrder;
   final String itemName;
-  final String itemDes;
   final int itemPrice;
+  final bool newOrderItem;
+  final DocumentReference orderItemRef;
+  final String initialNote;
+  final int initialQuantity;
+  final int initialTotal;
+  final int initialAmount;
+  final int initialTotalQuantity;
 
   @override
   _MenuBottomSheetCompWidgetState createState() =>
@@ -113,7 +125,7 @@ class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
                         count.toString(),
                         style: FlutterFlowTheme.title3,
                       ),
-                      count: countControllerValue ??= 1,
+                      count: countControllerValue ??= widget.initialQuantity,
                       updateCount: (count) =>
                           setState(() => countControllerValue = count),
                       stepSize: 1,
@@ -178,55 +190,116 @@ class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () async {
-                      final orderItemsCreateData = createOrderItemsRecordData(
-                        item: widget.itemRef,
-                        quantity: countControllerValue,
-                        note: textController.text,
-                        createdTime: getCurrentTimestamp,
-                      );
-                      final orderItemsRecordReference =
-                          OrderItemsRecord.collection.doc();
-                      await orderItemsRecordReference.set(orderItemsCreateData);
-                      createdItem = OrderItemsRecord.getDocumentFromData(
-                          orderItemsCreateData, orderItemsRecordReference);
+                Visibility(
+                  visible: widget.newOrderItem ?? true,
+                  child: Expanded(
+                    child: InkWell(
+                      onTap: () async {
+                        final orderItemsCreateData = createOrderItemsRecordData(
+                          item: widget.menuItemRef,
+                          quantity: countControllerValue,
+                          note: textController.text,
+                          createdTime: getCurrentTimestamp,
+                          amount: functions.multiplyTwoInterger(
+                              widget.itemPrice, countControllerValue),
+                        );
+                        final orderItemsRecordReference =
+                            OrderItemsRecord.collection.doc();
+                        await orderItemsRecordReference
+                            .set(orderItemsCreateData);
+                        createdItem = OrderItemsRecord.getDocumentFromData(
+                            orderItemsCreateData, orderItemsRecordReference);
 
-                      final ordersUpdateData = {
-                        ...createOrdersRecordData(
-                          total: functions.addSubstractTotalPrice(
-                              widget.itemPrice,
-                              countControllerValue,
-                              columnOrdersRecord.total,
-                              true),
-                          totalQuantity: functions.addSubstractTotalPrice(
-                              1,
-                              countControllerValue,
-                              columnOrdersRecord.totalQuantity,
-                              true),
+                        final ordersUpdateData = {
+                          ...createOrdersRecordData(
+                            total: functions.addOrSubstractTwoInterger(
+                                createdItem.amount,
+                                columnOrdersRecord.total,
+                                true),
+                            totalQuantity: functions.addOrSubstractTwoInterger(
+                                createdItem.quantity,
+                                columnOrdersRecord.totalQuantity,
+                                true),
+                          ),
+                          'items':
+                              FieldValue.arrayUnion([createdItem.reference]),
+                        };
+                        await widget.inCartOrder.update(ordersUpdateData);
+                        Navigator.pop(context);
+
+                        setState(() {});
+                      },
+                      child: Container(
+                        width: 100,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.primaryColor,
                         ),
-                        'items': FieldValue.arrayUnion([createdItem.reference]),
-                      };
-                      await widget.inCartOrder.update(ordersUpdateData);
-                      Navigator.pop(context);
-
-                      setState(() {});
-                    },
-                    child: Container(
-                      width: 100,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.primaryColor,
+                        alignment: AlignmentDirectional(0, 0),
+                        child: Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          child: Text(
+                            'Add to cart',
+                            style: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
-                      alignment: AlignmentDirectional(0, 0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Text(
-                          'Add to cart',
-                          style: FlutterFlowTheme.subtitle2.override(
-                            fontFamily: 'Roboto',
-                            color: Colors.white,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: widget.newOrderItem ?? true,
+                  child: Expanded(
+                    child: InkWell(
+                      onTap: () async {
+                        final orderItemsUpdateData = createOrderItemsRecordData(
+                          quantity: countControllerValue,
+                          note: textController.text,
+                          amount: functions.multiplyTwoInterger(
+                              widget.itemPrice, countControllerValue),
+                        );
+                        await widget.orderItemRef.update(orderItemsUpdateData);
+
+                        final ordersUpdateData = createOrdersRecordData(
+                          totalQuantity: functions.addOrSubstractTwoInterger(
+                              functions.addOrSubstractTwoInterger(
+                                  widget.initialTotalQuantity,
+                                  widget.initialQuantity,
+                                  false),
+                              countControllerValue,
+                              true),
+                          total: functions.addOrSubstractTwoInterger(
+                              functions.addOrSubstractTwoInterger(
+                                  widget.initialTotal,
+                                  widget.initialAmount,
+                                  false),
+                              functions.multiplyTwoInterger(
+                                  widget.itemPrice, countControllerValue),
+                              true),
+                        );
+                        await widget.inCartOrder.update(ordersUpdateData);
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        width: 100,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.primaryColor,
+                        ),
+                        alignment: AlignmentDirectional(0, 0),
+                        child: Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          child: Text(
+                            'Update',
+                            style: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),

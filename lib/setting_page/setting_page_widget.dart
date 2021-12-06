@@ -19,7 +19,6 @@ class SettingPageWidget extends StatefulWidget {
 }
 
 class _SettingPageWidgetState extends State<SettingPageWidget> {
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -215,22 +214,17 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                     children: [
                       FFButtonWidget(
                         onPressed: () async {
-                          setState(() => _loadingButton = true);
-                          try {
-                            await signOut();
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 200),
-                                reverseDuration: Duration(milliseconds: 200),
-                                child: LoginPageWidget(),
-                              ),
-                              (r) => false,
-                            );
-                          } finally {
-                            setState(() => _loadingButton = false);
-                          }
+                          await signOut();
+                          await Navigator.pushAndRemoveUntil(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 200),
+                              reverseDuration: Duration(milliseconds: 200),
+                              child: LoginPageWidget(),
+                            ),
+                            (r) => false,
+                          );
                         },
                         text: 'Log Out',
                         options: FFButtonOptions(
@@ -248,7 +242,6 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                           ),
                           borderRadius: 20,
                         ),
-                        loading: _loadingButton,
                       )
                     ],
                   ),

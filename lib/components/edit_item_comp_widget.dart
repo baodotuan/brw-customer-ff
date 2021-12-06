@@ -16,12 +16,18 @@ class EditItemCompWidget extends StatefulWidget {
     this.itemName,
     this.initialQuantity,
     this.initialNote,
+    this.initialTotal,
+    this.initialTotalQuantity,
+    this.orderRef,
   }) : super(key: key);
 
   final DocumentReference orderItemRef;
   final String itemName;
   final int initialQuantity;
   final String initialNote;
+  final int initialTotal;
+  final int initialTotalQuantity;
+  final DocumentReference orderRef;
 
   @override
   _EditItemCompWidgetState createState() => _EditItemCompWidgetState();

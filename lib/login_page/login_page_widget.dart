@@ -16,7 +16,6 @@ class LoginPageWidget extends StatefulWidget {
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
   TextEditingController textController;
-  bool _loadingButton = false;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -70,6 +69,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       ),
                     ),
                     style: FlutterFlowTheme.subtitle1,
+                    keyboardType: TextInputType.phone,
                     validator: (val) {
                       if (val.isEmpty) {
                         return 'Field is required';
@@ -83,40 +83,35 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      setState(() => _loadingButton = true);
-                      try {
-                        if (!formKey.currentState.validate()) {
-                          return;
-                        }
-                        if (textController.text.isEmpty ||
-                            !textController.text.startsWith('+')) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                  'Phone Number is required and has to start with +.'),
-                            ),
-                          );
-                          return;
-                        }
-                        await beginPhoneAuth(
-                          context: context,
-                          phoneNumber: textController.text,
-                          onCodeSent: () async {
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 200),
-                                reverseDuration: Duration(milliseconds: 200),
-                                child: ActivationPageWidget(),
-                              ),
-                              (r) => false,
-                            );
-                          },
-                        );
-                      } finally {
-                        setState(() => _loadingButton = false);
+                      if (!formKey.currentState.validate()) {
+                        return;
                       }
+                      if (textController.text.isEmpty ||
+                          !textController.text.startsWith('+')) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Phone Number is required and has to start with +.'),
+                          ),
+                        );
+                        return;
+                      }
+                      await beginPhoneAuth(
+                        context: context,
+                        phoneNumber: textController.text,
+                        onCodeSent: () async {
+                          await Navigator.pushAndRemoveUntil(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 200),
+                              reverseDuration: Duration(milliseconds: 200),
+                              child: ActivationPageWidget(),
+                            ),
+                            (r) => false,
+                          );
+                        },
+                      );
                     },
                     text: 'Get OTP',
                     options: FFButtonOptions(
@@ -134,7 +129,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       ),
                       borderRadius: 40,
                     ),
-                    loading: _loadingButton,
                   ),
                 )
               ],

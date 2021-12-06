@@ -25,12 +25,16 @@ abstract class OrderItemsRecord
   DateTime get createdTime;
 
   @nullable
+  int get amount;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(OrderItemsRecordBuilder builder) => builder
     ..quantity = 0
-    ..note = '';
+    ..note = ''
+    ..amount = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('orderItems');
@@ -54,6 +58,7 @@ Map<String, dynamic> createOrderItemsRecordData({
   int quantity,
   String note,
   DateTime createdTime,
+  int amount,
 }) =>
     serializers.toFirestore(
         OrderItemsRecord.serializer,
@@ -61,4 +66,5 @@ Map<String, dynamic> createOrderItemsRecordData({
           ..item = item
           ..quantity = quantity
           ..note = note
-          ..createdTime = createdTime));
+          ..createdTime = createdTime
+          ..amount = amount));
