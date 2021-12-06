@@ -252,7 +252,7 @@ class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
                   ),
                 ),
                 Visibility(
-                  visible: widget.newOrderItem ?? true,
+                  visible: !(widget.newOrderItem) ?? true,
                   child: Expanded(
                     child: InkWell(
                       onTap: () async {
