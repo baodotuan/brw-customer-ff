@@ -19,13 +19,17 @@ abstract class CustomerAppSettingRecord
   BuiltList<String> get options;
 
   @nullable
+  int get value;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(CustomerAppSettingRecordBuilder builder) =>
       builder
         ..name = ''
-        ..options = ListBuilder();
+        ..options = ListBuilder()
+        ..value = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('customer_app_setting');
@@ -47,9 +51,11 @@ abstract class CustomerAppSettingRecord
 
 Map<String, dynamic> createCustomerAppSettingRecordData({
   String name,
+  int value,
 }) =>
     serializers.toFirestore(
         CustomerAppSettingRecord.serializer,
         CustomerAppSettingRecord((c) => c
           ..name = name
-          ..options = null));
+          ..options = null
+          ..value = value));
