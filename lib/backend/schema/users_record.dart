@@ -54,6 +54,22 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   DocumentReference get inCartOrder;
 
   @nullable
+  @BuiltValueField(wireName: 'loyalty_card_point')
+  int get loyaltyCardPoint;
+
+  @nullable
+  @BuiltValueField(wireName: 'total_topup')
+  int get totalTopup;
+
+  @nullable
+  @BuiltValueField(wireName: 'total_spent')
+  int get totalSpent;
+
+  @nullable
+  @BuiltValueField(wireName: 'total_app_order')
+  int get totalAppOrder;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -66,7 +82,11 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..firstName = ''
     ..lastName = ''
     ..point = 0
-    ..processingOrder = ListBuilder();
+    ..processingOrder = ListBuilder()
+    ..loyaltyCardPoint = 0
+    ..totalTopup = 0
+    ..totalSpent = 0
+    ..totalAppOrder = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -97,6 +117,10 @@ Map<String, dynamic> createUsersRecordData({
   DateTime birth,
   int point,
   DocumentReference inCartOrder,
+  int loyaltyCardPoint,
+  int totalTopup,
+  int totalSpent,
+  int totalAppOrder,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
@@ -112,4 +136,8 @@ Map<String, dynamic> createUsersRecordData({
           ..birth = birth
           ..point = point
           ..processingOrder = null
-          ..inCartOrder = inCartOrder));
+          ..inCartOrder = inCartOrder
+          ..loyaltyCardPoint = loyaltyCardPoint
+          ..totalTopup = totalTopup
+          ..totalSpent = totalSpent
+          ..totalAppOrder = totalAppOrder));

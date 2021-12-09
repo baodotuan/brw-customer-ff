@@ -26,206 +26,216 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<UsersRecord>(
-      stream: UsersRecord.getDocument(currentUserReference),
-      builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
-        if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 20,
-              height: 20,
-              child: SpinKitRotatingPlain(
-                color: FlutterFlowTheme.primaryColor,
-                size: 20,
-              ),
-            ),
-          );
-        }
-        final orderPageUsersRecord = snapshot.data;
-        return Scaffold(
-          key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.tertiaryColor,
-          floatingActionButton: Visibility(
-            visible: !(functions.missingData(orderPageUsersRecord)) ?? true,
-            child: StreamBuilder<OrdersRecord>(
-              stream:
-                  OrdersRecord.getDocument(orderPageUsersRecord.inCartOrder),
-              builder: (context, snapshot) {
-                // Customize what your widget looks like when it's loading.
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: SpinKitRotatingPlain(
-                        color: FlutterFlowTheme.primaryColor,
-                        size: 20,
-                      ),
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.tertiaryColor,
+      floatingActionButton: Visibility(
+        visible: !(functions.missingData(currentUserDocument?.firstName,
+                currentUserDocument?.lastName)) ??
+            true,
+        child: AuthUserStreamWidget(
+          child: StreamBuilder<OrdersRecord>(
+            stream: OrdersRecord.getDocument(currentUserDocument?.inCartOrder),
+            builder: (context, snapshot) {
+              // Customize what your widget looks like when it's loading.
+              if (!snapshot.hasData) {
+                return Center(
+                  child: SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: SpinKitRotatingPlain(
+                      color: FlutterFlowTheme.primaryColor,
+                      size: 20,
+                    ),
+                  ),
+                );
+              }
+              final floatingActionButtonOrdersRecord = snapshot.data;
+              return FloatingActionButton.extended(
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      duration: Duration(milliseconds: 200),
+                      reverseDuration: Duration(milliseconds: 200),
+                      child: CartPageWidget(),
                     ),
                   );
-                }
-                final floatingActionButtonOrdersRecord = snapshot.data;
-                return FloatingActionButton.extended(
-                  onPressed: () async {
-                    await Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        duration: Duration(milliseconds: 200),
-                        reverseDuration: Duration(milliseconds: 200),
-                        child: CartPageWidget(
-                          inCartOrder: orderPageUsersRecord.inCartOrder,
-                        ),
-                      ),
-                    );
-                  },
-                  backgroundColor: FlutterFlowTheme.primaryColor,
-                  elevation: 4,
-                  label: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(0, 0),
-                        child: Stack(
-                          children: [
-                            Visibility(
-                              visible:
-                                  (floatingActionButtonOrdersRecord.total) !=
-                                      (0),
-                              child: Container(
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: Color(0x00EEEEEE),
-                                  shape: BoxShape.circle,
-                                ),
-                                alignment: AlignmentDirectional(1, -1),
-                                child: Visibility(
-                                  visible: (floatingActionButtonOrdersRecord
-                                          .totalQuantity) !=
-                                      (0),
-                                  child: Container(
-                                    width: 18,
-                                    height: 18,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.tertiaryColor,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Text(
-                                      floatingActionButtonOrdersRecord
-                                          .totalQuantity
-                                          .toString(),
-                                      style:
-                                          FlutterFlowTheme.subtitle2.override(
-                                        fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.primaryColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                },
+                backgroundColor: FlutterFlowTheme.primaryColor,
+                elevation: 4,
+                label: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(0, 0),
+                      child: Stack(
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Color(0x00EEEEEE),
+                              shape: BoxShape.circle,
                             ),
-                            Container(
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Icon(
+                              Icons.shopping_cart,
+                              color: FlutterFlowTheme.tertiaryColor,
+                              size: 25,
+                            ),
+                          ),
+                          Visibility(
+                            visible:
+                                (floatingActionButtonOrdersRecord.total) != (0),
+                            child: Container(
                               width: 50,
                               height: 50,
                               decoration: BoxDecoration(
                                 color: Color(0x00EEEEEE),
                                 shape: BoxShape.circle,
                               ),
-                              alignment: AlignmentDirectional(0, 0),
-                              child: Icon(
-                                Icons.shopping_cart,
+                              alignment: AlignmentDirectional(1, -1),
+                              child: Visibility(
+                                visible: (floatingActionButtonOrdersRecord
+                                        .totalQuantity) !=
+                                    (0),
+                                child: Container(
+                                  width: 18,
+                                  height: 18,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFAE2D2D),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Text(
+                                    floatingActionButtonOrdersRecord
+                                        .totalQuantity
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.subtitle2.override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.tertiaryColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Visibility(
+                      visible: (floatingActionButtonOrdersRecord.total) != (0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              ' - ',
+                              style: FlutterFlowTheme.subtitle2.override(
+                                fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.tertiaryColor,
-                                size: 25,
+                              ),
+                            ),
+                            Text(
+                              floatingActionButtonOrdersRecord.total.toString(),
+                              style: FlutterFlowTheme.subtitle2.override(
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.tertiaryColor,
                               ),
                             )
                           ],
                         ),
                       ),
-                      Visibility(
-                        visible:
-                            (floatingActionButtonOrdersRecord.total) != (0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                ' - ',
-                                style: FlutterFlowTheme.subtitle2.override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.tertiaryColor,
-                                ),
-                              ),
-                              Text(
-                                floatingActionButtonOrdersRecord.total
-                                    .toString(),
-                                style: FlutterFlowTheme.subtitle2.override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.tertiaryColor,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
+                    )
+                  ],
+                ),
+              );
+            },
           ),
-          body: SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                scrollDirection: Axis.vertical,
+                children: [
+                  Stack(
+                    alignment: AlignmentDirectional(0, 1),
                     children: [
-                      Stack(
-                        alignment: AlignmentDirectional(0, 1),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 5),
-                                  child: StreamBuilder<List<NewsRecord>>(
-                                    stream: queryNewsRecord(
-                                      queryBuilder: (newsRecord) =>
-                                          newsRecord.orderBy('index'),
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 20,
-                                            height: 20,
-                                            child: SpinKitRotatingPlain(
-                                              color:
-                                                  FlutterFlowTheme.primaryColor,
-                                              size: 20,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      List<NewsRecord> pageViewNewsRecordList =
-                                          snapshot.data;
-                                      return Container(
-                                        width: double.infinity,
-                                        height: 230,
-                                        child: Stack(
-                                          children: [
-                                            PageView.builder(
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                              child: StreamBuilder<List<NewsRecord>>(
+                                stream: queryNewsRecord(
+                                  queryBuilder: (newsRecord) =>
+                                      newsRecord.orderBy('index'),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: SpinKitRotatingPlain(
+                                          color: FlutterFlowTheme.primaryColor,
+                                          size: 20,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<NewsRecord> pageViewNewsRecordList =
+                                      snapshot.data;
+                                  return Container(
+                                    width: double.infinity,
+                                    height: 230,
+                                    child: Stack(
+                                      children: [
+                                        PageView.builder(
+                                          controller: pageViewController ??=
+                                              PageController(
+                                                  initialPage: min(
+                                                      0,
+                                                      pageViewNewsRecordList
+                                                              .length -
+                                                          1)),
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount:
+                                              pageViewNewsRecordList.length,
+                                          itemBuilder:
+                                              (context, pageViewIndex) {
+                                            final pageViewNewsRecord =
+                                                pageViewNewsRecordList[
+                                                    pageViewIndex];
+                                            return Image.network(
+                                              pageViewNewsRecord.url,
+                                              width: 100,
+                                              height: 100,
+                                              fit: BoxFit.cover,
+                                            );
+                                          },
+                                        ),
+                                        Align(
+                                          alignment: AlignmentDirectional(0, 1),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 0, 25),
+                                            child: SmoothPageIndicator(
                                               controller: pageViewController ??=
                                                   PageController(
                                                       initialPage: min(
@@ -233,462 +243,424 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                           pageViewNewsRecordList
                                                                   .length -
                                                               1)),
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount:
+                                              count:
                                                   pageViewNewsRecordList.length,
-                                              itemBuilder:
-                                                  (context, pageViewIndex) {
-                                                final pageViewNewsRecord =
-                                                    pageViewNewsRecordList[
-                                                        pageViewIndex];
-                                                return Image.network(
-                                                  pageViewNewsRecord.url,
-                                                  width: 100,
-                                                  height: 100,
-                                                  fit: BoxFit.cover,
+                                              axisDirection: Axis.horizontal,
+                                              onDotClicked: (i) {
+                                                pageViewController
+                                                    .animateToPage(
+                                                  i,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  curve: Curves.ease,
                                                 );
                                               },
-                                            ),
-                                            Align(
-                                              alignment:
-                                                  AlignmentDirectional(0, 1),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 25),
-                                                child: SmoothPageIndicator(
-                                                  controller: pageViewController ??=
-                                                      PageController(
-                                                          initialPage: min(
-                                                              0,
-                                                              pageViewNewsRecordList
-                                                                      .length -
-                                                                  1)),
-                                                  count: pageViewNewsRecordList
-                                                      .length,
-                                                  axisDirection:
-                                                      Axis.horizontal,
-                                                  onDotClicked: (i) {
-                                                    pageViewController
-                                                        .animateToPage(
-                                                      i,
-                                                      duration: Duration(
-                                                          milliseconds: 500),
-                                                      curve: Curves.ease,
-                                                    );
-                                                  },
-                                                  effect: ExpandingDotsEffect(
-                                                    expansionFactor: 2,
-                                                    spacing: 5,
-                                                    radius: 10,
-                                                    dotWidth: 5,
-                                                    dotHeight: 3,
-                                                    dotColor: FlutterFlowTheme
-                                                        .tertiaryColor,
-                                                    activeDotColor:
-                                                        FlutterFlowTheme
-                                                            .tertiaryColor,
-                                                    paintStyle:
-                                                        PaintingStyle.fill,
-                                                  ),
-                                                ),
+                                              effect: ExpandingDotsEffect(
+                                                expansionFactor: 2,
+                                                spacing: 5,
+                                                radius: 10,
+                                                dotWidth: 5,
+                                                dotHeight: 3,
+                                                dotColor: FlutterFlowTheme
+                                                    .tertiaryColor,
+                                                activeDotColor: FlutterFlowTheme
+                                                    .tertiaryColor,
+                                                paintStyle: PaintingStyle.fill,
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        width: 100,
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.tertiaryColor,
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(0),
-                                            bottomRight: Radius.circular(0),
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ],
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           )
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      Align(
+                        alignment: AlignmentDirectional(0, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    width: 100,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.tertiaryColor,
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(0),
+                                        bottomRight: Radius.circular(0),
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Order now',
+                          style: FlutterFlowTheme.title1,
+                        )
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: functions.missingData(
+                            currentUserDocument?.firstName,
+                            currentUserDocument?.lastName) ??
+                        true,
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                      child: AuthUserStreamWidget(
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Order now',
-                              style: FlutterFlowTheme.title1,
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(0, 0),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.grey1,
+                                    borderRadius: BorderRadius.circular(10),
+                                    shape: BoxShape.rectangle,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10, 0, 10, 0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Complete your profile to start!',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.title3,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 10, 0, 0),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              await Navigator
+                                                  .pushAndRemoveUntil(
+                                                context,
+                                                PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  duration: Duration(
+                                                      milliseconds: 200),
+                                                  reverseDuration: Duration(
+                                                      milliseconds: 200),
+                                                  child:
+                                                      CompleteCustomerDetailPageWidget(
+                                                    newUser: true,
+                                                  ),
+                                                ),
+                                                (r) => false,
+                                              );
+                                            },
+                                            text: 'Complete Now ',
+                                            options: FFButtonOptions(
+                                              width: 150,
+                                              height: 40,
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Roboto',
+                                                color: Colors.white,
+                                              ),
+                                              elevation: 3,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 40,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                             )
                           ],
                         ),
                       ),
-                      Visibility(
-                        visible:
-                            functions.missingData(orderPageUsersRecord) ?? true,
-                        child: Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                          child: Row(
+                    ),
+                  ),
+                  Visibility(
+                    visible: !(functions.missingData(
+                            currentUserDocument?.firstName,
+                            currentUserDocument?.lastName)) ??
+                        true,
+                    child: AuthUserStreamWidget(
+                      child: StreamBuilder<List<MenuCategoriesRecord>>(
+                        stream: queryMenuCategoriesRecord(
+                          queryBuilder: (menuCategoriesRecord) =>
+                              menuCategoriesRecord.orderBy('index'),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: SpinKitRotatingPlain(
+                                  color: FlutterFlowTheme.primaryColor,
+                                  size: 20,
+                                ),
+                              ),
+                            );
+                          }
+                          List<MenuCategoriesRecord>
+                              menuColumnMenuCategoriesRecordList =
+                              snapshot.data;
+                          return Column(
                             mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Align(
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 150,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.grey1,
-                                      borderRadius: BorderRadius.circular(10),
-                                      shape: BoxShape.rectangle,
-                                    ),
-                                    child: Padding(
+                            children: List.generate(
+                                menuColumnMenuCategoriesRecordList.length,
+                                (menuColumnIndex) {
+                              final menuColumnMenuCategoriesRecord =
+                                  menuColumnMenuCategoriesRecordList[
+                                      menuColumnIndex];
+                              return Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 10, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
-                                      child: Column(
+                                          0, 20, 0, 0),
+                                      child: Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            'Complete your profile to start!',
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.title3,
-                                          ),
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0, 10, 0, 0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                await Navigator
-                                                    .pushAndRemoveUntil(
-                                                  context,
-                                                  PageTransition(
-                                                    type:
-                                                        PageTransitionType.fade,
-                                                    duration: Duration(
-                                                        milliseconds: 200),
-                                                    reverseDuration: Duration(
-                                                        milliseconds: 200),
-                                                    child:
-                                                        CompleteCustomerDetailPageWidget(
-                                                      newUser: true,
-                                                    ),
-                                                  ),
-                                                  (r) => false,
-                                                );
-                                              },
-                                              text: 'Complete Now ',
-                                              options: FFButtonOptions(
-                                                width: 150,
-                                                height: 40,
-                                                color: FlutterFlowTheme
-                                                    .primaryColor,
-                                                textStyle: FlutterFlowTheme
-                                                    .subtitle2
-                                                    .override(
-                                                  fontFamily: 'Roboto',
-                                                  color: Colors.white,
-                                                ),
-                                                elevation: 3,
-                                                borderSide: BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1,
-                                                ),
-                                                borderRadius: 40,
+                                                    10, 0, 0, 0),
+                                            child: Text(
+                                              menuColumnMenuCategoriesRecord
+                                                  .name,
+                                              style: FlutterFlowTheme.subtitle1
+                                                  .override(
+                                                fontFamily: 'Roboto',
+                                                color: Colors.black,
                                               ),
                                             ),
                                           )
                                         ],
                                       ),
                                     ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible:
-                            !(functions.missingData(orderPageUsersRecord)) ??
-                                true,
-                        child: StreamBuilder<List<MenuCategoriesRecord>>(
-                          stream: queryMenuCategoriesRecord(
-                            queryBuilder: (menuCategoriesRecord) =>
-                                menuCategoriesRecord.orderBy('index'),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: SpinKitRotatingPlain(
-                                    color: FlutterFlowTheme.primaryColor,
-                                    size: 20,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<MenuCategoriesRecord>
-                                menuColumnMenuCategoriesRecordList =
-                                snapshot.data;
-                            return Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: List.generate(
-                                  menuColumnMenuCategoriesRecordList.length,
-                                  (menuColumnIndex) {
-                                final menuColumnMenuCategoriesRecord =
-                                    menuColumnMenuCategoriesRecordList[
-                                        menuColumnIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 10, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 20, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 0),
-                                              child: Text(
-                                                menuColumnMenuCategoriesRecord
-                                                    .name,
-                                                style: FlutterFlowTheme
-                                                    .subtitle1
-                                                    .override(
-                                                  fontFamily: 'Roboto',
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                    StreamBuilder<List<MenuItemsRecord>>(
+                                      stream: queryMenuItemsRecord(
+                                        queryBuilder: (menuItemsRecord) =>
+                                            menuItemsRecord
+                                                .where('category',
+                                                    isEqualTo:
+                                                        menuColumnMenuCategoriesRecord
+                                                            .reference)
+                                                .orderBy('index'),
                                       ),
-                                      StreamBuilder<List<MenuItemsRecord>>(
-                                        stream: queryMenuItemsRecord(
-                                          queryBuilder: (menuItemsRecord) =>
-                                              menuItemsRecord
-                                                  .where('category',
-                                                      isEqualTo:
-                                                          menuColumnMenuCategoriesRecord
-                                                              .reference)
-                                                  .orderBy('index'),
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 20,
-                                                height: 20,
-                                                child: SpinKitRotatingPlain(
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 20,
+                                              height: 20,
+                                              child: SpinKitRotatingPlain(
+                                                color: FlutterFlowTheme
+                                                    .primaryColor,
+                                                size: 20,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<MenuItemsRecord>
+                                            columnMenuItemsRecordList =
+                                            snapshot.data;
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: List.generate(
+                                              columnMenuItemsRecordList.length,
+                                              (columnIndex) {
+                                            final columnMenuItemsRecord =
+                                                columnMenuItemsRecordList[
+                                                    columnIndex];
+                                            return Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 1, 0, 0),
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: 80,
+                                                decoration: BoxDecoration(
                                                   color: FlutterFlowTheme
-                                                      .primaryColor,
-                                                  size: 20,
+                                                      .tertiaryColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                    color: Color(0x00CECECE),
+                                                  ),
+                                                ),
+                                                alignment:
+                                                    AlignmentDirectional(0, 0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      barrierColor:
+                                                          Colors.transparent,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return Padding(
+                                                          padding:
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .viewInsets,
+                                                          child: Container(
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.5,
+                                                            child:
+                                                                MenuBottomSheetCompWidget(
+                                                              menuItemRef:
+                                                                  columnMenuItemsRecord
+                                                                      .reference,
+                                                              newOrderItem:
+                                                                  true,
+                                                              initialQuantity:
+                                                                  1,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(10, 5,
+                                                                    0, 5),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              columnMenuItemsRecord
+                                                                  .name,
+                                                              style:
+                                                                  FlutterFlowTheme
+                                                                      .subtitle2,
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          10,
+                                                                          0,
+                                                                          0),
+                                                              child: Text(
+                                                                formatNumber(
+                                                                  columnMenuItemsRecord
+                                                                      .price,
+                                                                  formatType:
+                                                                      FormatType
+                                                                          .decimal,
+                                                                  decimalType:
+                                                                      DecimalType
+                                                                          .commaDecimal,
+                                                                ),
+                                                                style: FlutterFlowTheme
+                                                                    .bodyText1,
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          imageUrl:
+                                                              columnMenuItemsRecord
+                                                                  .image,
+                                                          width: 80,
+                                                          height: 80,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             );
-                                          }
-                                          List<MenuItemsRecord>
-                                              columnMenuItemsRecordList =
-                                              snapshot.data;
-                                          return Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: List.generate(
-                                                columnMenuItemsRecordList
-                                                    .length, (columnIndex) {
-                                              final columnMenuItemsRecord =
-                                                  columnMenuItemsRecordList[
-                                                      columnIndex];
-                                              return Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 1, 0, 0),
-                                                child: Container(
-                                                  width: double.infinity,
-                                                  height: 80,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme
-                                                        .tertiaryColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    border: Border.all(
-                                                      color: Color(0x00CECECE),
-                                                    ),
-                                                  ),
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0, 0),
-                                                  child: InkWell(
-                                                    onTap: () async {
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return Padding(
-                                                            padding:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .viewInsets,
-                                                            child: Container(
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height *
-                                                                  0.4,
-                                                              child:
-                                                                  MenuBottomSheetCompWidget(
-                                                                inCartOrder:
-                                                                    orderPageUsersRecord
-                                                                        .inCartOrder,
-                                                                itemName:
-                                                                    columnMenuItemsRecord
-                                                                        .name,
-                                                                itemPrice:
-                                                                    columnMenuItemsRecord
-                                                                        .price,
-                                                                menuItemRef:
-                                                                    columnMenuItemsRecord
-                                                                        .reference,
-                                                                newOrderItem:
-                                                                    true,
-                                                                initialQuantity:
-                                                                    1,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(10,
-                                                                      5, 0, 5),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                columnMenuItemsRecord
-                                                                    .name,
-                                                                style: FlutterFlowTheme
-                                                                    .subtitle2,
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            10,
-                                                                            0,
-                                                                            0),
-                                                                child: Text(
-                                                                  formatNumber(
-                                                                    columnMenuItemsRecord
-                                                                        .price,
-                                                                    formatType:
-                                                                        FormatType
-                                                                            .decimal,
-                                                                    decimalType:
-                                                                        DecimalType
-                                                                            .commaDecimal,
-                                                                  ),
-                                                                  style: FlutterFlowTheme
-                                                                      .bodyText1,
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            imageUrl:
-                                                                columnMenuItemsRecord
-                                                                    .image,
-                                                            width: 80,
-                                                            height: 80,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }),
-                                          );
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }),
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        );
-      },
+                                          }),
+                                        );
+                                      },
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
+                          );
+                        },
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
