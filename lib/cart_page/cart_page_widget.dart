@@ -1171,7 +1171,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                                 () async {
                                                                               final ordersUpdateData = {
                                                                                 ...createOrdersRecordData(
-                                                                                  total: functions.addOrSubstractTwoInterger(cartPageOrdersRecord.total, containerOrderItemsRecord.quantity, false),
+                                                                                  total: functions.addOrSubstractTwoInterger(cartPageOrdersRecord.total, containerOrderItemsRecord.amount, false),
                                                                                   totalQuantity: functions.addOrSubstractTwoInterger(cartPageOrdersRecord.totalQuantity, containerOrderItemsRecord.quantity, false),
                                                                                 ),
                                                                                 'items': FieldValue.arrayRemove([
