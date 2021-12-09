@@ -16,12 +16,18 @@ String getFullName(
   return lastName + ' ' + firstName;
 }
 
-bool missingData(UsersRecord user) {
+bool missingData(
+  String firstName,
+  String lastName,
+) {
   // Add your function code here!
-  if ([null, ''].contains(user.firstName) ||
-      [null, ''].contains(user.lastName)) {
-    return true;
-  } else {
+  try {
+    if ([null, ''].contains(firstName) || [null, ''].contains(lastName)) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
     return false;
   }
 }
@@ -34,20 +40,6 @@ String getShortName(UsersRecord user) {
 String capitalize(String input) {
   // Add your function code here!
   return input.toUpperCase();
-}
-
-int addSubstractTotalPrice(
-  int price,
-  int quantity,
-  int initialTotal,
-  bool addToCart,
-) {
-  // Add your function code here!
-  if (addToCart) {
-    return (initialTotal + price * quantity);
-  } else {
-    return (initialTotal - price * quantity);
-  }
 }
 
 DateTime add15min(DateTime currentTime) {
@@ -96,4 +88,14 @@ int addOrSubstractTwoInterger(
   } else {
     return input1 - input2;
   }
+}
+
+List<String> getStaffReference(List<StaffsRecord> documents) {
+  // Add your function code here!
+  var maxIndex = documents.length - 1;
+  List<String> result = [];
+  for (var i = 0; i <= maxIndex; i++) {
+    result.add(documents[i].uid);
+  }
+  return result;
 }

@@ -12,6 +12,8 @@ import 'schema/order_items_record.dart';
 import 'schema/orders_record.dart';
 import 'schema/customer_app_setting_record.dart';
 import 'schema/news_record.dart';
+import 'schema/staffs_record.dart';
+import 'schema/vouchers_record.dart';
 import 'schema/serializers.dart';
 
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,6 +28,8 @@ export 'schema/order_items_record.dart';
 export 'schema/orders_record.dart';
 export 'schema/customer_app_setting_record.dart';
 export 'schema/news_record.dart';
+export 'schema/staffs_record.dart';
+export 'schema/vouchers_record.dart';
 
 Stream<List<UsersRecord>> queryUsersRecord(
         {Query Function(Query) queryBuilder,
@@ -84,6 +88,20 @@ Stream<List<NewsRecord>> queryNewsRecord(
         int limit = -1,
         bool singleRecord = false}) =>
     queryCollection(NewsRecord.collection, NewsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Stream<List<StaffsRecord>> queryStaffsRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(StaffsRecord.collection, StaffsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Stream<List<VouchersRecord>> queryVouchersRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(VouchersRecord.collection, VouchersRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
 Stream<List<T>> queryCollection<T>(

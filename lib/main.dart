@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
-
+import 'backend/push_notifications/push_notifications_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:brw_customer/login_page/login_page_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
@@ -27,19 +27,23 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Stream<BrwCustomerFirebaseUser> userStream;
   BrwCustomerFirebaseUser initialUser;
+  bool displaySplashImage = true;
   final authUserSub = authenticatedUserStream.listen((_) {});
+  final fcmTokenSub = fcmTokenUserStream.listen((_) {});
 
   @override
   void initState() {
     super.initState();
     userStream = brwCustomerFirebaseUserStream()
       ..listen((user) => initialUser ?? setState(() => initialUser = user));
+    Future.delayed(
+        Duration(seconds: 1), () => setState(() => displaySplashImage = false));
   }
 
   @override
   void dispose() {
     authUserSub.cancel();
-
+    fcmTokenSub.cancel();
     super.dispose();
   }
 
@@ -54,7 +58,7 @@ class _MyAppState extends State<MyApp> {
       ],
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: initialUser == null
+      home: initialUser == null || displaySplashImage
           ? Container(
               color: Colors.transparent,
               child: Builder(
@@ -65,7 +69,7 @@ class _MyAppState extends State<MyApp> {
               ),
             )
           : currentUser.loggedIn
-              ? NavBarPage()
+              ? PushNotificationsHandler(child: NavBarPage())
               : LoginPageWidget(),
     );
   }

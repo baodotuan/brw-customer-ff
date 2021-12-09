@@ -13,6 +13,7 @@ class FlutterFlowTheme {
   static const Color stbBeige = Color(0xFFE9E6DF);
   static const Color bg01 = Color(0xFFEAE6D3);
   static const Color red01 = Color(0xFFB55329);
+  static const Color creditCardColor = Color(0xFFFCFAF9);
 
   String primaryFontFamily = 'Poppins';
   String secondaryFontFamily = 'Roboto';
