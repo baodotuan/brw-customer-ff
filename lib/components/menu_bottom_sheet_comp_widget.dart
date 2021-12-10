@@ -197,7 +197,7 @@ class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
                                         10, 0, 10, 0),
                                     child: Container(
                                       width: 100,
-                                      height: 100,
+                                      height: 50,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.grey1,
                                         borderRadius: BorderRadius.circular(10),

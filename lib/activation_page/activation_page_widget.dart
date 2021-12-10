@@ -42,33 +42,44 @@ class _ActivationPageWidgetState extends State<ActivationPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
-                      child: TextFormField(
-                        controller: otpFieldController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          hintText: 'Enter 6 digit code',
-                          hintStyle: FlutterFlowTheme.subtitle2,
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.tertiaryColor,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.tertiaryColor,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          filled: true,
-                          fillColor: FlutterFlowTheme.grey1,
+                    child: Align(
+                      alignment: AlignmentDirectional(0, 0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.grey1,
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        style: FlutterFlowTheme.subtitle2,
-                        keyboardType: TextInputType.number,
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                          child: TextFormField(
+                            controller: otpFieldController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              hintText: 'Enter 6 digit code',
+                              hintStyle: FlutterFlowTheme.subtitle2,
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00FFFFFF),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00FFFFFF),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                              filled: true,
+                              fillColor: Color(0x00F2F2F2),
+                            ),
+                            style: FlutterFlowTheme.subtitle2,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
                       ),
                     ),
                   )
