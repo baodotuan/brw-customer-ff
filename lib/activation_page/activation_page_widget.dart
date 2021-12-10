@@ -138,7 +138,7 @@ class _ActivationPageWidgetState extends State<ActivationPageWidget> {
                   'cancel',
                   style: FlutterFlowTheme.bodyText1.override(
                     fontFamily: 'Roboto',
-                    color: FlutterFlowTheme.secondaryColor,
+                    color: Color(0xFF3377BC),
                     fontStyle: FontStyle.italic,
                   ),
                 ),

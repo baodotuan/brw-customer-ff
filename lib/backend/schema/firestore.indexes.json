@@ -24,7 +24,7 @@
         },
         {
           "fieldPath": "time",
-          "order": "ASCENDING"
+          "order": "DESCENDING"
         }
       ]
     }

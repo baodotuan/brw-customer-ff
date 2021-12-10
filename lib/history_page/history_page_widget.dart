@@ -49,7 +49,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                   stream: queryTransactionsRecord(
                     queryBuilder: (transactionsRecord) => transactionsRecord
                         .where('customer_id', isEqualTo: currentUserReference)
-                        .orderBy('time'),
+                        .orderBy('time', descending: true),
                     limit: 15,
                   ),
                   builder: (context, snapshot) {

@@ -30,11 +30,6 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
       duration: 600,
       fadeIn: true,
     ),
-    'imageOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      fadeIn: true,
-    ),
   };
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -117,7 +112,7 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'You just got your 50.000 points!',
+                              'You just got your ${congratPageCustomerAppSettingRecord.value.toString()} points!',
                               style: FlutterFlowTheme.title2.override(
                                 fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.primaryColor,
@@ -139,7 +134,7 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                       width: MediaQuery.of(context).size.width * 0.95,
                       height: MediaQuery.of(context).size.height * 0.6,
                       fit: BoxFit.fitHeight,
-                    ).animated([animationsMap['imageOnPageLoadAnimation']])
+                    )
                   ],
                 ),
                 Padding(
@@ -150,26 +145,29 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                     children: [
                       InkWell(
                         onTap: () async {
-                          final usersUpdateData = createUsersRecordData(
-                            loyaltyCardPoint: 0,
-                            point: functions.addOrSubstractTwoInterger(
-                                currentUserDocument?.point,
-                                congratPageCustomerAppSettingRecord.value,
-                                true),
-                          );
-                          await currentUserReference.update(usersUpdateData);
-
-                          final transactionsCreateData =
-                              createTransactionsRecordData(
-                            time: getCurrentTimestamp,
-                            amount: congratPageCustomerAppSettingRecord.value,
-                            customerId: currentUserReference,
-                            receiptUrl: '',
-                            credit: false,
-                          );
-                          await TransactionsRecord.collection
-                              .doc()
-                              .set(transactionsCreateData);
+                          if ((currentUserDocument?.loyaltyCardPoint) >= (10)) {
+                            final usersUpdateData = createUsersRecordData(
+                              loyaltyCardPoint: 0,
+                              point: functions.addOrSubstractTwoInterger(
+                                  currentUserDocument?.point,
+                                  congratPageCustomerAppSettingRecord.value,
+                                  true),
+                            );
+                            await currentUserReference.update(usersUpdateData);
+                          }
+                          if ((currentUserDocument?.loyaltyCardPoint) >= (10)) {
+                            final transactionsCreateData =
+                                createTransactionsRecordData(
+                              time: getCurrentTimestamp,
+                              amount: congratPageCustomerAppSettingRecord.value,
+                              customerId: currentUserReference,
+                              receiptUrl: '',
+                              credit: false,
+                            );
+                            await TransactionsRecord.collection
+                                .doc()
+                                .set(transactionsCreateData);
+                          }
                           await Navigator.push(
                             context,
                             PageTransition(
