@@ -552,7 +552,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                         context)
                                                                     .size
                                                                     .height *
-                                                                0.7,
+                                                                0.6,
                                                             child:
                                                                 MenuBottomSheetCompWidget(
                                                               menuItemRef:
