@@ -236,72 +236,118 @@ class _CompleteCustomerDetailPageWidgetState
                     children: [
                       Visibility(
                         visible: widget.newUser ?? true,
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            if (!formKey.currentState.validate()) {
-                              return;
+                        child: StreamBuilder<List<CustomerAppSettingRecord>>(
+                          stream: queryCustomerAppSettingRecord(
+                            queryBuilder: (customerAppSettingRecord) =>
+                                customerAppSettingRecord.where('name',
+                                    isEqualTo: 'new_user_created'),
+                            singleRecord: true,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: SpinKitRotatingPlain(
+                                    color: FlutterFlowTheme.primaryColor,
+                                    size: 20,
+                                  ),
+                                ),
+                              );
                             }
-                            final ordersCreateData = createOrdersRecordData(
-                              userId: currentUserReference,
-                              total: 0,
-                              inCart: true,
-                              transacted: false,
-                              cashPayment: false,
-                              pointPayment: true,
-                              pickup: true,
-                              delivery: false,
-                              totalQuantity: 0,
-                              statusProcessing: false,
-                              statusReady: false,
-                              statusDone: false,
-                            );
-                            final ordersRecordReference =
-                                OrdersRecord.collection.doc();
-                            await ordersRecordReference.set(ordersCreateData);
-                            createdOrder = OrdersRecord.getDocumentFromData(
-                                ordersCreateData, ordersRecordReference);
+                            List<CustomerAppSettingRecord>
+                                buttonCustomerAppSettingRecordList =
+                                snapshot.data;
+                            final buttonCustomerAppSettingRecord =
+                                buttonCustomerAppSettingRecordList.isNotEmpty
+                                    ? buttonCustomerAppSettingRecordList.first
+                                    : null;
+                            return FFButtonWidget(
+                              onPressed: () async {
+                                if (!formKey.currentState.validate()) {
+                                  return;
+                                }
+                                final ordersCreateData = createOrdersRecordData(
+                                  userId: currentUserReference,
+                                  total: 0,
+                                  inCart: true,
+                                  transacted: false,
+                                  cashPayment: false,
+                                  pointPayment: true,
+                                  pickup: true,
+                                  delivery: false,
+                                  totalQuantity: 0,
+                                  statusProcessing: false,
+                                  statusReady: false,
+                                  statusDone: false,
+                                  createdTime: getCurrentTimestamp,
+                                );
+                                final ordersRecordReference =
+                                    OrdersRecord.collection.doc();
+                                await ordersRecordReference
+                                    .set(ordersCreateData);
+                                createdOrder = OrdersRecord.getDocumentFromData(
+                                    ordersCreateData, ordersRecordReference);
 
-                            final usersUpdateData = createUsersRecordData(
-                              lastName: functions
-                                  .capitalize(lastNameFieldController.text),
-                              firstName: functions
-                                  .capitalize(firstNameFieldController.text),
-                              point: 0,
-                              birth: datePicked,
-                              inCartOrder: createdOrder.reference,
-                              loyaltyCardPoint: 0,
-                              totalTopup: 0,
-                              totalSpent: 0,
-                              totalAppOrder: 0,
-                            );
-                            await currentUserReference.update(usersUpdateData);
-                            await Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 200),
-                                reverseDuration: Duration(milliseconds: 200),
-                                child: NavBarPage(initialPage: 'HomePage'),
+                                final usersUpdateData = createUsersRecordData(
+                                  lastName: functions
+                                      .capitalize(lastNameFieldController.text),
+                                  firstName: functions.capitalize(
+                                      firstNameFieldController.text),
+                                  point: buttonCustomerAppSettingRecord.value,
+                                  birth: datePicked,
+                                  inCartOrder: createdOrder.reference,
+                                  loyaltyCardPoint: 0,
+                                  totalTopup: 0,
+                                  totalSpent: 0,
+                                  totalAppOrder: 0,
+                                );
+                                await currentUserReference
+                                    .update(usersUpdateData);
+
+                                final transactionsCreateData =
+                                    createTransactionsRecordData(
+                                  time: getCurrentTimestamp,
+                                  amount: buttonCustomerAppSettingRecord.value,
+                                  customerId: currentUserReference,
+                                  receiptUrl: '',
+                                  credit: false,
+                                );
+                                await TransactionsRecord.collection
+                                    .doc()
+                                    .set(transactionsCreateData);
+                                await Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 200),
+                                    reverseDuration:
+                                        Duration(milliseconds: 200),
+                                    child: NavBarPage(initialPage: 'HomePage'),
+                                  ),
+                                );
+
+                                setState(() {});
+                              },
+                              text: 'Complete',
+                              options: FFButtonOptions(
+                                width: 130,
+                                height: 40,
+                                color: FlutterFlowTheme.primaryColor,
+                                textStyle: FlutterFlowTheme.subtitle2.override(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.white,
+                                ),
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: 40,
                               ),
                             );
-
-                            setState(() {});
                           },
-                          text: 'Complete',
-                          options: FFButtonOptions(
-                            width: 130,
-                            height: 40,
-                            color: FlutterFlowTheme.primaryColor,
-                            textStyle: FlutterFlowTheme.subtitle2.override(
-                              fontFamily: 'Roboto',
-                              color: Colors.white,
-                            ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                            borderRadius: 40,
-                          ),
                         ),
                       ),
                       Visibility(
