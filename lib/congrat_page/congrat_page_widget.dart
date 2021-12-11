@@ -112,7 +112,11 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'You just got your ${congratPageCustomerAppSettingRecord.value.toString()} points!',
+                              'You just got your ${formatNumber(
+                                congratPageCustomerAppSettingRecord.value,
+                                formatType: FormatType.decimal,
+                                decimalType: DecimalType.commaDecimal,
+                              )} points!',
                               style: FlutterFlowTheme.title2.override(
                                 fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.primaryColor,
