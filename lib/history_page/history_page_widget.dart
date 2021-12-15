@@ -82,7 +82,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                             width: MediaQuery.of(context).size.width,
                             height: 80,
                             decoration: BoxDecoration(
-                              color: Color(0xFFF4F4F4),
+                              color: FlutterFlowTheme.grey1,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Padding(
