@@ -11,7 +11,7 @@ class FlutterFlowTheme {
   static const Color grey2 = Color(0xFFCECECE);
   static const Color black = Color(0xFF000000);
   static const Color stbBeige = Color(0xFFE9E6DF);
-  static const Color bg01 = Color(0xFFEAE6D3);
+  static const Color bg01 = Color(0xFFF7F2D8);
   static const Color red01 = Color(0xFFB55329);
   static const Color creditCardColor = Color(0xFFFCFAF9);
   static const Color grey3 = Color(0xFF535353);
