@@ -216,8 +216,8 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                             final pageViewNewsRecord =
                                                 pageViewNewsRecordList[
                                                     pageViewIndex];
-                                            return Image.network(
-                                              pageViewNewsRecord.url,
+                                            return CachedNetworkImage(
+                                              imageUrl: pageViewNewsRecord.url,
                                               width: 100,
                                               height: 100,
                                               fit: BoxFit.cover,
