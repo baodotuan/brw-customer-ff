@@ -106,7 +106,7 @@ class _CompleteCustomerDetailPageWidgetState
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 Padding(
@@ -161,7 +161,7 @@ class _CompleteCustomerDetailPageWidgetState
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -219,12 +219,12 @@ class _CompleteCustomerDetailPageWidgetState
                                     color: FlutterFlowTheme.grey2,
                                     size: 30,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -234,9 +234,8 @@ class _CompleteCustomerDetailPageWidgetState
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Visibility(
-                        visible: widget.newUser ?? true,
-                        child: StreamBuilder<List<CustomerAppSettingRecord>>(
+                      if (widget.newUser ?? true)
+                        StreamBuilder<List<CustomerAppSettingRecord>>(
                           stream: queryCustomerAppSettingRecord(
                             queryBuilder: (customerAppSettingRecord) =>
                                 customerAppSettingRecord.where('name',
@@ -349,10 +348,8 @@ class _CompleteCustomerDetailPageWidgetState
                             );
                           },
                         ),
-                      ),
-                      Visibility(
-                        visible: !(widget.newUser) ?? true,
-                        child: FFButtonWidget(
+                      if (!(widget.newUser) ?? true)
+                        FFButtonWidget(
                           onPressed: () async {
                             if (!formKey.currentState.validate()) {
                               return;
@@ -391,10 +388,9 @@ class _CompleteCustomerDetailPageWidgetState
                             borderRadius: 40,
                           ),
                         ),
-                      )
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

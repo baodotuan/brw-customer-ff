@@ -116,7 +116,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -151,7 +151,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -172,7 +172,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       color: FlutterFlowTheme.primaryColor,
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -192,15 +192,15 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       color: FlutterFlowTheme.primaryColor,
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       );
                     },
                   ),
-                )
+                ),
               ],
             ),
             Column(
@@ -242,12 +242,12 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                           ),
                           borderRadius: 20,
                         ),
-                      )
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),

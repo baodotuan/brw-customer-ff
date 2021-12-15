@@ -63,7 +63,7 @@ class _EditItemCompWidgetState extends State<EditItemCompWidget> {
                       widget.itemName,
                       style: FlutterFlowTheme.title1,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -152,9 +152,9 @@ class _EditItemCompWidgetState extends State<EditItemCompWidget> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
-            )
+            ),
           ],
         ),
         Row(
@@ -190,9 +190,9 @@ class _EditItemCompWidgetState extends State<EditItemCompWidget> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
   }

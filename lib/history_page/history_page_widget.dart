@@ -38,7 +38,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                   Text(
                     'History',
                     style: FlutterFlowTheme.title1,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -108,11 +108,9 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Visibility(
-                                      visible: !(listViewTransactionsRecord
-                                              .credit) ??
-                                          true,
-                                      child: Container(
+                                    if (!(listViewTransactionsRecord.credit) ??
+                                        true)
+                                      Container(
                                         width: 60,
                                         height: 60,
                                         decoration: BoxDecoration(
@@ -132,12 +130,9 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Visibility(
-                                      visible:
-                                          listViewTransactionsRecord.credit ??
-                                              true,
-                                      child: Container(
+                                    if (listViewTransactionsRecord.credit ??
+                                        true)
+                                      Container(
                                         width: 60,
                                         height: 60,
                                         decoration: BoxDecoration(
@@ -157,7 +152,6 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                           ),
                                         ),
                                       ),
-                                    ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           20, 0, 0, 0),
@@ -201,7 +195,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                   listViewTransactionsRecord
                                                       .time),
                                               style: FlutterFlowTheme.subtitle1,
-                                            )
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -245,12 +239,10 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Visibility(
-                                                visible:
-                                                    !(listViewTransactionsRecord
-                                                            .credit) ??
-                                                        true,
-                                                child: Row(
+                                              if (!(listViewTransactionsRecord
+                                                      .credit) ??
+                                                  true)
+                                                Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
@@ -281,16 +273,13 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                               Color(0xFF418714),
                                                         ),
                                                       ),
-                                                    )
+                                                    ),
                                                   ],
                                                 ),
-                                              ),
-                                              Visibility(
-                                                visible:
-                                                    listViewTransactionsRecord
-                                                            .credit ??
-                                                        true,
-                                                child: Row(
+                                              if (listViewTransactionsRecord
+                                                      .credit ??
+                                                  true)
+                                                Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
@@ -311,15 +300,14 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                         style: FlutterFlowTheme
                                                             .bodyText1,
                                                       ),
-                                                    )
+                                                    ),
                                                   ],
                                                 ),
-                                              )
                                             ],
                                           ),
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -331,7 +319,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                   },
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

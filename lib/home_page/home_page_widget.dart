@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../history_page/history_page_widget.dart';
 import '../processing_order_page/processing_order_page_widget.dart';
 import '../setting_page/setting_page_widget.dart';
+import '../custom_code/widgets/index.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       'Welcome Back!',
                       style: FlutterFlowTheme.title1,
                     ),
+                    AuthUserStreamWidget(
+                      child: Fcm(
+                        width: 10,
+                        height: 10,
+                        uid: currentUserUid,
+                      ),
+                    ),
                     InkWell(
                       onTap: () async {
                         await Navigator.push(
@@ -73,7 +81,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           size: 30,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -82,12 +90,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.vertical,
                   children: [
-                    Visibility(
-                      visible: functions.missingData(
-                              currentUserDocument?.firstName,
-                              currentUserDocument?.lastName) ??
-                          true,
-                      child: Padding(
+                    if (functions.missingData(currentUserDocument?.firstName,
+                            currentUserDocument?.lastName) ??
+                        true)
+                      Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
                         child: AuthUserStreamWidget(
                           child: Row(
@@ -161,24 +167,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 borderRadius: 40,
                                               ),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    ),
-                    Visibility(
-                      visible: !(functions.missingData(
-                              currentUserDocument?.firstName,
-                              currentUserDocument?.lastName)) ??
-                          true,
-                      child: Padding(
+                    if (!(functions.missingData(currentUserDocument?.firstName,
+                            currentUserDocument?.lastName)) ??
+                        true)
+                      Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                         child: AuthUserStreamWidget(
                           child: Row(
@@ -269,7 +272,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme
                                                                         .grey2,
                                                                   ),
-                                                                )
+                                                                ),
                                                               ],
                                                             ),
                                                             Row(
@@ -304,7 +307,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     style: FlutterFlowTheme
                                                                         .subtitle2,
                                                                   ),
-                                                                )
+                                                                ),
                                                               ],
                                                             ),
                                                             Row(
@@ -330,7 +333,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                           .grey2,
                                                                     ),
                                                                   ),
-                                                                )
+                                                                ),
                                                               ],
                                                             ),
                                                             Row(
@@ -396,14 +399,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         size:
                                                                             24,
                                                                       ),
-                                                                    )
+                                                                    ),
                                                                   ],
-                                                                )
+                                                                ),
                                                               ],
-                                                            )
+                                                            ),
                                                           ],
                                                         ),
-                                                      )
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -466,12 +469,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .fitWidth,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        (currentUserDocument?.loyaltyCardPoint) >
-                                                                            (0),
-                                                                    child:
-                                                                        Align(
+                                                                  if ((currentUserDocument
+                                                                          ?.loyaltyCardPoint) >
+                                                                      (0))
+                                                                    Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0.7,
@@ -487,7 +488,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             .fitWidth,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
                                                               ),
                                                             ),
@@ -506,12 +506,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .fitWidth,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        (currentUserDocument?.loyaltyCardPoint) >
-                                                                            (1),
-                                                                    child:
-                                                                        Align(
+                                                                  if ((currentUserDocument
+                                                                          ?.loyaltyCardPoint) >
+                                                                      (1))
+                                                                    Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0.7,
@@ -527,7 +525,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             .fitWidth,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
                                                               ),
                                                             ),
@@ -546,12 +543,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .fitWidth,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        (currentUserDocument?.loyaltyCardPoint) >
-                                                                            (2),
-                                                                    child:
-                                                                        Align(
+                                                                  if ((currentUserDocument
+                                                                          ?.loyaltyCardPoint) >
+                                                                      (2))
+                                                                    Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0.7,
@@ -567,7 +562,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             .fitWidth,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
                                                               ),
                                                             ),
@@ -586,12 +580,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .fitWidth,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        (currentUserDocument?.loyaltyCardPoint) >
-                                                                            (3),
-                                                                    child:
-                                                                        Align(
+                                                                  if ((currentUserDocument
+                                                                          ?.loyaltyCardPoint) >
+                                                                      (3))
+                                                                    Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0.7,
@@ -607,7 +599,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             .fitWidth,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
                                                               ),
                                                             ),
@@ -626,12 +617,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .fitWidth,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        (currentUserDocument?.loyaltyCardPoint) >
-                                                                            (4),
-                                                                    child:
-                                                                        Align(
+                                                                  if ((currentUserDocument
+                                                                          ?.loyaltyCardPoint) >
+                                                                      (4))
+                                                                    Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0.7,
@@ -647,10 +636,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             .fitWidth,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
                                                               ),
-                                                            )
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -681,12 +669,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .fitWidth,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        (currentUserDocument?.loyaltyCardPoint) >
-                                                                            (5),
-                                                                    child:
-                                                                        Align(
+                                                                  if ((currentUserDocument
+                                                                          ?.loyaltyCardPoint) >
+                                                                      (5))
+                                                                    Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0.7,
@@ -702,7 +688,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             .fitWidth,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
                                                               ),
                                                             ),
@@ -721,12 +706,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .fitWidth,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        (currentUserDocument?.loyaltyCardPoint) >
-                                                                            (6),
-                                                                    child:
-                                                                        Align(
+                                                                  if ((currentUserDocument
+                                                                          ?.loyaltyCardPoint) >
+                                                                      (6))
+                                                                    Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0.7,
@@ -742,7 +725,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             .fitWidth,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
                                                               ),
                                                             ),
@@ -761,12 +743,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .fitWidth,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        (currentUserDocument?.loyaltyCardPoint) >
-                                                                            (7),
-                                                                    child:
-                                                                        Align(
+                                                                  if ((currentUserDocument
+                                                                          ?.loyaltyCardPoint) >
+                                                                      (7))
+                                                                    Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0.7,
@@ -782,7 +762,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             .fitWidth,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
                                                               ),
                                                             ),
@@ -801,12 +780,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .fitWidth,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        (currentUserDocument?.loyaltyCardPoint) >
-                                                                            (8),
-                                                                    child:
-                                                                        Align(
+                                                                  if ((currentUserDocument
+                                                                          ?.loyaltyCardPoint) >
+                                                                      (8))
+                                                                    Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0.7,
@@ -822,7 +799,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             .fitWidth,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
                                                               ),
                                                             ),
@@ -841,12 +817,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .fitWidth,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        (currentUserDocument?.loyaltyCardPoint) >
-                                                                            (9),
-                                                                    child:
-                                                                        Align(
+                                                                  if ((currentUserDocument
+                                                                          ?.loyaltyCardPoint) >
+                                                                      (9))
+                                                                    Align(
                                                                       alignment:
                                                                           AlignmentDirectional(
                                                                               0.7,
@@ -862,10 +836,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             .fitWidth,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
                                                               ),
-                                                            )
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -879,12 +852,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Visibility(
-                                                            visible:
-                                                                (currentUserDocument
-                                                                        ?.loyaltyCardPoint) >
-                                                                    (9),
-                                                            child: Container(
+                                                          if ((currentUserDocument
+                                                                  ?.loyaltyCardPoint) >
+                                                              (9))
+                                                            Container(
                                                               width: 40,
                                                               height: 40,
                                                               decoration:
@@ -895,7 +866,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     .circle,
                                                               ),
                                                             ),
-                                                          ),
                                                           Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -939,12 +909,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       fit: BoxFit
                                                                           .fitWidth,
                                                                     ),
-                                                                    Visibility(
-                                                                      visible:
-                                                                          (currentUserDocument?.loyaltyCardPoint) >
-                                                                              (9),
-                                                                      child:
-                                                                          Align(
+                                                                    if ((currentUserDocument
+                                                                            ?.loyaltyCardPoint) >
+                                                                        (9))
+                                                                      Align(
                                                                         alignment: AlignmentDirectional(
                                                                             0.7,
                                                                             0),
@@ -959,7 +927,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                       ),
-                                                                    )
                                                                   ],
                                                                 ),
                                                               ),
@@ -980,15 +947,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Roboto Mono',
                                                                   ),
                                                                 ),
-                                                              )
+                                                              ),
                                                             ],
                                                           ),
-                                                          Visibility(
-                                                            visible:
-                                                                (currentUserDocument
-                                                                        ?.loyaltyCardPoint) >
-                                                                    (9),
-                                                            child: InkWell(
+                                                          if ((currentUserDocument
+                                                                  ?.loyaltyCardPoint) >
+                                                              (9))
+                                                            InkWell(
                                                               onTap: () async {
                                                                 await Navigator
                                                                     .push(
@@ -1038,9 +1003,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 ),
                                                               ),
                                                             ),
-                                                          )
                                                         ],
-                                                      )
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -1096,13 +1060,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             height: 120,
                                                             fit: BoxFit.cover,
                                                           ),
-                                                        )
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            )
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -1137,23 +1101,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ],
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Visibility(
-                            visible: !(functions.missingData(
-                                    currentUserDocument?.firstName,
-                                    currentUserDocument?.lastName)) ??
-                                true,
-                            child: Padding(
+                          if (!(functions.missingData(
+                                  currentUserDocument?.firstName,
+                                  currentUserDocument?.lastName)) ??
+                              true)
+                            Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                               child: AuthUserStreamWidget(
@@ -1224,7 +1186,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             color: FlutterFlowTheme
                                                                 .tertiaryColor,
                                                             size: 30,
-                                                          )
+                                                          ),
                                                         ],
                                                       ),
                                                     ),
@@ -1246,7 +1208,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             color: FlutterFlowTheme
                                                                 .tertiaryColor,
                                                           ),
-                                                        )
+                                                        ),
                                                       ],
                                                     ),
                                                     Row(
@@ -1274,9 +1236,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           color:
                                                               Color(0x80FFFFFF),
                                                           size: 24,
-                                                        )
+                                                        ),
                                                       ],
-                                                    )
+                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -1347,7 +1309,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             color: FlutterFlowTheme
                                                                 .tertiaryColor,
                                                             size: 30,
-                                                          )
+                                                          ),
                                                         ],
                                                       ),
                                                     ),
@@ -1369,7 +1331,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             color: FlutterFlowTheme
                                                                 .tertiaryColor,
                                                           ),
-                                                        )
+                                                        ),
                                                       ],
                                                     ),
                                                     Row(
@@ -1397,9 +1359,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           color:
                                                               Color(0x80FFFFFF),
                                                           size: 24,
-                                                        )
+                                                        ),
                                                       ],
-                                                    )
+                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -1407,18 +1369,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
                             ),
-                          )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

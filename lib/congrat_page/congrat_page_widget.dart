@@ -102,7 +102,7 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                               ),
                             ).animated(
                                 [animationsMap['textOnPageLoadAnimation1']]),
-                          )
+                          ),
                         ],
                       ),
                       Padding(
@@ -122,10 +122,10 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                                 color: FlutterFlowTheme.primaryColor,
                               ),
                             ).animated(
-                                [animationsMap['textOnPageLoadAnimation2']])
+                                [animationsMap['textOnPageLoadAnimation2']]),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -138,7 +138,7 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                       width: MediaQuery.of(context).size.width * 0.95,
                       height: MediaQuery.of(context).size.height * 0.6,
                       fit: BoxFit.fitHeight,
-                    )
+                    ),
                   ],
                 ),
                 Padding(
@@ -205,10 +205,10 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

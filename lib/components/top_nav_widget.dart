@@ -34,7 +34,7 @@ class _TopNavWidgetState extends State<TopNavWidget> {
               size: 24,
             ),
           ),
-        )
+        ),
       ],
     );
   }

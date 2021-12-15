@@ -60,11 +60,11 @@ class _TransactionDetailPageWidgetState
                               fit: BoxFit.cover,
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
             Padding(
@@ -94,9 +94,9 @@ class _TransactionDetailPageWidgetState
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.title2,
                         ),
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -120,9 +120,8 @@ class _TransactionDetailPageWidgetState
                           fontWeight: FontWeight.normal,
                         ),
                       ),
-                      Visibility(
-                        visible: widget.creditBool ?? true,
-                        child: Padding(
+                      if (widget.creditBool ?? true)
+                        Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                           child: Text(
                             'Thanh Toan',
@@ -135,10 +134,8 @@ class _TransactionDetailPageWidgetState
                             ),
                           ),
                         ),
-                      ),
-                      Visibility(
-                        visible: !(widget.creditBool) ?? true,
-                        child: Padding(
+                      if (!(widget.creditBool) ?? true)
+                        Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                           child: Text(
                             'Nap Tien',
@@ -151,9 +148,8 @@ class _TransactionDetailPageWidgetState
                             ),
                           ),
                         ),
-                      )
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -189,12 +185,12 @@ class _TransactionDetailPageWidgetState
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
