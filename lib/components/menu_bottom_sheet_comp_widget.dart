@@ -142,7 +142,7 @@ class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
                                       stackMenuItemsRecord.name,
                                       style: FlutterFlowTheme.title1,
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -240,18 +240,17 @@ class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Visibility(
-                              visible: widget.newOrderItem ?? true,
-                              child: Expanded(
+                            if (widget.newOrderItem ?? true)
+                              Expanded(
                                 child: InkWell(
                                   onTap: () async {
                                     final orderItemsCreateData =
@@ -318,10 +317,8 @@ class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
                                   ),
                                 ),
                               ),
-                            ),
-                            Visibility(
-                              visible: !(widget.newOrderItem) ?? true,
-                              child: Expanded(
+                            if (!(widget.newOrderItem) ?? true)
+                              Expanded(
                                 child: InkWell(
                                   onTap: () async {
                                     final orderItemsUpdateData =
@@ -385,15 +382,14 @@ class _MenuBottomSheetCompWidgetState extends State<MenuBottomSheetCompWidget> {
                                   ),
                                 ),
                               ),
-                            )
                           ],
-                        )
+                        ),
                       ],
                     );
                   },
                 ),
               ),
-            )
+            ),
           ],
         );
       },

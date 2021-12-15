@@ -87,10 +87,8 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                               size: 25,
                             ),
                           ),
-                          Visibility(
-                            visible:
-                                (floatingActionButtonOrdersRecord.total) != (0),
-                            child: Container(
+                          if ((floatingActionButtonOrdersRecord.total) != (0))
+                            Container(
                               width: 50,
                               height: 50,
                               decoration: BoxDecoration(
@@ -123,13 +121,11 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                 ),
                               ),
                             ),
-                          )
                         ],
                       ),
                     ),
-                    Visibility(
-                      visible: (floatingActionButtonOrdersRecord.total) != (0),
-                      child: Padding(
+                    if ((floatingActionButtonOrdersRecord.total) != (0))
+                      Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -147,11 +143,10 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                 fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.tertiaryColor,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
-                    )
                   ],
                 ),
               );
@@ -276,7 +271,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                 },
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                       Align(
@@ -303,12 +298,12 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
-                            )
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                   Padding(
@@ -320,16 +315,14 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                         Text(
                           'Order now',
                           style: FlutterFlowTheme.title1,
-                        )
+                        ),
                       ],
                     ),
                   ),
-                  Visibility(
-                    visible: functions.missingData(
-                            currentUserDocument?.firstName,
-                            currentUserDocument?.lastName) ??
-                        true,
-                    child: Padding(
+                  if (functions.missingData(currentUserDocument?.firstName,
+                          currentUserDocument?.lastName) ??
+                      true)
+                    Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
                       child: AuthUserStreamWidget(
                         child: Row(
@@ -402,24 +395,21 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                               borderRadius: 40,
                                             ),
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
-                  ),
-                  Visibility(
-                    visible: !(functions.missingData(
-                            currentUserDocument?.firstName,
-                            currentUserDocument?.lastName)) ??
-                        true,
-                    child: AuthUserStreamWidget(
+                  if (!(functions.missingData(currentUserDocument?.firstName,
+                          currentUserDocument?.lastName)) ??
+                      true)
+                    AuthUserStreamWidget(
                       child: StreamBuilder<List<MenuCategoriesRecord>>(
                         stream: queryMenuCategoriesRecord(
                           queryBuilder: (menuCategoriesRecord) =>
@@ -475,7 +465,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                 color: Colors.black,
                                               ),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -619,7 +609,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                 style: FlutterFlowTheme
                                                                     .bodyText1,
                                                               ),
-                                                            )
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -636,7 +626,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                           height: 80,
                                                           fit: BoxFit.cover,
                                                         ),
-                                                      )
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -645,7 +635,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                           }),
                                         );
                                       },
-                                    )
+                                    ),
                                   ],
                                 ),
                               );
@@ -654,10 +644,9 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                         },
                       ),
                     ),
-                  )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

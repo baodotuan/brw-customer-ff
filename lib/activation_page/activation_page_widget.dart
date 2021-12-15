@@ -82,7 +82,7 @@ class _ActivationPageWidgetState extends State<ActivationPageWidget> {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               Padding(
@@ -153,7 +153,7 @@ class _ActivationPageWidgetState extends State<ActivationPageWidget> {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

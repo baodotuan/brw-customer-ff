@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../components/menu_bottom_sheet_comp_widget.dart';
 import '../components/top_nav_widget.dart';
@@ -68,7 +69,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                             Text(
                               'Pickup / Delivery',
                               style: FlutterFlowTheme.title3,
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -76,9 +77,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Stack(
                           children: [
-                            Visibility(
-                              visible: cartPageOrdersRecord.delivery ?? true,
-                              child: Padding(
+                            if (cartPageOrdersRecord.delivery ?? true)
+                              Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Column(
@@ -154,7 +154,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                               ),
                                             ),
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
                                     Row(
@@ -196,7 +196,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
-                                                      )
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -261,23 +261,21 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                             ),
                                                           ),
                                                         ),
-                                                      )
+                                                      ),
                                                     ],
                                                   ),
-                                                )
+                                                ),
                                               ],
                                             ),
                                           ),
-                                        )
+                                        ),
                                       ],
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
-                            ),
-                            Visibility(
-                              visible: cartPageOrdersRecord.pickup ?? true,
-                              child: Padding(
+                            if (cartPageOrdersRecord.pickup ?? true)
+                              Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Column(
@@ -353,7 +351,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                               ),
                                             ),
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
                                     Row(
@@ -498,7 +496,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                             },
                                                           ),
                                                         ),
-                                                      )
+                                                      ),
                                                     ],
                                                   ),
                                                   Row(
@@ -586,20 +584,19 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                             ),
                                                           ),
                                                         ),
-                                                      )
+                                                      ),
                                                     ],
-                                                  )
+                                                  ),
                                                 ],
                                               ),
                                             ),
                                           ),
-                                        )
+                                        ),
                                       ],
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
-                            )
                           ],
                         ),
                       ),
@@ -611,7 +608,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                             Text(
                               'Payment Method',
                               style: FlutterFlowTheme.title3,
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -619,9 +616,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Stack(
                           children: [
-                            Visibility(
-                              visible: cartPageOrdersRecord.cashPayment ?? true,
-                              child: Padding(
+                            if (cartPageOrdersRecord.cashPayment ?? true)
+                              Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Row(
@@ -714,15 +710,12 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                           ),
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
-                            ),
-                            Visibility(
-                              visible:
-                                  cartPageOrdersRecord.pointPayment ?? true,
-                              child: Padding(
+                            if (cartPageOrdersRecord.pointPayment ?? true)
+                              Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Row(
@@ -816,11 +809,10 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                           ),
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
-                            )
                           ],
                         ),
                       ),
@@ -856,7 +848,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                   fontStyle: FontStyle.italic,
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -966,7 +958,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                               height: 90,
                                                               fit: BoxFit.cover,
                                                             ),
-                                                          )
+                                                          ),
                                                         ],
                                                       ),
                                                       Expanded(
@@ -1022,7 +1014,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                             .toString(),
                                                                         style: FlutterFlowTheme
                                                                             .subtitle1,
-                                                                      )
+                                                                      ),
                                                                     ],
                                                                   ),
                                                                   Padding(
@@ -1057,7 +1049,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                             style:
                                                                                 FlutterFlowTheme.bodyText1,
                                                                           ),
-                                                                        )
+                                                                        ),
                                                                       ],
                                                                     ),
                                                                   ),
@@ -1144,16 +1136,16 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                               fontStyle: FontStyle.italic,
                                                                             ),
                                                                           ),
-                                                                        )
+                                                                        ),
                                                                       ],
                                                                     ),
-                                                                  )
+                                                                  ),
                                                                 ],
                                                               ),
                                                             ),
                                                           ),
                                                         ),
-                                                      )
+                                                      ),
                                                     ],
                                                   );
                                                 },
@@ -1163,13 +1155,13 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                         },
                                       ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               );
                             }),
                           );
                         },
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -1213,7 +1205,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                           'items',
                                           style: FlutterFlowTheme.subtitle1,
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -1238,7 +1230,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                               DecimalType.periodDecimal,
                                         ),
                                         style: FlutterFlowTheme.subtitle1,
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -1301,6 +1293,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                             };
                                             await currentUserReference
                                                 .update(usersUpdateData);
+                                            await sendNewOrderToStaffCall();
                                             await Navigator.push(
                                               context,
                                               PageTransition(
@@ -1337,17 +1330,17 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                           ),
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           );

@@ -57,54 +57,64 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           child: Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                            child: TextFormField(
-                              controller: textController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintText: 'Type phone number',
-                                hintStyle: FlutterFlowTheme.subtitle1,
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Icon(
+                                  Icons.phone_rounded,
+                                  color: FlutterFlowTheme.grey3,
+                                  size: 24,
                                 ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(0),
-                                ),
-                                filled: true,
-                                fillColor: Colors.transparent,
-                                prefixIcon: Icon(
-                                  Icons.local_phone,
-                                ),
-                              ),
-                              style: FlutterFlowTheme.subtitle1,
-                              keyboardType: TextInputType.phone,
-                              validator: (val) {
-                                if (val.isEmpty) {
-                                  return 'Field is required';
-                                }
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: textController,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: 'Type phone number',
+                                      hintStyle: FlutterFlowTheme.subtitle1,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(0),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(0),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.transparent,
+                                    ),
+                                    style: FlutterFlowTheme.subtitle1,
+                                    keyboardType: TextInputType.phone,
+                                    validator: (val) {
+                                      if (val.isEmpty) {
+                                        return 'Field is required';
+                                      }
 
-                                return null;
-                              },
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                      child: FFButtonWidget(
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FFButtonWidget(
                         onPressed: () async {
                           if (!formKey.currentState.validate()) {
                             return;
@@ -153,9 +163,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           borderRadius: 40,
                         ),
                       ),
-                    )
-                  ],
-                )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

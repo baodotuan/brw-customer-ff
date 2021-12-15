@@ -38,7 +38,7 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                   Text(
                     'Your Orders',
                     style: FlutterFlowTheme.title1,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -139,12 +139,10 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                                 MainAxisSize
                                                                     .max,
                                                             children: [
-                                                              Visibility(
-                                                                visible:
-                                                                    containerOrdersRecord
-                                                                            .statusProcessing ??
-                                                                        true,
-                                                                child: Padding(
+                                                              if (containerOrdersRecord
+                                                                      .statusProcessing ??
+                                                                  true)
+                                                                Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5,
@@ -163,13 +161,10 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              Visibility(
-                                                                visible:
-                                                                    containerOrdersRecord
-                                                                            .statusReady ??
-                                                                        true,
-                                                                child: Padding(
+                                                              if (containerOrdersRecord
+                                                                      .statusReady ??
+                                                                  true)
+                                                                Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5,
@@ -188,13 +183,10 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              Visibility(
-                                                                visible:
-                                                                    containerOrdersRecord
-                                                                            .statusDone ??
-                                                                        true,
-                                                                child: Padding(
+                                                              if (containerOrdersRecord
+                                                                      .statusDone ??
+                                                                  true)
+                                                                Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5,
@@ -213,9 +205,8 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              )
                                                             ],
-                                                          )
+                                                          ),
                                                         ],
                                                       ),
                                                       Row(
@@ -262,7 +253,7 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                                         .tertiaryColor,
                                                                   ),
                                                                 ),
-                                                              )
+                                                              ),
                                                             ],
                                                           ),
                                                           Text(
@@ -285,13 +276,13 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                               color: FlutterFlowTheme
                                                                   .tertiaryColor,
                                                             ),
-                                                          )
+                                                          ),
                                                         ],
-                                                      )
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
-                                              )
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -401,7 +392,7 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                                                   Text(
                                                                                     rowOrderItemsRecord.quantity.toString(),
                                                                                     style: FlutterFlowTheme.bodyText1,
-                                                                                  )
+                                                                                  ),
                                                                                 ],
                                                                               );
                                                                             },
@@ -419,14 +410,14 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                                                 Text(
                                                                                   rowOrderItemsRecord.note,
                                                                                   style: FlutterFlowTheme.bodyText1,
-                                                                                )
+                                                                                ),
                                                                               ],
                                                                             ),
-                                                                          )
+                                                                          ),
                                                                         ],
                                                                       ),
                                                                     ),
-                                                                  )
+                                                                  ),
                                                                 ],
                                                               );
                                                             },
@@ -437,9 +428,9 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            )
+                                            ),
                                           ],
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -453,7 +444,7 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
