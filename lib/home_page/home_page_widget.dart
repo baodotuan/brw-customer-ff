@@ -48,12 +48,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     'Welcome Back!',
                     style: FlutterFlowTheme.title1,
                   ),
-                  AuthUserStreamWidget(
-                    child: Fcm(
-                      width: 10,
-                      height: 10,
-                      uid: currentUserUid,
-                    ),
+                  Fcm(
+                    width: 10,
+                    height: 10,
+                    uid: currentUserUid,
                   ),
                   InkWell(
                     onTap: () async {
@@ -525,7 +523,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                         if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                            (0))
+                                                                            0)
                                                                           Align(
                                                                             alignment:
                                                                                 AlignmentDirectional(0.7, 0),
@@ -563,7 +561,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                         if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                            (1))
+                                                                            1)
                                                                           Align(
                                                                             alignment:
                                                                                 AlignmentDirectional(0.7, 0),
@@ -601,7 +599,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                         if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                            (2))
+                                                                            2)
                                                                           Align(
                                                                             alignment:
                                                                                 AlignmentDirectional(0.7, 0),
@@ -639,7 +637,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                         if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                            (3))
+                                                                            3)
                                                                           Align(
                                                                             alignment:
                                                                                 AlignmentDirectional(0.7, 0),
@@ -677,7 +675,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                         if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                            (4))
+                                                                            4)
                                                                           Align(
                                                                             alignment:
                                                                                 AlignmentDirectional(0.7, 0),
@@ -734,7 +732,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                         if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                            (5))
+                                                                            5)
                                                                           Align(
                                                                             alignment:
                                                                                 AlignmentDirectional(0.7, 0),
@@ -772,7 +770,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                         if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                            (6))
+                                                                            6)
                                                                           Align(
                                                                             alignment:
                                                                                 AlignmentDirectional(0.7, 0),
@@ -810,7 +808,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                         if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                            (7))
+                                                                            7)
                                                                           Align(
                                                                             alignment:
                                                                                 AlignmentDirectional(0.7, 0),
@@ -848,7 +846,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                         if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                            (8))
+                                                                            8)
                                                                           Align(
                                                                             alignment:
                                                                                 AlignmentDirectional(0.7, 0),
@@ -886,7 +884,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               .fitWidth,
                                                                         ),
                                                                         if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                            (9))
+                                                                            9)
                                                                           Align(
                                                                             alignment:
                                                                                 AlignmentDirectional(0.7, 0),
@@ -919,7 +917,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               children: [
                                                                 if ((currentUserDocument
                                                                         ?.loyaltyCardPoint) >
-                                                                    (9))
+                                                                    9)
                                                                   AuthUserStreamWidget(
                                                                     child:
                                                                         Container(
@@ -982,7 +980,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                 BoxFit.fitWidth,
                                                                           ),
                                                                           if ((currentUserDocument?.loyaltyCardPoint) >
-                                                                              (9))
+                                                                              9)
                                                                             Align(
                                                                               alignment: AlignmentDirectional(0.7, 0),
                                                                               child: AuthUserStreamWidget(
@@ -1019,7 +1017,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 ),
                                                                 if ((currentUserDocument
                                                                         ?.loyaltyCardPoint) >
-                                                                    (9))
+                                                                    9)
                                                                   AuthUserStreamWidget(
                                                                     child:
                                                                         InkWell(
@@ -1128,21 +1126,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   FlutterFlowTheme
                                                                       .subtitle1,
                                                             ),
-                                                            AuthUserStreamWidget(
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5),
-                                                                child:
-                                                                    CachedNetworkImage(
-                                                                  imageUrl:
-                                                                      'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${currentUserUid}',
-                                                                  width: 120,
-                                                                  height: 120,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
+                                                            ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                              child:
+                                                                  CachedNetworkImage(
+                                                                imageUrl:
+                                                                    'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${currentUserUid}',
+                                                                width: 120,
+                                                                height: 120,
+                                                                fit: BoxFit
+                                                                    .cover,
                                                               ),
                                                             ),
                                                           ],

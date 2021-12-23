@@ -149,7 +149,7 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                     children: [
                       InkWell(
                         onTap: () async {
-                          if ((currentUserDocument?.loyaltyCardPoint) >= (10)) {
+                          if ((currentUserDocument?.loyaltyCardPoint) >= 10) {
                             final usersUpdateData = createUsersRecordData(
                               loyaltyCardPoint: 0,
                               point: functions.addOrSubstractTwoInterger(
@@ -159,7 +159,7 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                             );
                             await currentUserReference.update(usersUpdateData);
                           }
-                          if ((currentUserDocument?.loyaltyCardPoint) >= (10)) {
+                          if ((currentUserDocument?.loyaltyCardPoint) >= 10) {
                             final transactionsCreateData =
                                 createTransactionsRecordData(
                               time: getCurrentTimestamp,
