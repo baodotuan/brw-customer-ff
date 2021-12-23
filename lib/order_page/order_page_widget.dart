@@ -87,7 +87,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                               size: 25,
                             ),
                           ),
-                          if ((floatingActionButtonOrdersRecord.total) != (0))
+                          if ((floatingActionButtonOrdersRecord.total) != 0)
                             Container(
                               width: 50,
                               height: 50,
@@ -99,7 +99,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                               child: Visibility(
                                 visible: (floatingActionButtonOrdersRecord
                                         .totalQuantity) !=
-                                    (0),
+                                    0,
                                 child: Container(
                                   width: 18,
                                   height: 18,
@@ -124,7 +124,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                         ],
                       ),
                     ),
-                    if ((floatingActionButtonOrdersRecord.total) != (0))
+                    if ((floatingActionButtonOrdersRecord.total) != 0)
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                         child: Row(

@@ -1176,7 +1176,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                           color: FlutterFlowTheme.tertiaryColor,
                         ),
                         child: Visibility(
-                          visible: (cartPageOrdersRecord.totalQuantity) != (0),
+                          visible: (cartPageOrdersRecord.totalQuantity) != 0,
                           child: Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
