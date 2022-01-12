@@ -1,6 +1,7 @@
 {
-    "name": "Brw.",
-    "short_name": "Brw.",
+    "name": "Brw Pocket",
+    "short_name": "Brw Pocket",
+
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

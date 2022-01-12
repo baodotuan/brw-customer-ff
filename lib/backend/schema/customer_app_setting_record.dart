@@ -38,6 +38,11 @@ abstract class CustomerAppSettingRecord
       ref.snapshots().map(
           (s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<CustomerAppSettingRecord> getDocumentOnce(
+          DocumentReference ref) =>
+      ref.get().then(
+          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   CustomerAppSettingRecord._();
   factory CustomerAppSettingRecord(
           [void Function(CustomerAppSettingRecordBuilder) updates]) =

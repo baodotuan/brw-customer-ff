@@ -42,6 +42,10 @@ abstract class VouchersRecord
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<VouchersRecord> getDocumentOnce(DocumentReference ref) => ref
+      .get()
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   VouchersRecord._();
   factory VouchersRecord([void Function(VouchersRecordBuilder) updates]) =
       _$VouchersRecord;

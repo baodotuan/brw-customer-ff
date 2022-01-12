@@ -455,6 +455,7 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                                                 options:
                                                                     dropDownCustomerAppSettingRecord
                                                                         .options
+                                                                        .toList()
                                                                         .toList(),
                                                                 onChanged: (val) =>
                                                                     setState(() =>
@@ -855,7 +856,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                       Builder(
                         builder: (context) {
                           final orderItem =
-                              cartPageOrdersRecord.items?.toList() ?? [];
+                              cartPageOrdersRecord.items.toList()?.toList() ??
+                                  [];
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             children: List.generate(orderItem.length,
@@ -1293,7 +1295,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                             };
                                             await currentUserReference
                                                 .update(usersUpdateData);
-                                            await sendNewOrderToStaffCall();
+                                            await SendNewOrderToStaffCall
+                                                .call();
                                             await Navigator.push(
                                               context,
                                               PageTransition(

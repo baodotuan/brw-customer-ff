@@ -44,6 +44,10 @@ abstract class TransactionsRecord
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<TransactionsRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then(
+          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   TransactionsRecord._();
   factory TransactionsRecord(
           [void Function(TransactionsRecordBuilder) updates]) =
