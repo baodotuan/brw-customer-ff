@@ -34,6 +34,10 @@ abstract class NewsRecord implements Built<NewsRecord, NewsRecordBuilder> {
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<NewsRecord> getDocumentOnce(DocumentReference ref) => ref
+      .get()
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   NewsRecord._();
   factory NewsRecord([void Function(NewsRecordBuilder) updates]) = _$NewsRecord;
 

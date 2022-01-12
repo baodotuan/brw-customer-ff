@@ -1,14 +1,16 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../cart_page/cart_page_widget.dart';
 import '../complete_customer_detail_page/complete_customer_detail_page_widget.dart';
 import '../congrat_page/congrat_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../history_page/history_page_widget.dart';
+import '../main.dart';
 import '../processing_order_page/processing_order_page_widget.dart';
 import '../setting_page/setting_page_widget.dart';
-import '../custom_code/widgets/index.dart';
+import '../custom_code/widgets/index.dart' as custom_widgets;
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +34,41 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.tertiaryColor,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          await Navigator.push(
+            context,
+            PageTransition(
+              type: PageTransitionType.fade,
+              duration: Duration(milliseconds: 200),
+              reverseDuration: Duration(milliseconds: 200),
+              child: CartPageWidget(),
+            ),
+          );
+        },
+        backgroundColor: FlutterFlowTheme.primaryColor,
+        elevation: 8,
+        label: Row(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Color(0x00EEEEEE),
+                shape: BoxShape.circle,
+              ),
+              alignment: AlignmentDirectional(0, 0),
+              child: Icon(
+                Icons.shopping_cart,
+                color: FlutterFlowTheme.tertiaryColor,
+                size: 25,
+              ),
+            ),
+          ],
+        ),
+      ),
       body: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
         child: Column(
@@ -48,7 +85,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     'Welcome Back!',
                     style: FlutterFlowTheme.title1,
                   ),
-                  Fcm(
+                  custom_widgets.Fcm(
                     width: 10,
                     height: 10,
                     uid: currentUserUid,
@@ -413,10 +450,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               '0000',
                                                                             ),
                                                                             style:
-                                                                                FlutterFlowTheme.subtitle1.override(
-                                                                              fontFamily: 'Roboto',
-                                                                              color: FlutterFlowTheme.primaryColor,
-                                                                            ),
+                                                                                FlutterFlowTheme.subtitle1,
                                                                           ),
                                                                         ),
                                                                         Padding(
@@ -1171,7 +1205,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               spacing: 5,
                                               radius: 10,
                                               dotWidth: 10,
-                                              dotHeight: 2,
+                                              dotHeight: 10,
                                               dotColor: FlutterFlowTheme.grey2,
                                               activeDotColor:
                                                   FlutterFlowTheme.primaryColor,
@@ -1451,6 +1485,137 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       ),
                                                     ],
                                                   ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 10, 10, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType.fade,
+                                                duration:
+                                                    Duration(milliseconds: 200),
+                                                reverseDuration:
+                                                    Duration(milliseconds: 200),
+                                                child: NavBarPage(
+                                                    initialPage: 'OrderPage'),
+                                              ),
+                                            );
+                                          },
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            elevation: 4,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: 120,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFFE4A312),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              alignment:
+                                                  AlignmentDirectional(0, 0),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(10, 10, 10, 10),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.menu_book,
+                                                            color: FlutterFlowTheme
+                                                                .tertiaryColor,
+                                                            size: 30,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          'SEE OUR',
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Roboto',
+                                                            color: FlutterFlowTheme
+                                                                .tertiaryColor,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          'MENU',
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .title1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Roboto',
+                                                            color: FlutterFlowTheme
+                                                                .tertiaryColor,
+                                                          ),
+                                                        ),
+                                                        Icon(
+                                                          Icons
+                                                              .arrow_forward_ios,
+                                                          color:
+                                                              Color(0x80FFFFFF),
+                                                          size: 24,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ),

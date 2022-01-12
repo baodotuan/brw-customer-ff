@@ -96,6 +96,10 @@ abstract class OrdersRecord
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<OrdersRecord> getDocumentOnce(DocumentReference ref) => ref
+      .get()
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   OrdersRecord._();
   factory OrdersRecord([void Function(OrdersRecordBuilder) updates]) =
       _$OrdersRecord;

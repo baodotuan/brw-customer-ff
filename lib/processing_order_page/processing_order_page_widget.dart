@@ -305,6 +305,7 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                       final item =
                                                           containerOrdersRecord
                                                                   .items
+                                                                  .toList()
                                                                   ?.toList() ??
                                                               [];
                                                       return Column(
