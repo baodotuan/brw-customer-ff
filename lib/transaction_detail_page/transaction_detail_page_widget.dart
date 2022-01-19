@@ -90,7 +90,7 @@ class _TransactionDetailPageWidgetState
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                         child: Text(
-                          dateTimeFormat('d/M H:m', widget.dateTime),
+                          dateTimeFormat('d/M H:mm', widget.dateTime),
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.title2,
                         ),

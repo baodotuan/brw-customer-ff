@@ -834,9 +834,8 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                   context,
                                   PageTransition(
                                     type: PageTransitionType.fade,
-                                    duration: Duration(milliseconds: 200),
-                                    reverseDuration:
-                                        Duration(milliseconds: 200),
+                                    duration: Duration(milliseconds: 0),
+                                    reverseDuration: Duration(milliseconds: 0),
                                     child: NavBarPage(initialPage: 'OrderPage'),
                                   ),
                                 );
@@ -1302,9 +1301,9 @@ class _CartPageWidgetState extends State<CartPageWidget> {
                                               PageTransition(
                                                 type: PageTransitionType.fade,
                                                 duration:
-                                                    Duration(milliseconds: 200),
+                                                    Duration(milliseconds: 0),
                                                 reverseDuration:
-                                                    Duration(milliseconds: 200),
+                                                    Duration(milliseconds: 0),
                                                 child: NavBarPage(
                                                     initialPage: 'HomePage'),
                                               ),

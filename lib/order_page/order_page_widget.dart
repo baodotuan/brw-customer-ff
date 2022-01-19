@@ -57,8 +57,8 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                     context,
                     PageTransition(
                       type: PageTransitionType.fade,
-                      duration: Duration(milliseconds: 200),
-                      reverseDuration: Duration(milliseconds: 200),
+                      duration: Duration(milliseconds: 0),
+                      reverseDuration: Duration(milliseconds: 0),
                       child: CartPageWidget(),
                     ),
                   );
@@ -363,10 +363,10 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                 context,
                                                 PageTransition(
                                                   type: PageTransitionType.fade,
-                                                  duration: Duration(
-                                                      milliseconds: 200),
-                                                  reverseDuration: Duration(
-                                                      milliseconds: 200),
+                                                  duration:
+                                                      Duration(milliseconds: 0),
+                                                  reverseDuration:
+                                                      Duration(milliseconds: 0),
                                                   child:
                                                       CompleteCustomerDetailPageWidget(
                                                     newUser: true,

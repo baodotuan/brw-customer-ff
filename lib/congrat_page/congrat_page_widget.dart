@@ -162,6 +162,22 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                       InkWell(
                         onTap: () async {
                           if ((currentUserDocument?.loyaltyCardPoint) >= 10) {
+                            final transactionsCreateData =
+                                createTransactionsRecordData(
+                              time: getCurrentTimestamp,
+                              amount: congratPageCustomerAppSettingRecord.value,
+                              customerId: currentUserReference,
+                              credit: false,
+                              receiptUrl: ' ',
+                              quantity: 0,
+                              initialPoint: currentUserDocument?.point,
+                              note: ' ',
+                            );
+                            await TransactionsRecord.collection
+                                .doc()
+                                .set(transactionsCreateData);
+                          }
+                          if ((currentUserDocument?.loyaltyCardPoint) >= 10) {
                             final usersUpdateData = createUsersRecordData(
                               loyaltyCardPoint: 0,
                               point: functions.addOrSubstractTwoInterger(
@@ -171,25 +187,12 @@ class _CongratPageWidgetState extends State<CongratPageWidget>
                             );
                             await currentUserReference.update(usersUpdateData);
                           }
-                          if ((currentUserDocument?.loyaltyCardPoint) >= 10) {
-                            final transactionsCreateData =
-                                createTransactionsRecordData(
-                              time: getCurrentTimestamp,
-                              amount: congratPageCustomerAppSettingRecord.value,
-                              customerId: currentUserReference,
-                              receiptUrl: '',
-                              credit: false,
-                            );
-                            await TransactionsRecord.collection
-                                .doc()
-                                .set(transactionsCreateData);
-                          }
                           await Navigator.push(
                             context,
                             PageTransition(
                               type: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 200),
-                              reverseDuration: Duration(milliseconds: 200),
+                              duration: Duration(milliseconds: 0),
+                              reverseDuration: Duration(milliseconds: 0),
                               child: NavBarPage(initialPage: 'HomePage'),
                             ),
                           );

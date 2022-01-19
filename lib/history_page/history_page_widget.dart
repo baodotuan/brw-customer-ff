@@ -94,9 +94,9 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                     context,
                                     PageTransition(
                                       type: PageTransitionType.fade,
-                                      duration: Duration(milliseconds: 200),
+                                      duration: Duration(milliseconds: 0),
                                       reverseDuration:
-                                          Duration(milliseconds: 200),
+                                          Duration(milliseconds: 0),
                                       child: TransactionDetailPageWidget(
                                         url: listViewTransactionsRecord
                                             .receiptUrl,
@@ -162,9 +162,9 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                             PageTransition(
                                               type: PageTransitionType.fade,
                                               duration:
-                                                  Duration(milliseconds: 200),
+                                                  Duration(milliseconds: 0),
                                               reverseDuration:
-                                                  Duration(milliseconds: 200),
+                                                  Duration(milliseconds: 0),
                                               child:
                                                   TransactionDetailPageWidget(
                                                 url: listViewTransactionsRecord
@@ -211,9 +211,9 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                               PageTransition(
                                                 type: PageTransitionType.fade,
                                                 duration:
-                                                    Duration(milliseconds: 200),
+                                                    Duration(milliseconds: 0),
                                                 reverseDuration:
-                                                    Duration(milliseconds: 200),
+                                                    Duration(milliseconds: 0),
                                                 child:
                                                     TransactionDetailPageWidget(
                                                   url:
