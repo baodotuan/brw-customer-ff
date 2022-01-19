@@ -29,13 +29,26 @@ abstract class TransactionsRecord
   bool get credit;
 
   @nullable
+  int get quantity;
+
+  @nullable
+  @BuiltValueField(wireName: 'initial_point')
+  int get initialPoint;
+
+  @nullable
+  String get note;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(TransactionsRecordBuilder builder) => builder
     ..amount = 0
     ..receiptUrl = ''
-    ..credit = false;
+    ..credit = false
+    ..quantity = 0
+    ..initialPoint = 0
+    ..note = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('transactions');
@@ -65,6 +78,9 @@ Map<String, dynamic> createTransactionsRecordData({
   DocumentReference customerId,
   String receiptUrl,
   bool credit,
+  int quantity,
+  int initialPoint,
+  String note,
 }) =>
     serializers.toFirestore(
         TransactionsRecord.serializer,
@@ -73,4 +89,7 @@ Map<String, dynamic> createTransactionsRecordData({
           ..amount = amount
           ..customerId = customerId
           ..receiptUrl = receiptUrl
-          ..credit = credit));
+          ..credit = credit
+          ..quantity = quantity
+          ..initialPoint = initialPoint
+          ..note = note));

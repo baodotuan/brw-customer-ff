@@ -1,13 +1,12 @@
 {
     "name": "Brw Pocket",
     "short_name": "Brw Pocket",
-
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Brw. customer app",
-    "orientation": "portrait",
+    "description": "A new Flutter project.",
+    "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
         {

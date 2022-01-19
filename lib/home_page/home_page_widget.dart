@@ -40,8 +40,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             context,
             PageTransition(
               type: PageTransitionType.fade,
-              duration: Duration(milliseconds: 200),
-              reverseDuration: Duration(milliseconds: 200),
+              duration: Duration(milliseconds: 0),
+              reverseDuration: Duration(milliseconds: 0),
               child: CartPageWidget(),
             ),
           );
@@ -96,8 +96,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         context,
                         PageTransition(
                           type: PageTransitionType.fade,
-                          duration: Duration(milliseconds: 200),
-                          reverseDuration: Duration(milliseconds: 200),
+                          duration: Duration(milliseconds: 0),
+                          reverseDuration: Duration(milliseconds: 0),
                           child: SettingPageWidget(),
                         ),
                       );
@@ -106,7 +106,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       width: 30,
                       height: 30,
                       decoration: BoxDecoration(
-                        color: Color(0x00F6D06D),
+                        color: Color(0x00F6C149),
                         shape: BoxShape.circle,
                       ),
                       alignment: AlignmentDirectional(0, 0),
@@ -190,9 +190,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       type: PageTransitionType
                                                           .fade,
                                                       duration: Duration(
-                                                          milliseconds: 200),
+                                                          milliseconds: 0),
                                                       reverseDuration: Duration(
-                                                          milliseconds: 200),
+                                                          milliseconds: 0),
                                                       child:
                                                           CompleteCustomerDetailPageWidget(
                                                         newUser: true,
@@ -1064,9 +1064,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             type:
                                                                                 PageTransitionType.fade,
                                                                             duration:
-                                                                                Duration(milliseconds: 200),
+                                                                                Duration(milliseconds: 0),
                                                                             reverseDuration:
-                                                                                Duration(milliseconds: 200),
+                                                                                Duration(milliseconds: 0),
                                                                             child:
                                                                                 CongratPageWidget(),
                                                                           ),
@@ -1254,10 +1254,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 context,
                                                 PageTransition(
                                                   type: PageTransitionType.fade,
-                                                  duration: Duration(
-                                                      milliseconds: 200),
-                                                  reverseDuration: Duration(
-                                                      milliseconds: 200),
+                                                  duration:
+                                                      Duration(milliseconds: 0),
+                                                  reverseDuration:
+                                                      Duration(milliseconds: 0),
                                                   child: HistoryPageWidget(),
                                                 ),
                                               );
@@ -1378,10 +1378,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 context,
                                                 PageTransition(
                                                   type: PageTransitionType.fade,
-                                                  duration: Duration(
-                                                      milliseconds: 200),
-                                                  reverseDuration: Duration(
-                                                      milliseconds: 200),
+                                                  duration:
+                                                      Duration(milliseconds: 0),
+                                                  reverseDuration:
+                                                      Duration(milliseconds: 0),
                                                   child:
                                                       ProcessingOrderPageWidget(),
                                                 ),
@@ -1512,9 +1512,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               PageTransition(
                                                 type: PageTransitionType.fade,
                                                 duration:
-                                                    Duration(milliseconds: 200),
+                                                    Duration(milliseconds: 0),
                                                 reverseDuration:
-                                                    Duration(milliseconds: 200),
+                                                    Duration(milliseconds: 0),
                                                 child: NavBarPage(
                                                     initialPage: 'OrderPage'),
                                               ),

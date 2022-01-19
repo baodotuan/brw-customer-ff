@@ -121,7 +121,7 @@ class _ProcessingOrderPageWidgetState extends State<ProcessingOrderPageWidget> {
                                                         children: [
                                                           Text(
                                                             dateTimeFormat(
-                                                                'd/M H:m',
+                                                                'd/M H:mm',
                                                                 containerOrdersRecord
                                                                     .createdTime),
                                                             style:
